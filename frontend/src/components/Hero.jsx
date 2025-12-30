@@ -39,10 +39,13 @@ const Hero = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Website Designers
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-slide-up">
+            Professional
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 mt-2">
+              Website Designers
+            </span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
-              Kenya
+              in Kenya
             </span>
           </h1>
 
