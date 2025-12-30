@@ -137,15 +137,18 @@ backend:
 
   - task: "Admin API - GET /api/inquiries"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/backend/routes/contact.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "low"
     needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented GET /api/inquiries endpoint with pagination and status filtering. Optional admin feature for viewing all contact form submissions."
+      - working: false
+        agent: "testing"
+        comment: "❌ FAILED: Admin endpoint returns 500 error due to MongoDB ObjectId serialization issue. Error: 'ObjectId' object is not iterable. Core contact form functionality unaffected - this is a minor admin feature issue."
 
   - task: "Admin API - PATCH /api/inquiries/{id}"
     implemented: true
