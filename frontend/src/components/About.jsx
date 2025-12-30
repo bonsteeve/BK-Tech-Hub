@@ -32,7 +32,7 @@ const About = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
-            About Bonsteve Digital Hub
+            About BKTech Digital Hub
           </h2>
           <p className="text-xl text-slate-600">
             Your trusted digital partner in Nairobi, Kenya
