@@ -206,7 +206,7 @@ const Contact = () => {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Bonsteve Digital Hub Location"
+                title="BKTech Digital Hub Location"
               ></iframe>
             </div>
           </div>
