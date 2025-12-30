@@ -20,10 +20,10 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>
+                <span className="text-white font-bold text-xl">BK</span>
               </div>
               <div>
-                <h3 className="text-xl font-bold">Bonsteve</h3>
+                <h3 className="text-xl font-bold">BKTech</h3>
                 <p className="text-xs text-emerald-400">Digital Hub</p>
               </div>
             </div>
