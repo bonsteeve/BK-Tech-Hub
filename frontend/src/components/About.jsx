@@ -46,7 +46,7 @@ const About = () => {
               Leading Web Development Agency in Kenya
             </h3>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-              Bonsteve Digital Hub is a full-service digital agency based in Nairobi, Kenya. We specialize in creating stunning, high-performance websites and digital solutions that help businesses grow and succeed online.
+              BKTech Digital Hub is a full-service digital agency based in Nairobi, Kenya. We specialize in creating stunning, high-performance websites and digital solutions that help businesses grow and succeed online.
             </p>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
               With over 200 successful projects and a 5.0 customer rating, we've established ourselves as one of the most reliable website designers in Kenya. Our team combines creativity, technical expertise, and business acumen to deliver solutions that drive real results.
