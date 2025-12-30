@@ -106,7 +106,7 @@ const Footer = () => {
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-slate-400 text-sm">
-              © {currentYear} Bonsteve Digital Hub. All rights reserved.
+              © {currentYear} BKTech Digital Hub. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-slate-400 hover:text-emerald-400 transition-colors">
