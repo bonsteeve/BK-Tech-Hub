@@ -50,7 +50,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl sm:text-2xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
-            Premium web development agency in Nairobi. We build stunning, high-performance websites that drive results for your business.
+            Award-winning web development agency in <span className="text-emerald-400 font-semibold">Nairobi</span>. We create stunning, high-performance websites that transform businesses and drive measurable results.
           </p>
 
           {/* Features List */}
