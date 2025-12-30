@@ -18,10 +18,10 @@ const Hero = () => {
         <img
           src="https://images.unsplash.com/photo-1547658719-da2b51169166?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHx3ZWIlMjBkZXZlbG9wbWVudHxlbnwwfHx8fDE3NjY5OTA2NDR8MA&ixlib=rb-4.1.0&q=85"
           alt="Web development workspace"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/90 to-emerald-900/40"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(15,23,42,0.8)_100%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/60 to-emerald-900/30"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(15,23,42,0.4)_100%)]"></div>
       </div>
 
       {/* Content */}
