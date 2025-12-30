@@ -42,75 +42,74 @@ export const services = [
 export const pricingPackages = [
   {
     id: 1,
-    name: 'Basic Website',
-    price: '55,000',
+    name: 'Landing Page',
+    price: '17,000',
     currency: 'Ksh',
     features: [
-      'Up to 5 pages',
-      'Responsive design',
+      'Single page design',
+      'Responsive layout',
       'Contact form',
-      'Free SEO setup',
-      '3 months support'
+      'Fast loading',
+      '1 month support'
     ],
     popular: false
   },
   {
     id: 2,
-    name: 'Business Website',
-    price: '150,000',
+    name: 'Basic Website',
+    price: '24,000',
     currency: 'Ksh',
     features: [
-      'Up to 15 pages',
-      'Custom design',
-      'CMS integration',
-      'SEO optimization',
-      'Blog functionality',
-      '6 months support'
-    ],
-    popular: true
-  },
-  {
-    id: 3,
-    name: 'Institution Website',
-    price: '200,000',
-    currency: 'Ksh',
-    features: [
-      'Unlimited pages',
-      'Custom features',
-      'Student/Staff portals',
-      'Advanced SEO',
-      'Content management',
-      '1 year support'
+      'Up to 3 pages',
+      'Responsive design',
+      'Contact form',
+      'Basic SEO',
+      '2 months support'
     ],
     popular: false
   },
   {
+    id: 3,
+    name: 'Business Website',
+    price: '30,000',
+    currency: 'Ksh',
+    features: [
+      'Up to 10 pages',
+      'Custom design',
+      'CMS integration',
+      'SEO optimization',
+      'Blog functionality',
+      '3 months support'
+    ],
+    popular: true
+  },
+  {
     id: 4,
     name: 'E-commerce Website',
-    price: '300,000',
+    price: '60,000',
     currency: 'Ksh',
     features: [
       'Full online store',
       'Payment integration',
-      'Inventory management',
+      'Product management',
       'Customer accounts',
       'Analytics dashboard',
-      '1 year support'
+      '6 months support'
     ],
     popular: false
   },
   {
     id: 5,
-    name: 'Corporate Website',
-    price: '350,000',
-    currency: 'Ksh',
+    name: 'Institution Website',
+    price: '60,000',
+    currency: 'Ksh from',
     features: [
-      'Enterprise solution',
-      'Custom functionality',
-      'API integrations',
-      'Advanced security',
-      'Priority support',
-      '1 year support'
+      'Custom pages',
+      'Student/Staff portals',
+      'Content management',
+      'Advanced features',
+      'Scalable solution',
+      '6 months support'
     ],
     popular: false
   }
