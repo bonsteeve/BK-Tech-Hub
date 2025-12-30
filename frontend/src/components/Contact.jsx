@@ -27,15 +27,29 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock form submission
-    toast({
-      title: 'Message Sent!',
-      description: 'We\'ll get back to you within 24 hours.',
-    });
-    // Reset form
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(`${API}/contact`, formData);
+
+      toast({
+        title: 'Message Sent!',
+        description: response.data.message,
+      });
+
+      // Reset form
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: error.response?.data?.detail || 'Failed to send message. Please try again.',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const whatsappUrl = `https://wa.me/${companyInfo.phone.replace(/\+/g, '')}?text=Hello%2C%20I%27m%20interested%20in%20your%20web%20design%20services`;
