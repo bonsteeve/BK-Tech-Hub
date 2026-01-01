@@ -88,11 +88,11 @@ const Hero = () => {
             <p className="text-slate-400 text-sm mb-4">Trusted by businesses across Nairobi & Kenya</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               <div>
-                <p className="text-3xl font-bold text-white">200+</p>
+                <p className="text-3xl font-bold text-white">50+</p>
                 <p className="text-slate-400 text-sm">Projects</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-white">150+</p>
+                <p className="text-3xl font-bold text-white">20+</p>
                 <p className="text-slate-400 text-sm">Clients</p>
               </div>
               <div>
@@ -100,7 +100,7 @@ const Hero = () => {
                 <p className="text-slate-400 text-sm">Support</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-white">5+ Years</p>
+                <p className="text-3xl font-bold text-white">2+ Years</p>
                 <p className="text-slate-400 text-sm">Experience</p>
               </div>
             </div>
