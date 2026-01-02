@@ -1,4 +1,4 @@
-// Mock data for Bonsteve Digital Hub
+// Mock data for BK Digital Hub
 
 export const services = [
   {
@@ -116,8 +116,8 @@ export const pricingPackages = [
 ];
 
 export const additionalServices = [
-  { name: 'SEO Services', price: '20,000', period: 'monthly' },
-  { name: 'Google Ads Management', price: '20,000', period: 'monthly' },
+  { name: 'SEO Services', price: '10,000', period: 'monthly' },
+  { name: 'Logo Design', price: '1,500', period: '' },
   { name: 'Facebook Marketing', price: '20,000', period: 'monthly' }
 ];
 
@@ -135,7 +135,7 @@ export const portfolioProjects = [
     id: 2,
     title: 'Logo Design (2D & 3D)',
     description: 'Professional 2D and 3D logo design services showcasing creative branding solutions for businesses across various industries.',
-    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800',
+    image: 'https://www.bicifutechnologies.com/assets/images/3D with background.jpg',
     website: null,
     category: 'Branding',
     technologies: ['Adobe Illustrator', '3D Modeling', 'Brand Identity']
