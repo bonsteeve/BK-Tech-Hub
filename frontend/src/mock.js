@@ -117,7 +117,7 @@ export const pricingPackages = [
 
 export const additionalServices = [
   { name: 'SEO Services', price: '10,000', period: 'monthly' },
-  { name: 'Logo Design', price: '1,500', period: '' },
+  { name: 'Logo Design', price: '1,500', period: 'monthly' },
   { name: 'Facebook Marketing', price: '20,000', period: 'monthly' }
 ];
 
