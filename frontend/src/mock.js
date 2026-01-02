@@ -1,4 +1,4 @@
-// Mock data for Bonsteve Digital Hub
+// Mock data for BK Digital Hub
 
 export const services = [
   {
@@ -121,17 +121,25 @@ export const additionalServices = [
   { name: 'Facebook Marketing', price: '20,000', period: 'monthly' }
 ];
 
-export const portfolioImages = [
-  'https://images.unsplash.com/photo-1707836868495-3307d371aba4',
-  'https://images.unsplash.com/photo-1707836916010-3c4ad261936c',
-  'https://images.pexels.com/photos/6373045/pexels-photo-6373045.jpeg',
-  'https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg',
-  'https://images.unsplash.com/photo-1649000808933-1f4aac7cad9a',
-  'https://images.unsplash.com/photo-1710799885122-428e63eff691',
-  'https://images.unsplash.com/photo-1657812159077-90649115008c',
-  'https://images.pexels.com/photos/3584973/pexels-photo-3584973.jpeg',
-  'https://images.pexels.com/photos/38519/macbook-laptop-ipad-apple-38519.jpeg',
-  'https://images.unsplash.com/photo-1605606722649-39761c5a3397'
+export const portfolioProjects = [
+  {
+    id: 1,
+    title: 'Bicifu Technologies',
+    description: 'A modern website for a smart irrigation and farming technology company. Features include responsive design, partnership forms, and information about their innovative agricultural solutions.',
+    image: 'https://www.bicifutechnologies.com/assets/images/logo.jpg',
+    website: 'https://www.bicifutechnologies.com/',
+    category: 'Website Development',
+    technologies: ['HTML/CSS', 'JavaScript', 'Responsive Design']
+  },
+  {
+    id: 2,
+    title: 'Logo Design (2D & 3D)',
+    description: 'Professional 2D and 3D logo design services showcasing creative branding solutions for businesses across various industries.',
+    image: 'https://www.bicifutechnologies.com/assets/images/3D with background.jpg',
+    website: null,
+    category: 'Branding',
+    technologies: ['Adobe Illustrator', '3D Modeling', 'Brand Identity']
+  }
 ];
 
 export const testimonials = [
