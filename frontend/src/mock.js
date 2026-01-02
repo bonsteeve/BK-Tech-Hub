@@ -146,28 +146,28 @@ export const testimonials = [
   {
     id: 1,
     name: 'John Kamau',
-    company: 'Nairobi Tech Solutions',
+    company: '',
     rating: 5,
-    text: 'Bonsteve Digital Hub transformed our online presence. Professional, timely, and excellent communication throughout the project.'
+    text: 'BK Digital Hub transformed our online presence. Professional, timely, and excellent communication throughout the project.'
   },
   {
     id: 2,
     name: 'Sarah Wanjiru',
-    company: 'Elegant Fashions Kenya',
+    company: '',
     rating: 5,
     text: 'Our e-commerce site has increased sales by 200%! The team understood our vision and delivered beyond expectations.'
   },
   {
     id: 3,
     name: 'David Ochieng',
-    company: 'Safari Tours Kenya',
+    company: '',
     rating: 5,
     text: 'Best web designers in Nairobi! Our booking system is seamless and our clients love the new website.'
   },
   {
     id: 4,
     name: 'Grace Akinyi',
-    company: 'Greenfield Academy',
+    company: '',
     rating: 5,
     text: 'The institution website they built has improved our parent communication and student enrollment process significantly.'
   }
