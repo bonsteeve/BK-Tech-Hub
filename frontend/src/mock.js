@@ -174,8 +174,6 @@ export const testimonials = [
 ];
 
 export const stats = [
-  { number: '200+', label: 'Projects Completed' },
-  { number: '150+', label: 'Happy Clients' },
   { number: '5.0', label: 'Customer Rating' },
   { number: '24/7', label: 'Support Available' }
 ];
