@@ -1,0 +1,40 @@
+name: �� Deploy website via FTP with Media Optimization
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  optimize-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🎬 Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: 🖼️ Optimize Images with ImageOptim
+        uses: calibreapp/image-actions@main
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          compressOnly: true
+          jpegQuality: 80
+          pngQuality: 80
+
+      - name: 🎬 Compress Videos
+        run: |
+          mkdir -p assets/videos/optimized
+          ffmpeg -i assets/videos/index_hero.mp4 -c:v libx264 -crf 28 -preset fast -vf scale=1280:720 -c:a aac -b:a 128k assets/videos/optimized/index_hero.mp4
+          ffmpeg -i assets/videos/contact_hero.mp4 -c:v libx264 -crf 28 -preset fast -vf scale=1280:720 -c:a aac -b:a 128k assets/videos/optimized/contact_hero.mp4
+
+      - name: 📤 Deploy to FTP server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /domains/bktechhub.com/public_html/
+          local-dir: ./
+          dangerous-clean-slate: true
