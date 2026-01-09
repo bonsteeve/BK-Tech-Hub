@@ -1,4 +1,4 @@
-name: 🚀 Deploy BK Tech Hub to Add-on Domain
+name: 🚀 Build and Deploy BK Tech Hub
 
 on:
   push:
@@ -6,23 +6,34 @@ on:
       - main
 
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  build-and-deploy:
+    name: 🏗️ Build & 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 📥 Get latest code
-      uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-    - name: 📤 Sync files to Sasaspace
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        # 1. DirectAdmin specific path for the addon domain
-        server-dir: domains/bktechhub.com/public_html/
-        # 2. Tell GitHub to only upload what's INSIDE the frontend folder
-        local-dir: ./frontend/
-        # 3. Setting this to false prevents deleting files on the server 
-        # that might be needed by DirectAdmin (like cgi-bin)
-        dangerous-clean-slate: false
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: 🛠️ Install and Build
+        working-directory: ./frontend
+        run: |
+          yarn install
+          yarn build  # This creates a 'dist' or 'build' folder
+
+      - name: 📤 Sync Build Folder to Sasaspace
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Check if your build creates a 'dist' or 'build' folder. 
+          # Vite uses 'dist', Create React App uses 'build'.
+          local-dir: ./frontend/dist/ 
+          server-dir: domains/bktechhub.com/public_html/
+          dangerous-clean-slate: false
