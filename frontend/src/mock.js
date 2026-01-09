@@ -114,76 +114,73 @@ export const services = [
 export const pricingPackages = [
   {
     id: 1,
-    name: 'Landing Page',
-    price: '17,000',
-    currency: 'Ksh',
+    name: 'Logo Design',
+    price: '1,500',
+    currency: 'KES',
+    description: 'Professional logo design with brand guidelines',
     features: [
-      'Single page design',
-      'Responsive layout',
-      'Contact form',
-      'Fast loading',
-      '1 month support'
+      'Custom logo design',
+      'Multiple concepts',
+      'Brand color palette',
+      'Vector files (AI, EPS)',
+      'High-resolution formats',
+      'Unlimited revisions'
     ],
-    popular: false
+    popular: false,
+    serviceId: 2
   },
   {
     id: 2,
-    name: 'Basic Website',
-    price: '24,000',
-    currency: 'Ksh',
+    name: 'Basic/Starter Website',
+    price: '16,000 - 30,000',
+    currency: 'KES',
+    description: 'Perfect for small businesses and startups',
     features: [
-      'Up to 3 pages',
+      'Up to 5 pages',
       'Responsive design',
       'Contact form',
-      'Basic SEO',
+      'Basic SEO setup',
+      'Social media integration',
       '2 months support'
     ],
-    popular: false
+    popular: false,
+    serviceId: 1
   },
   {
     id: 3,
-    name: 'Business Website',
-    price: '30,000',
-    currency: 'Ksh',
+    name: 'Standard/Business Website',
+    price: '35,000 - 50,000',
+    currency: 'KES',
+    description: 'Comprehensive solution for growing businesses',
     features: [
-      'Up to 10 pages',
+      'Up to 15 pages',
       'Custom design',
       'CMS integration',
-      'SEO optimization',
+      'Advanced SEO',
       'Blog functionality',
+      'Analytics setup',
       '3 months support'
     ],
-    popular: true
+    popular: true,
+    serviceId: 1
   },
   {
     id: 4,
-    name: 'E-commerce Website',
-    price: '60,000',
-    currency: 'Ksh',
+    name: 'E-commerce Store',
+    price: '60,000+',
+    currency: 'KES',
+    description: 'Full-featured online store with payment integration',
     features: [
-      'Full online store',
-      'Payment integration',
-      'Product management',
+      'Unlimited products',
+      'Payment gateway (M-Pesa, Cards)',
+      'Inventory management',
       'Customer accounts',
+      'Order tracking',
       'Analytics dashboard',
       '6 months support'
     ],
-    popular: false
-  },
-  {
-    id: 5,
-    name: 'Institution Website',
-    price: '60,000',
-    currency: 'Ksh from',
-    features: [
-      'Custom pages',
-      'Student/Staff portals',
-      'Content management',
-      'Advanced features',
-      'Scalable solution',
-      '6 months support'
-    ],
-    popular: false
+    popular: false,
+    serviceId: 3
   }
 ];
 

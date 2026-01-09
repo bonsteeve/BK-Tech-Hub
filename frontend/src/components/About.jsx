@@ -49,7 +49,7 @@ const About = () => {
               BKTech Digital Hub is a full-service digital agency based in Nairobi, Kenya. We specialize in creating stunning, high-performance websites and digital solutions that help businesses grow and succeed online.
             </p>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-              With over 200 successful projects and a 5.0 customer rating, we've established ourselves as one of the most reliable website designers in Kenya. Our team combines creativity, technical expertise, and business acumen to deliver solutions that drive real results.
+              We've established ourselves as one of the most reliable website designers in Kenya. Our team combines creativity, technical expertise, and business acumen to deliver solutions that drive real results.
             </p>
             <p className="text-lg text-slate-600 leading-relaxed">
               Whether you're a startup, small business, or established corporation, we have the expertise and dedication to bring your digital vision to life. We're available 24/7 to support your business needs.

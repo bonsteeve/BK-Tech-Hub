@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
-import Pricing from "./components/Pricing";
 import Portfolio from "./components/Portfolio";
 import Testimonials from "./components/Testimonials";
 import About from "./components/About";
@@ -18,7 +17,6 @@ function App() {
       <Header />
       <Hero />
       <Services />
-      <Pricing />
       <Portfolio />
       <Testimonials />
       <About />

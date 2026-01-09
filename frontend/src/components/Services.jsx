@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ServiceCard from './ServiceCard';
 import ServiceModal from './ServiceModal';
-import { services } from '../mock';
+import PricingCard from './PricingCard';
+import { services, pricingPackages } from '../mock';
 
 const Services = () => {
   const [modalState, setModalState] = useState({
@@ -24,7 +25,7 @@ const Services = () => {
     });
   };
 
-  const handleGetQuote = (serviceId) => {
+  const handleGetQuote = (serviceId, packageName = null) => {
     const service = services.find(s => s.id === serviceId);
     // Scroll to contact section with service context
     const contactSection = document.getElementById('contact');
@@ -35,7 +36,8 @@ const Services = () => {
       setTimeout(() => {
         const messageTextarea = document.querySelector('textarea[name="message"]');
         if (messageTextarea && service) {
-          messageTextarea.value = `Hi, I'm interested in getting a quote for ${service.title}. Please provide more information about pricing and timeline.`;
+          const packageInfo = packageName ? ` - ${packageName} package` : '';
+          messageTextarea.value = `Hi, I'm interested in getting a quote for ${service.title}${packageInfo}. Please provide more information about pricing and timeline.`;
           messageTextarea.focus();
         }
       }, 500);
@@ -81,6 +83,45 @@ const Services = () => {
               />
             </div>
           ))}
+        </div>
+
+        {/* Pricing Section */}
+        <div className="mb-20">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-emerald-700 bg-emerald-50 rounded-full">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+              Pricing Packages
+            </div>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+              Choose Your 
+              <span className="text-emerald-600"> Perfect Package</span>
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Transparent pricing with no hidden fees. Select the package that best fits your business needs.
+            </p>
+          </div>
+
+          {/* Pricing Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pricingPackages.map((pkg, index) => (
+              <div 
+                key={pkg.id}
+                className="opacity-0 animate-fade-in"
+                style={{ 
+                  animationDelay: `${(index + services.length) * 150}ms`,
+                  animationFillMode: 'forwards'
+                }}
+              >
+                <PricingCard
+                  package={pkg}
+                  onGetQuote={handleGetQuote}
+                  onViewDetails={handleViewDetails}
+                />
+              </div>
+            ))}
+          </div>
         </div>
         
         {/* CTA Section */}
