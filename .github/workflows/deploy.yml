@@ -1,9 +1,9 @@
-name: 🚀 Deploy BK Tech Hub to Sasaspace
+name: 🚀 Deploy BK Tech Hub to DirectAdmin
 
 on:
   push:
     branches:
-      - main  # This triggers the deploy whenever you push to the main branch
+      - main
 
 jobs:
   web-deploy:
@@ -13,14 +13,13 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
 
-    - name: 📂 Sync files to Sasaspace
+    - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # Most Sasaspace accounts use 'public_html' for the main domain
-        server-dir: public_html/
-        # This prevents the action from deleting existing files on the server 
-        # that aren't in your GitHub repo (safe for shared hosting)
-        delete-allowed: false
+        # Point this to your DirectAdmin addon domain path
+        server-dir: domains/bktechhub.com/public_html/
+        # Points to the specific folder in your GitHub repo containing the site
+        local-dir: frontend/
