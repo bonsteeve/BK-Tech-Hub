@@ -6,11 +6,10 @@ const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
 
-  // Extract unique categories for filtering
+  // Categories for filtering
   const categories = useMemo(() => {
-    const allCategories = ['All', ...new Set(portfolioProjects.map(project => project.category))];
-    return allCategories;
-  }, [portfolioProjects]);
+    return ['All', 'Website Development', 'Branding'];
+  }, []);
 
   // Filter projects based on active filter
   const filteredProjects = useMemo(() => {
