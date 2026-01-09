@@ -293,7 +293,7 @@ export const companyInfo = {
   name: 'BKTech Digital Hub',
   tagline: 'Your Trusted Digital Partner in Kenya',
   phone: '+254729295315',
-  email: 'bonsteeve@gmail.com',
+  email: 'info@bktechhub.com',
   address: 'BK Building, Nairobi, Kenya',
   rating: 5.0,
   reviewCount: 88,
