@@ -1,4 +1,4 @@
-name: 🚀 Deploy BK Tech Hub to DirectAdmin
+name: 🚀 Deploy BK Tech Hub to Add-on Domain
 
 on:
   push:
@@ -10,16 +10,19 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
+    - name: 📥 Get latest code
       uses: actions/checkout@v4
 
-    - name: 📂 Sync files
+    - name: 📤 Sync files to Sasaspace
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # Point this to your DirectAdmin addon domain path
+        # 1. DirectAdmin specific path for the addon domain
         server-dir: domains/bktechhub.com/public_html/
-        # Points to the specific folder in your GitHub repo containing the site
-        local-dir: frontend/
+        # 2. Tell GitHub to only upload what's INSIDE the frontend folder
+        local-dir: ./frontend/
+        # 3. Setting this to false prevents deleting files on the server 
+        # that might be needed by DirectAdmin (like cgi-bin)
+        dangerous-clean-slate: false
