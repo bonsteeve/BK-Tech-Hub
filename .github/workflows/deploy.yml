@@ -1,29 +1,26 @@
-name: 🚀 Build and Deploy to Sasaspace
+name: 🚀 Deploy BK Tech Hub to Sasaspace
 
 on:
   push:
     branches:
-      - main
+      - main  # This triggers the deploy whenever you push to the main branch
 
 jobs:
-  build-and-deploy:
-    name: 🏗️ Build & 🎉 Deploy
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
 
-    - name: 🛠️ Install and Build
-      run: |
-        npm install
-        npm run build  # This creates the 'dist' or 'build' folder
-
-    - name: 📂 Sync Build Folder to Sasaspace
+    - name: 📂 Sync files to Sasaspace
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # IMPORTANT: Point 'local-dir' to your build output folder
-        local-dir: ./dist/ 
+        # Most Sasaspace accounts use 'public_html' for the main domain
         server-dir: public_html/
+        # This prevents the action from deleting existing files on the server 
+        # that aren't in your GitHub repo (safe for shared hosting)
+        delete-allowed: false
