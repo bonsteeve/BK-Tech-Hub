@@ -2,7 +2,8 @@ name: Deploy BK-Tech-Hub
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -10,56 +11,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ----------------------------
+      # Checkout repo
+      # ----------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ---------- FRONTEND ----------
-      - name: Build React frontend
+      # ----------------------------
+      # Build frontend (React)
+      # ----------------------------
+      - name: Install frontend dependencies
         working-directory: frontend
-        run: |
-          npm install --legacy-peer-deps
-          npm run build
+        run: npm install --legacy-peer-deps
 
-      - name: Upload frontend to public_html (SFTP)
-        uses: appleboy/scp-action@v0.1.7
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      # ----------------------------
+      # Deploy frontend via PURE SFTP
+      # (NO tar, NO shell)
+      # ----------------------------
+      - name: Deploy frontend via SFTP
+        uses: easingthemes/ssh-deploy@v5.0.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "frontend/build/*"
-          target: "/home/${{ secrets.SSH_USER }}/domains/bktechhub.com/public_html"
-          strip_components: 2
-          overwrite: true
-          rm: true
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          SOURCE: "frontend/build/"
+          TARGET: "/home/${{ secrets.SSH_USER }}/domains/bktechhub.com/public_html/"
+          ARGS: "-rltgoDzv --delete"
 
-      # ---------- BACKEND ----------
-      - name: Upload backend to server (SFTP)
-        uses: appleboy/scp-action@v0.1.7
+      # ----------------------------
+      # Deploy backend via PURE SFTP
+      # ----------------------------
+      - name: Deploy backend via SFTP
+        uses: easingthemes/ssh-deploy@v5.0.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/*"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
-          strip_components: 1
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          SOURCE: "backend/"
+          TARGET: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend/"
+          ARGS: "-rltgoDzv"
 
-      - name: Upload backend env file
-        run: |
-          cat <<EOF > backend/.env
-          MONGO_URL=${{ secrets.MONGO_URL }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          CORS_ORIGINS=${{ secrets.CORS_ORIGINS }}
-          EOF
+      # ----------------------------
+      # Done
+      # ----------------------------
+      - name: Deployment complete
+        run: echo "✅ Deployment finished successfully"
 
-      - name: Upload backend .env (SFTP)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/.env"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
 
