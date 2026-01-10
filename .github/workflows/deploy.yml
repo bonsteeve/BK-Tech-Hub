@@ -28,7 +28,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "frontend/build/*"
-          target: "domains/bktechhub.com/public_html/"
+          target: "/home/${{ secrets.SSH_USER }}/domains/bktechhub.com/public_html"
           strip_components: 2
 
       # ---------- BACKEND ----------
