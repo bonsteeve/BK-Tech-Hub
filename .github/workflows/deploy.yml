@@ -30,6 +30,8 @@ jobs:
           source: "frontend/build/*"
           target: "/home/${{ secrets.SSH_USER }}/domains/bktechhub.com/public_html"
           strip_components: 2
+          overwrite: true
+          rm: true
 
       # ---------- BACKEND ----------
       - name: Upload backend to server (SFTP)
