@@ -11,9 +11,8 @@ const Portfolio = () => {
     return ['All', 'Website Development', 'Branding'];
   }, []);
 
-  // Filter projects based on active filter
-  const filteredProjects = useMemo(() => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
+const filteredProjects = useMemo(() => {
   if (activeFilter === 'All') return portfolioProjects;
   return portfolioProjects.filter(project => project.category === activeFilter);
 }, [activeFilter]);
