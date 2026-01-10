@@ -13,9 +13,11 @@ const Portfolio = () => {
 
   // Filter projects based on active filter
   const filteredProjects = useMemo(() => {
-    if (activeFilter === 'All') return portfolioProjects;
-    return portfolioProjects.filter(project => project.category === activeFilter);
-  }, [activeFilter]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  if (activeFilter === 'All') return portfolioProjects;
+  return portfolioProjects.filter(project => project.category === activeFilter);
+}, [activeFilter]);
+
 
   // Mock logo designs data - replace with your actual logo designs
   const logoDesigns = [
