@@ -12,15 +12,15 @@ jobs:
 
     steps:
       # ----------------------------
-      # Checkout repo
+      # Checkout
       # ----------------------------
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       # ----------------------------
-      # Build frontend (React)
+      # Build frontend
       # ----------------------------
-      - name: Install frontend dependencies
+      - name: Install frontend deps
         working-directory: frontend
         run: npm install --legacy-peer-deps
 
@@ -29,39 +29,34 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # Deploy frontend via PURE SFTP
-      # (NO tar, NO shell)
+      # Deploy frontend (PURE SFTP)
       # ----------------------------
       - name: Deploy frontend via SFTP
-        uses: easingthemes/ssh-deploy@v5.0.0
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          SOURCE: "frontend/build/"
-          TARGET: "/home/${{ secrets.SSH_USER }}/domains/bktechhub.com/public_html/"
-          ARGS: "-rltgoDzv --delete"
+          username: ${{ secrets.SSH_USER }}
+          server: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local_path: frontend/build/*
+          remote_path: /domains/bktechhub.com/public_html/
+          sftp_only: true
+          delete_remote_files: true
 
       # ----------------------------
-      # Deploy backend via PURE SFTP
+      # Deploy backend (PURE SFTP)
       # ----------------------------
       - name: Deploy backend via SFTP
-        uses: easingthemes/ssh-deploy@v5.0.0
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          SOURCE: "backend/"
-          TARGET: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend/"
-          ARGS: "-rltgoDzv"
+          username: ${{ secrets.SSH_USER }}
+          server: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local_path: backend/*
+          remote_path: /bk-tech-hub-backend/
+          sftp_only: true
+          delete_remote_files: false
 
-      # ----------------------------
-      # Done
-      # ----------------------------
-      - name: Deployment complete
-        run: echo "✅ Deployment finished successfully"
-
-
-
+      - name: Done
+        run: echo "✅ Deployment completed"
