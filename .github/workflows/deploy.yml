@@ -1,63 +1,47 @@
-name: Deploy BK-Tech-Hub
+name: 🚀 Build & Deploy BK-Tech-Hub (Full Stack)
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      # ---------- FRONTEND ----------
-      - name: Build React frontend
-        working-directory: frontend
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+
+      - name: 🛠️ Build React Frontend
+        working-directory: ./frontend
         run: |
-          npm install --legacy-peer-deps
-          npm run build
+          yarn install
+          yarn build  # This creates the 'build' or 'dist' folder
 
-      - name: Upload frontend to public_html (SFTP)
-        uses: appleboy/scp-action@v0.1.7
+      - name: 📤 Deploy Frontend to Sasaspace
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "frontend/build/*"
-          target: "/home/${{ secrets.SSH_USER }}/public_html"
-          strip_components: 2
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Points to your React build output (check if it's 'dist' or 'build')
+          local-dir: ./frontend/build/ 
+          server-dir: domains/bktechhub.com/public_html/
 
-      # ---------- BACKEND ----------
-      - name: Upload backend to server (SFTP)
-        uses: appleboy/scp-action@v0.1.7
+      - name: 📤 Deploy Backend Files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/*"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
-          strip_components: 1
-
-      - name: Upload backend env file
-        run: |
-          cat <<EOF > backend/.env
-          MONGO_URL=${{ secrets.MONGO_URL }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          CORS_ORIGINS=${{ secrets.CORS_ORIGINS }}
-          EOF
-
-      - name: Upload backend .env (SFTP)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/.env"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./backend/
+          # Typically, Python apps are placed outside public_html for security
+          server-dir: domains/bktechhub.com/backend/
 
