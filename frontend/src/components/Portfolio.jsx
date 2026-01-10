@@ -15,7 +15,7 @@ const Portfolio = () => {
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'All') return portfolioProjects;
     return portfolioProjects.filter(project => project.category === activeFilter);
-  }, [activeFilter, portfolioProjects]);
+  }, [activeFilter]);
 
   // Mock logo designs data - replace with your actual logo designs
   const logoDesigns = [
