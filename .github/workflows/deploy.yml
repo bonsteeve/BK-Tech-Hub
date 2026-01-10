@@ -1,39 +1,63 @@
-name: 🚀 Build and Deploy BK Tech Hub
+name: Deploy BK-Tech-Hub
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    name: 🏗️ Build & 🎉 Deploy
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-          cache-dependency-path: frontend/yarn.lock
-
-      - name: 🛠️ Install and Build
-        working-directory: ./frontend
+      # ---------- FRONTEND ----------
+      - name: Build React frontend
+        working-directory: frontend
         run: |
-          yarn install
-          yarn build  # This creates a 'dist' or 'build' folder
+          npm install --legacy-peer-deps
+          npm run build
 
-      - name: 📤 Sync Build Folder to Sasaspace
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload frontend to public_html (SFTP)
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # Check if your build creates a 'dist' or 'build' folder. 
-          # Vite uses 'dist', Create React App uses 'build'.
-          local-dir: ./frontend/dist/ 
-          server-dir: domains/bktechhub.com/public_html/
-          dangerous-clean-slate: false
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "frontend/build/*"
+          target: "/home/${{ secrets.SSH_USER }}/public_html"
+          strip_components: 2
+
+      # ---------- BACKEND ----------
+      - name: Upload backend to server (SFTP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "backend/*"
+          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
+          strip_components: 1
+
+      - name: Upload backend env file
+        run: |
+          cat <<EOF > backend/.env
+          MONGO_URL=${{ secrets.MONGO_URL }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          CORS_ORIGINS=${{ secrets.CORS_ORIGINS }}
+          EOF
+
+      - name: Upload backend .env (SFTP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "backend/.env"
+          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
+
