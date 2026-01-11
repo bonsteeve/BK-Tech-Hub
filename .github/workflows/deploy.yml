@@ -38,7 +38,6 @@ jobs:
           local_path: frontend/build/*
           remote_path: /domains/bktechhub.com/public_html/
           sftp_only: true
-          delete_remote_files: true
 
       # ----------------------------
       # Deploy backend (PASSWORD SFTP)
@@ -53,7 +52,6 @@ jobs:
           local_path: backend/*
           remote_path: /bk-tech-hub-backend/
           sftp_only: true
-          delete_remote_files: false
 
       - name: Done
         run: echo "✅ Deployment completed"
