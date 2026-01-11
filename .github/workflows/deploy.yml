@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ----------------------------
-      # Checkout
-      # ----------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -29,30 +26,30 @@ jobs:
         run: npm run build
 
       # ----------------------------
-      # Deploy frontend (PURE SFTP)
+      # Deploy frontend (PASSWORD SFTP)
       # ----------------------------
-      - name: Deploy frontend via SFTP
+      - name: Deploy frontend via SFTP (password)
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
           server: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           local_path: frontend/build/*
           remote_path: /domains/bktechhub.com/public_html/
           sftp_only: true
           delete_remote_files: true
 
       # ----------------------------
-      # Deploy backend (PURE SFTP)
+      # Deploy backend (PASSWORD SFTP)
       # ----------------------------
-      - name: Deploy backend via SFTP
+      - name: Deploy backend via SFTP (password)
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
           server: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           local_path: backend/*
           remote_path: /bk-tech-hub-backend/
           sftp_only: true
@@ -60,3 +57,4 @@ jobs:
 
       - name: Done
         run: echo "✅ Deployment completed"
+
