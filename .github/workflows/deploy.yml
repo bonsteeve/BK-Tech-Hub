@@ -1,63 +1,71 @@
-name: Deploy BK-Tech-Hub
+name: 🚀 Deploy Full Stack (Frontend & Backend)
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      # ---------- FRONTEND ----------
-      - name: Build React frontend
+      - name: 📦 Install frontend dependencies
         working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: 🏗️ Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: 📤 Deploy Frontend (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Destination for React App
+          server-dir: /domains/bktechhub.com/public_html/
+          # Source from build folder
+          local-dir: frontend/build/
+          dangerous-clean-slate: true
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: deploy-frontend # Optional: Run after frontend to avoid FTP conflict
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------------------
+      # TRICK: Create restart.txt to force cPanel to reload app
+      # ---------------------------------------------------------
+      - name: 🔄 Prepare Restart Trigger
         run: |
-          npm install --legacy-peer-deps
-          npm run build
+          mkdir -p backend/tmp
+          date > backend/tmp/restart.txt
 
-      - name: Upload frontend to public_html (SFTP)
-        uses: appleboy/scp-action@v0.1.7
+      # ---------------------------------------------------------
+      # Deploy Backend Files
+      # ---------------------------------------------------------
+      - name: 📤 Deploy Backend (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "frontend/build/*"
-          target: "/home/${{ secrets.SSH_USER }}/public_html"
-          strip_components: 2
-
-      # ---------- BACKEND ----------
-      - name: Upload backend to server (SFTP)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/*"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
-          strip_components: 1
-
-      - name: Upload backend env file
-        run: |
-          cat <<EOF > backend/.env
-          MONGO_URL=${{ secrets.MONGO_URL }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          CORS_ORIGINS=${{ secrets.CORS_ORIGINS }}
-          EOF
-
-      - name: Upload backend .env (SFTP)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "backend/.env"
-          target: "/home/${{ secrets.SSH_USER }}/bk-tech-hub-backend"
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Destination: The folder where your Python app lives
+          # (Make sure this matches your cPanel Python App setup path)
+          server-dir: /bk-tech-hub-backend/
+          local-dir: backend/
+          # ⚠️ CRITICAL: Do not delete the virtual environment (venv) or .env file
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/venv/**
+            **/__pycache__/**
+            **/.env
 
