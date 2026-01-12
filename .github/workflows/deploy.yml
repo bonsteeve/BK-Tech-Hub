@@ -1,4 +1,4 @@
-name: 🚀 Deploy BK-Tech-Hub Frontend via FTP
+name: 🚀 Deploy Full Stack (Frontend & Backend)
 
 on:
   push:
@@ -7,19 +7,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
-
     steps:
-      # ----------------------------
-      # Checkout repo
-      # ----------------------------
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      # ----------------------------
-      # Build frontend
-      # ----------------------------
       - name: 📦 Install frontend dependencies
         working-directory: frontend
         run: npm install --legacy-peer-deps
@@ -28,23 +21,51 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      # ----------------------------
-      # Deploy frontend via FTP
-      # ----------------------------
-      - name: 📤 Deploy frontend to bktechhub.com (FTP)
+      - name: 📤 Deploy Frontend (FTP)
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # Destination for React App
           server-dir: /domains/bktechhub.com/public_html/
+          # Source from build folder
           local-dir: frontend/build/
           dangerous-clean-slate: true
 
-      # ----------------------------
-      # Done
-      # ----------------------------
-      - name: ✅ Deployment complete
-        run: echo "Frontend deployed successfully via FTP"
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: deploy-frontend # Optional: Run after frontend to avoid FTP conflict
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
+      # ---------------------------------------------------------
+      # TRICK: Create restart.txt to force cPanel to reload app
+      # ---------------------------------------------------------
+      - name: 🔄 Prepare Restart Trigger
+        run: |
+          mkdir -p backend/tmp
+          date > backend/tmp/restart.txt
+
+      # ---------------------------------------------------------
+      # Deploy Backend Files
+      # ---------------------------------------------------------
+      - name: 📤 Deploy Backend (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Destination: The folder where your Python app lives
+          # (Make sure this matches your cPanel Python App setup path)
+          server-dir: /bk-tech-hub-backend/
+          local-dir: backend/
+          # ⚠️ CRITICAL: Do not delete the virtual environment (venv) or .env file
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/venv/**
+            **/__pycache__/**
+            **/.env
 
