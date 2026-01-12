@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from mangum import Mangum
+from a2wsgi import ASGIMiddleware  # Required for cPanel
 
 import os
 import logging
@@ -12,8 +12,11 @@ from typing import List
 import uuid
 from datetime import datetime, timezone
 
-from routes import contact
-
+# Assuming your routes folder is in the same directory
+try:
+    from routes import contact
+except ImportError:
+    contact = None
 
 # ------------------------
 # Environment
@@ -24,21 +27,24 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.getenv("MONGO_URL")
 db_name = os.getenv("DB_NAME")
 
+# Detailed error logging for environment variables
 if not mongo_url:
-    raise RuntimeError("MONGO_URL is not set")
+    logging.error("CRITICAL: MONGO_URL is missing from .env")
 if not db_name:
-    raise RuntimeError("DB_NAME is not set")
+    logging.error("CRITICAL: DB_NAME is missing from .env")
 
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
-
 # ------------------------
 # App setup
 # ------------------------
-app = FastAPI()
-api_router = APIRouter()  # ❗ NO /api prefix here
-
+# root_path="/api" is crucial for cPanel sub-directory hosting
+app = FastAPI(
+    title="BK-Tech-Hub API",
+    root_path="/api"
+)
+api_router = APIRouter()
 
 # ------------------------
 # Models
@@ -49,49 +55,40 @@ class StatusCheck(BaseModel):
     client_name: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-
 class StatusCheckCreate(BaseModel):
     client_name: str
-
 
 # ------------------------
 # Routes
 # ------------------------
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
-
+    return {"status": "online", "message": "BK-Tech-Hub Backend is running"}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_obj = StatusCheck(**input.model_dump())
-
     doc = status_obj.model_dump()
     doc["timestamp"] = doc["timestamp"].isoformat()
-
     await db.status_checks.insert_one(doc)
     return status_obj
-
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-
     for check in status_checks:
         if isinstance(check["timestamp"], str):
             check["timestamp"] = datetime.fromisoformat(check["timestamp"])
-
     return status_checks
-
 
 # ------------------------
 # Register routers
 # ------------------------
 app.include_router(api_router)
 
-contact.set_db(db)
-app.include_router(contact.router)
-
+if contact:
+    contact.set_db(db)
+    app.include_router(contact.router)
 
 # ------------------------
 # Middleware
@@ -104,7 +101,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # ------------------------
 # Logging
 # ------------------------
@@ -114,7 +110,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
 # ------------------------
 # Shutdown
 # ------------------------
@@ -122,8 +117,9 @@ logger = logging.getLogger(__name__)
 async def shutdown_db_client():
     client.close()
 
-
 # ------------------------
-# WSGI entrypoint (REQUIRED)
+# cPanel/Passenger Entry Point
 # ------------------------
-application = Mangum(app)
+# This 'application' variable is exactly what cPanel looks for.
+# ASGIMiddleware converts the FastAPI (ASGI) app to WSGI for the server.
+application = ASGIMiddleware(app)
