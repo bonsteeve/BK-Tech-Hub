@@ -1,52 +1,127 @@
 from fastapi import APIRouter, HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from models.inquiry import InquiryCreate, Inquiry, InquiryResponse, InquiryStatusUpdate
-from typing import List, Optional
+from typing import Optional
 import logging
+from utils.google_sheets import append_to_sheet
+from utils.email_service import send_email
+from datetime import datetime
+import os
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api", tags=["contact"])
 
-
+# Database injection (used by admin endpoints only)
 def set_db(database: AsyncIOMotorDatabase):
-    """Set the database instance for the router"""
     global db
     db = database
 
 
-@router.post("/contact", response_model=InquiryResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/contact",
+    response_model=InquiryResponse,
+    status_code=status.HTTP_201_CREATED
+)
 async def create_inquiry(inquiry_data: InquiryCreate):
     """
     Create a new contact inquiry
-    
-    Args:
-        inquiry_data: Contact form data
-    
-    Returns:
-        InquiryResponse with success status and inquiry ID
+
+    - Validates request payload
+    - Persists submission to Google Sheets
+    - Sends admin notification email
+    - Sends user confirmation email
+    - Email failures NEVER block submission
     """
     try:
-        # Create inquiry object
+        # Validate and normalize inquiry data
         inquiry = Inquiry(**inquiry_data.dict())
-        
-        # Save to database
-        await db.inquiries.insert_one(inquiry.dict())
-        
-        logger.info(f"New inquiry created: {inquiry.id} from {inquiry.email}")
-        
+
+        timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Persist to Google Sheets (source of truth)
+        append_to_sheet([
+            timestamp,
+            inquiry.name,
+            inquiry.email,
+            inquiry.phone or "",
+            inquiry.message
+        ])
+
+        logger.info(f"Inquiry logged to Google Sheets: {inquiry.id}")
+
+        # -------------------------
+        # Email notifications
+        # -------------------------
+
+        admin_email = os.getenv("ADMIN_EMAIL")
+
+        admin_email_body = f"""
+A new contact form submission was received.
+
+Name: {inquiry.name}
+Email: {inquiry.email}
+Phone: {inquiry.phone or "N/A"}
+
+Message:
+{inquiry.message}
+
+Submitted at (UTC): {timestamp}
+Inquiry ID: {inquiry.id}
+"""
+
+        user_email_body = f"""
+Hello {inquiry.name},
+
+Thank you for contacting BK Tech Hub.
+
+We have received your message and our team will review it shortly.
+If required, we will reach out using the contact details you provided.
+
+Best regards,
+BK Tech Hub Team
+"""
+
+        # Send admin notification (failure-safe)
+        if admin_email:
+            admin_sent = send_email(
+                subject="New Contact Form Submission – BK Tech Hub",
+                body=admin_email_body,
+                to_email=admin_email
+            )
+            if not admin_sent:
+                logger.warning(f"Admin email failed for inquiry {inquiry.id}")
+
+        # Send user confirmation (failure-safe)
+        user_sent = send_email(
+            subject="We’ve received your message – BK Tech Hub",
+            body=user_email_body,
+            to_email=inquiry.email
+        )
+        if not user_sent:
+            logger.warning(f"User email failed for inquiry {inquiry.id}")
+
+        # -------------------------
+        # API response (unchanged)
+        # -------------------------
+
         return InquiryResponse(
             success=True,
             message="Thank you for contacting us! We'll respond within 24 hours.",
             inquiryId=inquiry.id
         )
+
     except Exception as e:
-        logger.error(f"Error creating inquiry: {str(e)}")
+        logger.error(f"Error submitting inquiry: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to submit inquiry. Please try again later."
         )
 
+
+# -------------------------
+# Admin endpoints (MongoDB)
+# -------------------------
 
 @router.get("/inquiries")
 async def get_inquiries(
@@ -56,28 +131,24 @@ async def get_inquiries(
 ):
     """
     Get all inquiries (Admin endpoint)
-    
-    Args:
-        status_filter: Filter by status (optional)
-        limit: Number of results to return
-        skip: Number of results to skip (pagination)
-    
-    Returns:
-        List of inquiries with pagination info
     """
     try:
-        # Build query
         query = {}
         if status_filter:
             query["status"] = status_filter
-        
-        # Get total count
+
         total = await db.inquiries.count_documents(query)
-        
-        # Get inquiries
-        cursor = db.inquiries.find(query).sort("created_at", -1).skip(skip).limit(limit)
+
+        cursor = (
+            db.inquiries
+            .find(query)
+            .sort("created_at", -1)
+            .skip(skip)
+            .limit(limit)
+        )
+
         inquiries = await cursor.to_list(length=limit)
-        
+
         return {
             "success": True,
             "data": inquiries,
@@ -85,6 +156,7 @@ async def get_inquiries(
             "limit": limit,
             "skip": skip
         }
+
     except Exception as e:
         logger.error(f"Error fetching inquiries: {str(e)}")
         raise HTTPException(
@@ -94,21 +166,14 @@ async def get_inquiries(
 
 
 @router.patch("/inquiries/{inquiry_id}")
-async def update_inquiry_status(inquiry_id: str, status_update: InquiryStatusUpdate):
+async def update_inquiry_status(
+    inquiry_id: str,
+    status_update: InquiryStatusUpdate
+):
     """
     Update inquiry status (Admin endpoint)
-    
-    Args:
-        inquiry_id: ID of the inquiry to update
-        status_update: New status
-    
-    Returns:
-        Updated inquiry data
     """
     try:
-        from datetime import datetime
-        
-        # Update the inquiry
         result = await db.inquiries.update_one(
             {"id": inquiry_id},
             {
@@ -118,18 +183,19 @@ async def update_inquiry_status(inquiry_id: str, status_update: InquiryStatusUpd
                 }
             }
         )
-        
+
         if result.matched_count == 0:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Inquiry not found"
             )
-        
-        # Get updated inquiry
+
         inquiry = await db.inquiries.find_one({"id": inquiry_id})
-        
-        logger.info(f"Inquiry {inquiry_id} status updated to {status_update.status}")
-        
+
+        logger.info(
+            f"Inquiry {inquiry_id} status updated to {status_update.status}"
+        )
+
         return {
             "success": True,
             "message": "Inquiry status updated successfully",
@@ -139,6 +205,7 @@ async def update_inquiry_status(inquiry_id: str, status_update: InquiryStatusUpd
                 "updated_at": inquiry["updated_at"]
             }
         }
+
     except HTTPException:
         raise
     except Exception as e:

@@ -25,4 +25,8 @@ python-multipart>=0.0.9
 jq>=1.6.0
 typer>=0.9.0
 a2wsgi>=0.7.6
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
 
