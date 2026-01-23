@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from a2wsgi import ASGIMiddleware  # Required for cPanel
+from a2wsgi import ASGIMiddleware
 
 import os
 import logging
@@ -12,14 +12,17 @@ from typing import List
 import uuid
 from datetime import datetime, timezone
 
-# Assuming your routes folder is in the same directory
+# ------------------------
+# Routes Import
+# ------------------------
 try:
     from routes import contact
 except ImportError:
     contact = None
+    logging.warning("Routes folder or contact.py not found.")
 
 # ------------------------
-# Environment
+# Environment & Database
 # ------------------------
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -27,19 +30,13 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.getenv("MONGO_URL")
 db_name = os.getenv("DB_NAME")
 
-# Detailed error logging for environment variables
-if not mongo_url:
-    logging.error("CRITICAL: MONGO_URL is missing from .env")
-if not db_name:
-    logging.error("CRITICAL: DB_NAME is missing from .env")
-
+# Database Connection
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
 # ------------------------
-# App setup
+# App Setup
 # ------------------------
-# root_path="/api" is crucial for cPanel sub-directory hosting
 app = FastAPI(
     title="BK-Tech-Hub API",
     root_path="/api"
@@ -59,11 +56,15 @@ class StatusCheckCreate(BaseModel):
     client_name: str
 
 # ------------------------
-# Routes
+# API Endpoints
 # ------------------------
 @api_router.get("/")
 async def root():
-    return {"status": "online", "message": "BK-Tech-Hub Backend is running"}
+    return {
+        "status": "online", 
+        "message": "BK-Tech-Hub Backend is fully operational",
+        "database": "Connected" if mongo_url else "Missing Config"
+    }
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
@@ -82,16 +83,17 @@ async def get_status_checks():
     return status_checks
 
 # ------------------------
-# Register routers
+# Register Routers
 # ------------------------
 app.include_router(api_router)
 
 if contact:
-    contact.set_db(db)
+    if hasattr(contact, "set_db"):
+        contact.set_db(db)
     app.include_router(contact.router)
 
 # ------------------------
-# Middleware
+# Middleware (CORS)
 # ------------------------
 app.add_middleware(
     CORSMiddleware,
@@ -102,24 +104,14 @@ app.add_middleware(
 )
 
 # ------------------------
-# Logging
-# ------------------------
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
-
-# ------------------------
-# Shutdown
+# Lifecycle Events
 # ------------------------
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
 
 # ------------------------
-# cPanel/Passenger Entry Point
+# cPanel/WSGI Entry Point (CRITICAL)
 # ------------------------
-# This 'application' variable is exactly what cPanel looks for.
-# ASGIMiddleware converts the FastAPI (ASGI) app to WSGI for the server.
+# This converts the ASGI FastAPI app into a WSGI app that cPanel can run.
 application = ASGIMiddleware(app)

@@ -10,7 +10,8 @@ import os
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api", tags=["contact"])
+# Changed prefix to "" because server.py/cPanel already handles the "/api" part
+router = APIRouter(prefix="", tags=["contact"])
 
 # Database injection (used by admin endpoints only)
 def set_db(database: AsyncIOMotorDatabase):
@@ -111,11 +112,12 @@ BK Tech Hub Team
             inquiryId=inquiry.id
         )
 
+
     except Exception as e:
         logger.error(f"Error submitting inquiry: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to submit inquiry. Please try again later."
+            detail=f"Failed to submit inquiry: {str(e)}"
         )
 
 
@@ -159,11 +161,7 @@ async def get_inquiries(
 
     except Exception as e:
         logger.error(f"Error fetching inquiries: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to fetch inquiries"
-        )
-
+        raise HTTPException(status_code=500, detail="Failed to fetch inquiries")
 
 @router.patch("/inquiries/{inquiry_id}")
 async def update_inquiry_status(
@@ -198,19 +196,12 @@ async def update_inquiry_status(
 
         return {
             "success": True,
-            "message": "Inquiry status updated successfully",
-            "data": {
-                "id": inquiry["id"],
-                "status": inquiry["status"],
-                "updated_at": inquiry["updated_at"]
-            }
+            "message": "Status updated",
+            "data": {"id": inquiry["id"], "status": inquiry["status"]}
         }
 
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error updating inquiry status: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update inquiry status"
-        )
+        logger.error(f"Error updating status: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update status")
