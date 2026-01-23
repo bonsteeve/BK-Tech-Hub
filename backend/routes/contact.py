@@ -1,46 +1,93 @@
-from fastapi import APIRouter, HTTPException, status
-from motor.motor_asyncio import AsyncIOMotorDatabase
-from models.inquiry import InquiryCreate, Inquiry, InquiryResponse, InquiryStatusUpdate
-from typing import Optional
+import os
 import logging
+from datetime import datetime
+from typing import Optional
+
+from fastapi import APIRouter, HTTPException, status, BackgroundTasks
+from motor.motor_asyncio import AsyncIOMotorDatabase
+
+from models.inquiry import InquiryCreate, Inquiry, InquiryResponse, InquiryStatusUpdate
 from utils.google_sheets import append_to_sheet
 from utils.email_service import send_email
-from datetime import datetime
-import os
 
 logger = logging.getLogger(__name__)
 
-# Changed prefix to "" because server.py/cPanel already handles the "/api" part
+# Tags for API documentation
 router = APIRouter(prefix="", tags=["contact"])
 
-# Database injection (used by admin endpoints only)
+# Global DB reference (maintained for Admin functionality)
+db: Optional[AsyncIOMotorDatabase] = None
+
 def set_db(database: AsyncIOMotorDatabase):
     global db
     db = database
 
+# --- Helper Function for Background Emailing ---
+
+def send_notification_emails(inquiry: Inquiry, timestamp: str):
+    """
+    Logic to send admin and user emails. 
+    Running this in BackgroundTasks prevents the frontend from hanging.
+    """
+    admin_email = os.getenv("ADMIN_EMAIL")
+    
+    # 1. Admin Email Template
+    admin_subject = f"New Contact Form Submission – {inquiry.name}"
+    admin_body = (
+        f"A new contact form submission was received.\n\n"
+        f"Name: {inquiry.name}\n"
+        f"Email: {inquiry.email}\n"
+        f"Phone: {inquiry.phone or 'N/A'}\n\n"
+        f"Message:\n{inquiry.message}\n\n"
+        f"Submitted at (UTC): {timestamp}\n"
+        f"Inquiry ID: {inquiry.id}"
+    )
+
+    # 2. User Email Template
+    user_subject = "We’ve received your message – BK Tech Hub"
+    user_body = (
+        f"Hello {inquiry.name},\n\n"
+        f"Thank you for contacting BK Tech Hub.\n\n"
+        f"We have received your message and our team will review it shortly. "
+        f"If required, we will reach out using the contact details you provided.\n\n"
+        f"Best regards,\n"
+        f"BK Tech Hub Team"
+    )
+
+    # Send to Admin
+    if admin_email:
+        success = send_email(admin_subject, admin_body, admin_email)
+        if not success:
+            logger.warning(f"Failed to send admin notification for {inquiry.id}")
+
+    # Send to User
+    success = send_email(user_subject, user_body, inquiry.email)
+    if not success:
+        logger.warning(f"Failed to send user confirmation for {inquiry.id}")
+
+
+# --- Primary Contact Endpoint ---
 
 @router.post(
     "/contact",
+    # Matches the existing React frontend expectation
     response_model=InquiryResponse,
     status_code=status.HTTP_201_CREATED
 )
-async def create_inquiry(inquiry_data: InquiryCreate):
+async def create_inquiry(inquiry_data: InquiryCreate, background_tasks: BackgroundTasks):
     """
-    Create a new contact inquiry
-
-    - Validates request payload
-    - Persists submission to Google Sheets
-    - Sends admin notification email
-    - Sends user confirmation email
-    - Email failures NEVER block submission
+    Production-ready contact submission:
+    1. Writes to Google Sheets (Port 443 - Bypass Hosting Block)
+    2. Offloads Emailing to Background (Non-blocking)
+    3. Returns immediate success to UI
     """
     try:
-        # Validate and normalize inquiry data
+        # Create inquiry object (validates data and generates ID)
         inquiry = Inquiry(**inquiry_data.dict())
-
         timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Persist to Google Sheets (source of truth)
+        # PERSISTENCE: Google Sheets (Source of Truth)
+        # We do this 'await' or synchronously first because it's our primary storage
         append_to_sheet([
             timestamp,
             inquiry.name,
@@ -48,63 +95,11 @@ async def create_inquiry(inquiry_data: InquiryCreate):
             inquiry.phone or "",
             inquiry.message
         ])
+        logger.info(f"Inquiry {inquiry.id} successfully saved to Google Sheets.")
 
-        logger.info(f"Inquiry logged to Google Sheets: {inquiry.id}")
-
-        # -------------------------
-        # Email notifications
-        # -------------------------
-
-        admin_email = os.getenv("ADMIN_EMAIL")
-
-        admin_email_body = f"""
-A new contact form submission was received.
-
-Name: {inquiry.name}
-Email: {inquiry.email}
-Phone: {inquiry.phone or "N/A"}
-
-Message:
-{inquiry.message}
-
-Submitted at (UTC): {timestamp}
-Inquiry ID: {inquiry.id}
-"""
-
-        user_email_body = f"""
-Hello {inquiry.name},
-
-Thank you for contacting BK Tech Hub.
-
-We have received your message and our team will review it shortly.
-If required, we will reach out using the contact details you provided.
-
-Best regards,
-BK Tech Hub Team
-"""
-
-        # Send admin notification (failure-safe)
-        if admin_email:
-            admin_sent = send_email(
-                subject="New Contact Form Submission – BK Tech Hub",
-                body=admin_email_body,
-                to_email=admin_email
-            )
-            if not admin_sent:
-                logger.warning(f"Admin email failed for inquiry {inquiry.id}")
-
-        # Send user confirmation (failure-safe)
-        user_sent = send_email(
-            subject="We’ve received your message – BK Tech Hub",
-            body=user_email_body,
-            to_email=inquiry.email
-        )
-        if not user_sent:
-            logger.warning(f"User email failed for inquiry {inquiry.id}")
-
-        # -------------------------
-        # API response (unchanged)
-        # -------------------------
+        # NOTIFICATIONS: Handed off to FastAPI BackgroundTasks
+        # The user receives their response while the SMTP server works in the background
+        background_tasks.add_task(send_notification_emails, inquiry, timestamp)
 
         return InquiryResponse(
             success=True,
@@ -112,96 +107,42 @@ BK Tech Hub Team
             inquiryId=inquiry.id
         )
 
-
     except Exception as e:
-        logger.error(f"Error submitting inquiry: {str(e)}")
+        logger.error(f"CRITICAL: Contact form submission failed: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to submit inquiry: {str(e)}"
+            detail="We encountered an error processing your request. Please try again later."
         )
 
-
-# -------------------------
-# Admin endpoints (MongoDB)
-# -------------------------
+# --- Admin Endpoints (MongoDB Dependent) ---
+# Note: These will return 500 errors if 27017 is blocked, but /contact will remain functional.
 
 @router.get("/inquiries")
-async def get_inquiries(
-    status_filter: Optional[str] = None,
-    limit: int = 50,
-    skip: int = 0
-):
-    """
-    Get all inquiries (Admin endpoint)
-    """
+async def get_inquiries(status_filter: Optional[str] = None, limit: int = 50, skip: int = 0):
+    if not db:
+        raise HTTPException(status_code=503, detail="Database connection unavailable.")
     try:
-        query = {}
-        if status_filter:
-            query["status"] = status_filter
-
+        query = {"status": status_filter} if status_filter else {}
         total = await db.inquiries.count_documents(query)
-
-        cursor = (
-            db.inquiries
-            .find(query)
-            .sort("created_at", -1)
-            .skip(skip)
-            .limit(limit)
-        )
-
+        cursor = db.inquiries.find(query).sort("created_at", -1).skip(skip).limit(limit)
         inquiries = await cursor.to_list(length=limit)
-
-        return {
-            "success": True,
-            "data": inquiries,
-            "total": total,
-            "limit": limit,
-            "skip": skip
-        }
-
+        return {"success": True, "data": inquiries, "total": total}
     except Exception as e:
-        logger.error(f"Error fetching inquiries: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to fetch inquiries")
+        logger.error(f"Admin fetch failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch from MongoDB.")
 
 @router.patch("/inquiries/{inquiry_id}")
-async def update_inquiry_status(
-    inquiry_id: str,
-    status_update: InquiryStatusUpdate
-):
-    """
-    Update inquiry status (Admin endpoint)
-    """
+async def update_inquiry_status(inquiry_id: str, status_update: InquiryStatusUpdate):
+    if not db:
+        raise HTTPException(status_code=503, detail="Database connection unavailable.")
     try:
         result = await db.inquiries.update_one(
             {"id": inquiry_id},
-            {
-                "$set": {
-                    "status": status_update.status,
-                    "updated_at": datetime.utcnow()
-                }
-            }
+            {"$set": {"status": status_update.status, "updated_at": datetime.utcnow()}}
         )
-
         if result.matched_count == 0:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Inquiry not found"
-            )
-
-        inquiry = await db.inquiries.find_one({"id": inquiry_id})
-
-        logger.info(
-            f"Inquiry {inquiry_id} status updated to {status_update.status}"
-        )
-
-        return {
-            "success": True,
-            "message": "Status updated",
-            "data": {"id": inquiry["id"], "status": inquiry["status"]}
-        }
-
-    except HTTPException:
-        raise
+            raise HTTPException(status_code=404, detail="Inquiry not found")
+        return {"success": True, "message": "Status updated"}
     except Exception as e:
-        logger.error(f"Error updating status: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to update status")
+        logger.error(f"Admin update failed: {e}")
+        raise HTTPException(status_code=500, detail="Update failed.")

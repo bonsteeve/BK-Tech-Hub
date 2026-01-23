@@ -97,3 +97,4 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+*bk-tech-hub-99f47b868685.json
