@@ -1,51 +1,65 @@
+import os
+import sys
+import logging
+import uuid
+from pathlib import Path
+from datetime import datetime, timezone
+from typing import List
+
 from fastapi import FastAPI, APIRouter
-from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from a2wsgi import ASGIMiddleware
-
-import os
-import logging
-from pathlib import Path
+from dotenv import load_dotenv
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
-import uuid
-from datetime import datetime, timezone
 
-# ------------------------
-# Routes Import
-# ------------------------
-try:
-    from routes import contact
-except ImportError:
-    contact = None
-    logging.warning("Routes folder or contact.py not found.")
+# ---------------------------------------------------------
+# 1. PATH & ENVIRONMENT CONFIGURATION
+# ---------------------------------------------------------
+# Force the backend directory into sys.path to fix ModuleNotFoundError
+ROOT_DIR = Path(__file__).parent.resolve()
+sys.path.insert(0, str(ROOT_DIR))
 
-# ------------------------
-# Environment & Database
-# ------------------------
-ROOT_DIR = Path(__file__).parent
+# Load .env using absolute path
 load_dotenv(ROOT_DIR / '.env')
 
+# Configure Logging to catch errors in passenger.log
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+
+# ---------------------------------------------------------
+# 2. ROUTES IMPORT (Fixed to be loud on failure)
+# ---------------------------------------------------------
+# Ensure __init__.py exists in 'routes' and 'utils' folders
+try:
+    from routes import contact
+except ImportError as e:
+    logging.error(f"CRITICAL: Could not import routes. Check __init__.py. Error: {e}")
+    raise e
+
+# ---------------------------------------------------------
+# 3. DATABASE CONNECTION
+# ---------------------------------------------------------
 mongo_url = os.getenv("MONGO_URL")
 db_name = os.getenv("DB_NAME")
 
-# Database Connection
+if not mongo_url:
+    logging.error("MONGO_URL not found in environment variables!")
+
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
-# ------------------------
-# App Setup
-# ------------------------
-app = FastAPI(
-    title="BK-Tech-Hub API",
-    root_path="/api"
-)
-api_router = APIRouter()
+# ---------------------------------------------------------
+# 4. APP SETUP
+# ---------------------------------------------------------
+app = FastAPI(title="BK-Tech-Hub API")
 
-# ------------------------
-# Models
-# ------------------------
+# ---------------------------------------------------------
+# 5. MODELS
+# ---------------------------------------------------------
 class StatusCheck(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -55,15 +69,18 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
-# ------------------------
-# API Endpoints
-# ------------------------
+# ---------------------------------------------------------
+# 6. API ENDPOINTS
+# ---------------------------------------------------------
+api_router = APIRouter()
+
 @api_router.get("/")
 async def root():
     return {
         "status": "online", 
         "message": "BK-Tech-Hub Backend is fully operational",
-        "database": "Connected" if mongo_url else "Missing Config"
+        "database": "Connected" if mongo_url else "Missing Config",
+        "environment": "Production (Passenger)"
     }
 
 @api_router.post("/status", response_model=StatusCheck)
@@ -79,22 +96,22 @@ async def get_status_checks():
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
     for check in status_checks:
         if isinstance(check["timestamp"], str):
-            check["timestamp"] = datetime.fromisoformat(check["timestamp"])
+            try:
+                check["timestamp"] = datetime.fromisoformat(check["timestamp"])
+            except ValueError:
+                pass
     return status_checks
 
-# ------------------------
-# Register Routers
-# ------------------------
+# ---------------------------------------------------------
+# 7. REGISTER ROUTERS & MIDDLEWARE
+# ---------------------------------------------------------
 app.include_router(api_router)
 
-if contact:
-    if hasattr(contact, "set_db"):
-        contact.set_db(db)
-    app.include_router(contact.router)
+# Inject database into the contact route and include it
+if hasattr(contact, "set_db"):
+    contact.set_db(db)
+app.include_router(contact.router)
 
-# ------------------------
-# Middleware (CORS)
-# ------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
@@ -103,15 +120,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ------------------------
-# Lifecycle Events
-# ------------------------
+# ---------------------------------------------------------
+# 8. LIFECYCLE & WSGI BRIDGE
+# ---------------------------------------------------------
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
 
-# ------------------------
-# cPanel/WSGI Entry Point (CRITICAL)
-# ------------------------
-# This converts the ASGI FastAPI app into a WSGI app that cPanel can run.
+# WSGI bridge for Passenger
 application = ASGIMiddleware(app)
