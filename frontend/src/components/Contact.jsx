@@ -7,7 +7,8 @@ import { useToast } from '../hooks/use-toast';
 import { companyInfo } from '../mock';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
 const API = `${BACKEND_URL}/api`;
 
 const Contact = () => {
