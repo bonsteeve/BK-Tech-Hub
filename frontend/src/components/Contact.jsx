@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -7,9 +7,8 @@ import { useToast } from '../hooks/use-toast';
 import { companyInfo } from '../mock';
 import axios from 'axios';
 
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || window.location.origin;
-const API = `${BACKEND_URL}/api`;
+// Switched to Formspree endpoint
+const FORMSPREE_API = "https://formspree.io/f/xzdewjkn";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -33,21 +32,29 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(`${API}/contact`, formData);
-
-      toast({
-        title: 'Message Sent!',
-        description: response.data.message,
+      // Sending data directly to Formspree
+      const response = await axios.post(FORMSPREE_API, formData, {
+        headers: {
+          'Accept': 'application/json'
+        }
       });
 
-      // Reset form
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      if (response.status === 200) {
+        toast({
+          title: 'Message Sent!',
+          description: 'Thank you for reaching out. We will get back to you shortly.',
+        });
+
+        // Reset form on success
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      }
     } catch (error) {
       toast({
-        title: 'Error',
-        description: error.response?.data?.detail || 'Failed to send message. Please try again.',
+        title: 'Submission Error',
+        description: 'Oops! There was a problem submitting your form. Please try again.',
         variant: 'destructive'
       });
+      console.error("Formspree Error:", error);
     } finally {
       setIsSubmitting(false);
     }
