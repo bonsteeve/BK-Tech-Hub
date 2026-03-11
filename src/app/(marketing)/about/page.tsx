@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Target, Users, Zap, Heart } from "lucide-react";
 import { HeroPage } from "@/components/sections/hero-page";
 import { Container, Section } from "@/components/layout";
@@ -187,8 +188,13 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-              <span className="text-muted-foreground">[Team Photo]</span>
+            <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+              <Image
+                src="/images/about/about-team.png"
+                alt="BK Tech Hub team collaborating on digital solutions"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </Container>

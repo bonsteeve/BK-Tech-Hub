@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Globe, Bot } from "lucide-react";
 import { Container, Section } from "@/components/layout";
 import { Badge } from "@/components/ui/badge";
+import { FloatingShapes } from "@/components/visuals";
 
 const caseStudies = [
   {
@@ -12,32 +14,38 @@ const caseStudies = [
     client: "TechStart Inc.",
     description:
       "Complete website overhaul resulting in 150% increase in conversions and 40% reduction in bounce rate.",
-    image: "/images/work/case-study-1.jpg",
     tags: ["Web Design", "Development", "SEO"],
     results: [
       { metric: "Conversions", value: "+150%" },
       { metric: "Page Speed", value: "95/100" },
     ],
     href: "/work/techstart-redesign",
+    icon: Globe,
+    image: "/images/work/case-study-ecommerce.png",
+    gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
   },
   {
     title: "AI-Powered Lead Generation",
     client: "GrowthFirst Consulting",
     description:
       "Implemented AI chatbot and automation system that qualified 500+ leads per month with 80% accuracy.",
-    image: "/images/work/case-study-2.jpg",
     tags: ["AI Automation", "Lead Gen"],
     results: [
       { metric: "Leads/Month", value: "500+" },
       { metric: "Time Saved", value: "20hrs/wk" },
     ],
     href: "/work/growthfirst-automation",
+    icon: Bot,
+    image: "/images/work/case-study-automation.png",
+    gradient: "from-purple-500/20 via-pink-500/20 to-orange-500/20",
   },
 ];
 
 export function FeaturedWork() {
   return (
-    <Section variant="muted" id="work">
+    <Section variant="muted" id="work" className="relative">
+      <FloatingShapes variant="section" />
+      
       <Container size="xl">
         {/* Section Header */}
         <motion.div
@@ -75,37 +83,34 @@ export function FeaturedWork() {
               transition={{ delay: index * 0.1 }}
             >
               <Link href={study.href} className="block group">
-                <article className="rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-all duration-300">
-                  {/* Image */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <span className="text-muted-foreground">
-                        [Project Image]
-                      </span>
-                    </div>
-                    {/* Uncomment when images are available */}
-                    {/* <Image
+                <article className="rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                  {/* Visual Area with Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
                       src={study.image}
                       alt={study.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    /> */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+                    />
+
+                    {/* Bottom gradient overlay */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-card to-transparent" />
                     
                     {/* Results Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex gap-4">
+                    <div className="absolute bottom-4 left-4 right-4 flex gap-3">
                       {study.results.map((result) => (
-                        <div
+                        <motion.div
                           key={result.metric}
-                          className="glass rounded-lg px-3 py-2"
+                          className="bg-card/90 backdrop-blur-sm rounded-lg px-4 py-2 border border-border/50"
+                          whileHover={{ scale: 1.05 }}
                         >
-                          <div className="text-lg font-bold text-primary">
+                          <div className="text-xl font-bold text-primary">
                             {result.value}
                           </div>
                           <div className="text-xs text-muted-foreground">
                             {result.metric}
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -119,7 +124,9 @@ export function FeaturedWork() {
                           {study.title}
                         </h3>
                       </div>
-                      <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                      <div className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                        <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
                     </div>
                     <p className="text-muted-foreground mb-4">
                       {study.description}
