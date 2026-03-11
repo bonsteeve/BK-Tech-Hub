@@ -1,25 +1,28 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { homeContent } from "@/content/homepage";
+import { createPageMetadata } from "@/lib/seo";
+import { buildFaqSchema } from "@/lib/schema";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Web Design, SEO, and AI Automation for SMEs",
   description:
     "BK Tech Hub helps growing businesses build modern websites, improve SEO visibility, and implement AI-powered automation for better lead generation.",
-  alternates: {
-    canonical: "/",
-  },
-};
+  path: "/",
+  keywords: ["website design", "SEO services", "AI automation", "lead generation"],
+});
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={buildFaqSchema(homeContent.faq)} />
       <Section className="relative overflow-hidden pt-20 md:pt-28">
         <div
           className="pointer-events-none absolute inset-0 -z-10 bg-ambient-grid opacity-[0.08]"

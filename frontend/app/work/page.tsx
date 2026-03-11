@@ -4,13 +4,15 @@ import Link from "next/link";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
 import { caseStudies } from "@/content/case-studies";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Work / Case Studies",
   description:
     "Explore BK Tech Hub case studies and see how strategic websites, SEO, and automation deliver measurable business outcomes.",
-  alternates: { canonical: "/work" },
-};
+  path: "/work",
+  keywords: ["case studies", "digital project outcomes", "website redesign results"],
+});
 
 export default function WorkPage() {
   return (

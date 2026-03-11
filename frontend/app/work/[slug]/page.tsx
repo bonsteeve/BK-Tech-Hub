@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { CaseStudyTemplate } from "@/components/work/case-study-template";
 import { caseStudies, getCaseStudyBySlug } from "@/content/case-studies";
+import { createPageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
@@ -20,13 +23,12 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
     return { title: "Case Study Not Found" };
   }
 
-  return {
+  return createPageMetadata({
     title: caseStudy.title,
     description: caseStudy.summary,
-    alternates: {
-      canonical: `/work/${caseStudy.slug}`,
-    },
-  };
+    path: `/work/${caseStudy.slug}`,
+    keywords: ["case study", caseStudy.industry, "digital growth results"],
+  });
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
@@ -37,5 +39,16 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
     notFound();
   }
 
-  return <CaseStudyTemplate caseStudy={caseStudy} />;
+  return (
+    <>
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: caseStudy.title, path: `/work/${caseStudy.slug}` },
+        ])}
+      />
+      <CaseStudyTemplate caseStudy={caseStudy} />
+    </>
+  );
 }

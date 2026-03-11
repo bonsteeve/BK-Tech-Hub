@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { BlogPostTemplate } from "@/components/blog/blog-post-template";
 import { blogPosts, getBlogPostBySlug } from "@/content/blog-posts";
+import { createPageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -20,13 +23,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return { title: "Post Not Found" };
   }
 
-  return {
+  return createPageMetadata({
     title: post.title,
     description: post.excerpt,
-    alternates: {
-      canonical: `/blog/${post.slug}`,
-    },
-  };
+    path: `/blog/${post.slug}`,
+    keywords: ["blog", post.category, "BK Tech Hub insights"],
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -37,5 +39,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  return <BlogPostTemplate post={post} />;
+  return (
+    <>
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
+      />
+      <BlogPostTemplate post={post} />
+    </>
+  );
 }

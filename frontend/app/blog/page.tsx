@@ -4,13 +4,15 @@ import Link from "next/link";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/content/blog-posts";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Blog / Insights",
   description:
     "Insights from BK Tech Hub on web design, SEO, conversion strategy, and AI automation for growing businesses.",
-  alternates: { canonical: "/blog" },
-};
+  path: "/blog",
+  keywords: ["web design insights", "technical SEO blog", "AI automation articles"],
+});
 
 export default function BlogPage() {
   return (
