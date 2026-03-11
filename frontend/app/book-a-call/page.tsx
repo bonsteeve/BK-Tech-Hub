@@ -4,13 +4,15 @@ import Link from "next/link";
 import { BookCallForm } from "@/components/forms/book-call-form";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Book a Call",
   description:
     "Book a strategy call with BK Tech Hub to discuss your website, SEO, and AI automation priorities.",
-  alternates: { canonical: "/book-a-call" },
-};
+  path: "/book-a-call",
+  keywords: ["book strategy call", "website consultation", "digital growth consultation"],
+});
 
 export default function BookCallPage() {
   return (

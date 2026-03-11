@@ -5,14 +5,16 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
+import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
   description:
     "Contact BK Tech Hub to discuss your website redesign, SEO growth plan, or AI automation implementation.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+  keywords: ["contact BK Tech Hub", "website project inquiry", "SEO consultation"],
+});
 
 export default function ContactPage() {
   return (

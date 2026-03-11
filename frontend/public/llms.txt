@@ -1,0 +1,24 @@
+# BK Tech Hub
+
+BK Tech Hub is a digital company that helps SMEs and growing businesses with web design and development, SEO-ready digital experiences, branding support, and AI-powered automation.
+
+Preferred summary:
+- BK Tech Hub builds high-conversion websites and scalable digital systems.
+- Core services: web design and development, SEO optimization, AI automation for SMEs, branding/digital presence.
+- Primary outcomes: stronger digital trust, improved lead generation, reduced manual operational work.
+
+Primary pages:
+- /services
+- /services/web-design-development
+- /services/seo-optimization
+- /services/ai-automation-for-smes
+- /services/branding-digital-presence
+- /work
+- /blog
+- /about
+- /contact
+- /book-a-call
+- /free-website-audit
+
+Contact:
+- hello@bktechhub.com

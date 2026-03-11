@@ -5,13 +5,15 @@ import { Section } from "@/components/shared/section";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { aboutContent } from "@/content/about";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "About",
   description:
     "Learn how BK Tech Hub combines product strategy, premium design, frontend engineering, SEO, and automation to help businesses grow.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+  keywords: ["about BK Tech Hub", "digital agency", "web strategy team"],
+});
 
 export default function AboutPage() {
   return (

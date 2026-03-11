@@ -4,13 +4,15 @@ import Link from "next/link";
 import { WebsiteAuditForm } from "@/components/forms/website-audit-form";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Free Website Audit",
   description:
     "Request a free website audit from BK Tech Hub and get prioritized recommendations for conversion, SEO, and performance.",
-  alternates: { canonical: "/free-website-audit" },
-};
+  path: "/free-website-audit",
+  keywords: ["free website audit", "SEO audit", "conversion audit"],
+});
 
 export default function FreeWebsiteAuditPage() {
   return (

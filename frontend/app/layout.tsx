@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Manrope, Sora } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { JsonLd } from "@/components/seo/json-ld";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
+import { buildLocalBusinessSchema, buildOrganizationSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
 const manrope = Manrope({
@@ -23,6 +25,14 @@ export const metadata: Metadata = {
     template: "%s | BK Tech Hub",
   },
   description: siteConfig.description,
+  keywords: [
+    "web design",
+    "web development",
+    "technical SEO",
+    "AI automation",
+    "digital agency",
+    "SME growth",
+  ],
   alternates: {
     canonical: "/",
   },
@@ -38,6 +48,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BK Tech Hub | Modern Web Design, SEO, and AI Automation",
     description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -56,6 +70,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <div className="relative min-h-screen overflow-x-clip">
+          <JsonLd data={[buildOrganizationSchema(), buildLocalBusinessSchema()]} />
           <SiteHeader />
           <main id="main-content">{children}</main>
           <SiteFooter />

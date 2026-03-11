@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { ServicePageTemplate } from "@/components/services/service-page-template";
 import { getServiceBySlug, services } from "@/content/services";
+import { createPageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema, buildFaqSchema, buildServiceSchema } from "@/lib/schema";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -22,13 +25,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     };
   }
 
-  return {
+  return createPageMetadata({
     title: service.name,
     description: service.summary,
-    alternates: {
-      canonical: `/services/${service.slug}`,
-    },
-  };
+    path: `/services/${service.slug}`,
+    keywords: [service.name, "BK Tech Hub services", "digital growth services"],
+  });
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {
@@ -39,5 +41,24 @@ export default async function ServicePage({ params }: ServicePageProps) {
     notFound();
   }
 
-  return <ServicePageTemplate service={service} />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          buildServiceSchema({
+            name: service.name,
+            path: `/services/${service.slug}`,
+            description: service.summary,
+          }),
+          buildFaqSchema(service.faq),
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.name, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
+      <ServicePageTemplate service={service} />
+    </>
+  );
 }
