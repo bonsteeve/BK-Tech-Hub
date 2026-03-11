@@ -1,4 +1,5 @@
 export { HeroHome } from "./hero-home";
+export { HeroPage } from "./hero-page";
 export { LogoCloud } from "./logo-cloud";
 export { ServicesGrid } from "./services-grid";
 export { FeaturedWork } from "./featured-work";
@@ -8,3 +9,4 @@ export { Industries } from "./industries";
 export { Testimonials } from "./testimonials";
 export { FAQ } from "./faq";
 export { CTASection } from "./cta-section";
+export { ServicePageTemplate } from "./service-page-template";
