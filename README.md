@@ -1,67 +1,36 @@
-# BK Tech Hub Website
-
-A premium, high-converting sales website for BK Tech Hub - a digital company helping businesses with website design, development, SEO-ready web experiences, and AI-powered business automation.
-
-## Tech Stack
-
-- **Framework:** Next.js 15 with App Router
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **UI Components:** shadcn/ui
-- **Animations:** Framer Motion
-- **CMS:** Sanity (CMS-ready architecture)
-- **Deployment:** Vercel
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
+First, run the development server:
+
 ```bash
-# Install dependencies
-npm install
-
-# Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Project Structure
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-See [PLAN.md](./PLAN.md) for complete project documentation including:
-- Sitemap & Information Architecture
-- Content Model
-- Design System
-- Component Inventory
-- Homepage Copy
-- SEO Strategy
-- Implementation Phases
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Development
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### Branch Strategy
+## Learn More
 
-- `main` - Production-ready code
-- `rebuild` - Active development branch
-- Feature branches merge into `rebuild`
+To learn more about Next.js, take a look at the following resources:
 
-### Key Directories
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-```
-src/
-├── app/          # Next.js App Router pages
-├── components/   # React components
-├── lib/          # Utilities and helpers
-├── hooks/        # Custom React hooks
-└── types/        # TypeScript types
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deployment
+## Deploy on Vercel
 
-This project is configured for deployment on Vercel. See [PLAN.md](./PLAN.md#deployment-guide) for detailed deployment instructions.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License
-
-Private - BK Tech Hub
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
