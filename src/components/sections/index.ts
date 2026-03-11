@@ -1,0 +1,10 @@
+export { HeroHome } from "./hero-home";
+export { LogoCloud } from "./logo-cloud";
+export { ServicesGrid } from "./services-grid";
+export { FeaturedWork } from "./featured-work";
+export { WhyChooseUs } from "./why-choose-us";
+export { Process } from "./process";
+export { Industries } from "./industries";
+export { Testimonials } from "./testimonials";
+export { FAQ } from "./faq";
+export { CTASection } from "./cta-section";
