@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 223 39% 5%;
+  --foreground: 214 38% 97%;
+  --card: 219 42% 10%;
+  --card-foreground: 214 38% 97%;
+  --border: 217 30% 25%;
+  --muted: 218 35% 13%;
+  --muted-foreground: 217 18% 72%;
+  --accent: 174 78% 43%;
+  --accent-foreground: 223 39% 5%;
+  --primary: 174 78% 43%;
+  --primary-foreground: 223 39% 5%;
+  --secondary: 214 83% 62%;
+  --secondary-foreground: 223 39% 5%;
+  --radius-lg: 1.5rem;
+  --radius-md: 1.125rem;
+  --radius-sm: 0.75rem;
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-feature-settings: "ss01" 1, "cv02" 1;
+  background-image: radial-gradient(circle at 16% 10%, rgba(25, 194, 176, 0.15), transparent 26%),
+    radial-gradient(circle at 80% 2%, rgba(78, 163, 255, 0.16), transparent 32%),
+    linear-gradient(180deg, #070a12 0%, #0d1320 100%);
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(25, 194, 176, 0.25);
+  color: #f5f7fa;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .surface-glow {
+    box-shadow: 0 0 0 1px rgba(165, 176, 194, 0.12), 0 20px 60px rgba(7, 10, 18, 0.45),
+      0 0 80px rgba(25, 194, 176, 0.12);
+  }
+}
