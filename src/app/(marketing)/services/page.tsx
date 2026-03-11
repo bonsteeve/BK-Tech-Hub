@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe, Search, Bot, Palette } from "lucide-react";
 import { HeroPage } from "@/components/sections/hero-page";
 import { Container, Section } from "@/components/layout";
 import { CTASection } from "@/components/sections";
@@ -10,6 +10,13 @@ import { generateServiceSchema, generateWebPageSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/constants";
 import { servicesData } from "@/lib/services-data";
 import { cn } from "@/lib/utils";
+
+const iconMap = {
+  Globe,
+  Search,
+  Bot,
+  Palette,
+} as const;
 
 export const metadata: Metadata = {
   title: "Services",
@@ -74,7 +81,10 @@ export default function ServicesPage() {
                           "bg-gradient-to-br from-primary/20 to-secondary/20"
                         )}
                       >
-                        <service.icon className="w-7 h-7 text-primary" />
+                        {(() => {
+                          const Icon = iconMap[service.iconName];
+                          return <Icon className="w-7 h-7 text-primary" />;
+                        })()}
                       </div>
                       <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </div>

@@ -1,5 +1,3 @@
-import { Globe, Search, Bot, Palette } from "lucide-react";
-
 export const servicesData = {
   "web-design-development": {
     slug: "web-design-development",
@@ -10,7 +8,7 @@ export const servicesData = {
     headlineHighlight: "Performance & Conversions",
     description:
       "We create stunning, high-performance websites that turn visitors into customers. From strategy to launch, we handle every aspect of your digital presence.",
-    icon: Globe,
+    iconName: "Globe" as const,
     features: [
       {
         title: "Custom Design",
@@ -109,7 +107,7 @@ export const servicesData = {
     headlineHighlight: "Ideal Customers",
     description:
       "We implement technical SEO, content strategy, and ongoing optimization to increase your organic visibility and drive qualified traffic to your website.",
-    icon: Search,
+    iconName: "Search" as const,
     features: [
       {
         title: "Technical SEO Audit",
@@ -208,7 +206,7 @@ export const servicesData = {
     headlineHighlight: "Scale Your Operations",
     description:
       "We implement intelligent automation systems that save time, reduce costs, and help your team focus on what matters most—without replacing your people.",
-    icon: Bot,
+    iconName: "Bot" as const,
     features: [
       {
         title: "Workflow Automation",
@@ -307,7 +305,7 @@ export const servicesData = {
     headlineHighlight: "Commands Attention",
     description:
       "We develop brand identities and digital strategies that communicate your value, build trust, and help you stand out in a crowded market.",
-    icon: Palette,
+    iconName: "Palette" as const,
     features: [
       {
         title: "Brand Strategy",

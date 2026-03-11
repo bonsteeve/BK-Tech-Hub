@@ -27,7 +27,6 @@ interface ServicePageTemplateProps {
     headline: string;
     headlineHighlight: string;
     description: string;
-    icon: React.ComponentType<{ className?: string }>;
     features: Array<{ title: string; description: string }>;
     benefits: string[];
     process: Array<{ title: string; description: string }>;
@@ -236,9 +235,9 @@ export function ServicePageTemplate({ service }: ServicePageTemplateProps) {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion className="w-full">
               {service.faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionItem key={index}>
                   <AccordionTrigger className="text-left font-medium hover:text-primary">
                     {faq.question}
                   </AccordionTrigger>

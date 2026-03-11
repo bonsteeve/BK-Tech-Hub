@@ -72,9 +72,9 @@ export function FAQ() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion className="w-full">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionItem key={index}>
                 <AccordionTrigger className="text-left font-medium hover:text-primary">
                   {faq.question}
                 </AccordionTrigger>
