@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Manrope, Sora } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { SiteFooter } from "@/components/site/site-footer";
+import { SiteHeader } from "@/components/site/site-header";
 import { siteConfig } from "@/lib/site-config";
 
 const manrope = Manrope({
@@ -46,7 +48,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${manrope.variable} ${sora.variable} font-sans`}>{children}</body>
+      <body className={`${manrope.variable} ${sora.variable} font-sans`}>
+        <a
+          href="#main-content"
+          className="sr-only z-[999] focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-2 focus:text-background"
+        >
+          Skip to content
+        </a>
+        <div className="relative min-h-screen overflow-x-clip">
+          <SiteHeader />
+          <main id="main-content">{children}</main>
+          <SiteFooter />
+        </div>
+      </body>
     </html>
   );
 }
