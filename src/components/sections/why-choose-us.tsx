@@ -12,6 +12,8 @@ const reasons = [
     description:
       "Every decision is backed by data. We focus on metrics that matter—leads, conversions, and revenue growth.",
     color: "from-cyan-500 to-blue-500",
+    cardBg: "bg-card-primary",
+    iconBg: "bg-sky-500",
   },
   {
     icon: Code,
@@ -19,6 +21,8 @@ const reasons = [
     description:
       "Modern tech stack, clean code, and best practices. Your website will be fast, secure, and built to last.",
     color: "from-violet-500 to-purple-500",
+    cardBg: "bg-card-secondary",
+    iconBg: "bg-violet-500",
   },
   {
     icon: Handshake,
@@ -26,6 +30,8 @@ const reasons = [
     description:
       "We're not just vendors—we're partners in your growth. Transparent communication and ongoing support.",
     color: "from-emerald-500 to-green-500",
+    cardBg: "bg-card-success",
+    iconBg: "bg-emerald-500",
   },
   {
     icon: Rocket,
@@ -33,6 +39,8 @@ const reasons = [
     description:
       "Stay ahead with AI integration, semantic SEO, and scalable architecture designed for tomorrow.",
     color: "from-orange-500 to-red-500",
+    cardBg: "bg-card-warning",
+    iconBg: "bg-amber-500",
   },
 ];
 
@@ -193,15 +201,14 @@ export function WhyChooseUs() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className={cn(
-                    "flex gap-4 p-4 rounded-xl border border-border/50 bg-card/30",
-                    "hover:border-primary/30 hover:bg-card/50 transition-all duration-300 group"
+                    "flex gap-4 p-5 rounded-xl border transition-all duration-300 group",
+                    reason.cardBg
                   )}
                 >
                   <div
                     className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center shrink-0",
-                      "bg-gradient-to-br",
-                      reason.color
+                      "w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-lg",
+                      reason.iconBg
                     )}
                   >
                     <reason.icon className="w-6 h-6 text-white" />

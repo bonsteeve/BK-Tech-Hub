@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "BK Tech Hub",
   description:
-    "We help SMEs and growing businesses generate more leads through stunning websites, strategic SEO, and AI-powered automation.",
+    "We help ambitious businesses generate more leads through stunning websites, strategic SEO, and AI-powered automation.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://bktechhub.com",
   email: "hello@bktechhub.com",
   phone: "+1 (555) 000-0000",
@@ -72,12 +72,12 @@ export const navigation = {
 
 export const ctaLinks = {
   bookCall: {
-    text: "Book a Free Strategy Call",
-    href: "/book-a-call",
+    text: "Book a Call",
+    href: "/contact",
   },
   freeAudit: {
-    text: "Get a Free Website Audit",
-    href: "/free-website-audit",
+    text: "Get Free Audit",
+    href: "/contact?type=audit",
   },
   contact: {
     text: "Contact Us",
@@ -86,5 +86,9 @@ export const ctaLinks = {
   viewWork: {
     text: "See Our Work",
     href: "/work",
+  },
+  viewServices: {
+    text: "View Services",
+    href: "/services",
   },
 };

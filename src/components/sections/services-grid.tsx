@@ -22,7 +22,8 @@ const services = [
       "SEO-ready architecture",
     ],
     gradient: "from-cyan-500 to-blue-600",
-    bgGradient: "from-cyan-500/10 via-blue-500/5 to-transparent",
+    cardBg: "bg-card-primary",
+    accentColor: "text-sky-500 dark:text-sky-400",
   },
   {
     title: "SEO Optimization",
@@ -38,7 +39,8 @@ const services = [
       "Performance monitoring",
     ],
     gradient: "from-green-500 to-emerald-600",
-    bgGradient: "from-green-500/10 via-emerald-500/5 to-transparent",
+    cardBg: "bg-card-success",
+    accentColor: "text-emerald-500 dark:text-emerald-400",
   },
   {
     title: "AI Automation for SMEs",
@@ -54,7 +56,8 @@ const services = [
       "Custom integrations",
     ],
     gradient: "from-purple-500 to-violet-600",
-    bgGradient: "from-purple-500/10 via-violet-500/5 to-transparent",
+    cardBg: "bg-card-secondary",
+    accentColor: "text-violet-500 dark:text-violet-400",
   },
   {
     title: "Branding & Digital Presence",
@@ -70,13 +73,14 @@ const services = [
       "Digital strategy",
     ],
     gradient: "from-orange-500 to-pink-600",
-    bgGradient: "from-orange-500/10 via-pink-500/5 to-transparent",
+    cardBg: "bg-card-rose",
+    accentColor: "text-rose-500 dark:text-rose-400",
   },
 ];
 
 export function ServicesGrid() {
   return (
-    <Section id="services" className="relative overflow-hidden">
+    <Section id="services" className="relative overflow-hidden bg-mesh-1">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 -left-64 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]" />
@@ -118,7 +122,11 @@ export function ServicesGrid() {
               transition={{ delay: index * 0.1 }}
             >
               <Link href={service.href} className="block h-full group">
-                <div className="h-full rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 overflow-hidden hover:shadow-xl hover:shadow-primary/5">
+                <div className={cn(
+                  "h-full rounded-2xl border transition-all duration-500 overflow-hidden",
+                  "hover:shadow-xl hover:shadow-primary/5",
+                  service.cardBg
+                )}>
                   {/* Visual Header with Image */}
                   <div className="relative h-52 overflow-hidden">
                     <Image
@@ -128,19 +136,19 @@ export function ServicesGrid() {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                     
                     {/* Arrow indicator */}
                     <div className="absolute top-4 right-4">
                       <div className="w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-0.5 transition-transform" />
+                        <ArrowRight className={cn("w-5 h-5 group-hover:translate-x-0.5 transition-transform", service.accentColor)} />
                       </div>
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                    <h3 className={cn("text-xl font-semibold mb-3 transition-colors", `group-hover:${service.accentColor}`)}>
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -156,7 +164,7 @@ export function ServicesGrid() {
                           viewport={{ once: true }}
                           transition={{ delay: 0.3 + i * 0.05 }}
                         >
-                          <CheckCircle className="w-4 h-4 text-primary/60 shrink-0" />
+                          <CheckCircle className={cn("w-4 h-4 shrink-0", service.accentColor)} />
                           {feature}
                         </motion.li>
                       ))}

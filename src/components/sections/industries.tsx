@@ -17,36 +17,42 @@ const industries = [
     name: "Professional Services", 
     icon: Briefcase,
     gradient: "from-blue-500 to-cyan-500",
+    cardBg: "bg-card-primary",
     description: "Law firms, consultancies, agencies"
   },
   { 
     name: "SaaS & Technology", 
     icon: Code2,
     gradient: "from-violet-500 to-purple-500",
+    cardBg: "bg-card-secondary",
     description: "Software companies, startups"
   },
   { 
     name: "E-commerce & Retail", 
     icon: ShoppingCart,
     gradient: "from-orange-500 to-red-500",
+    cardBg: "bg-card-warning",
     description: "Online stores, marketplaces"
   },
   { 
     name: "Healthcare & Wellness", 
     icon: Heart,
     gradient: "from-pink-500 to-rose-500",
+    cardBg: "bg-card-rose",
     description: "Clinics, wellness centers"
   },
   { 
     name: "Finance & Consulting", 
     icon: TrendingUp,
     gradient: "from-emerald-500 to-green-500",
+    cardBg: "bg-card-success",
     description: "Financial services, advisors"
   },
   { 
     name: "Manufacturing & Industrial", 
     icon: Factory,
     gradient: "from-amber-500 to-yellow-500",
+    cardBg: "bg-card-warning",
     description: "B2B manufacturing, industrial"
   },
 ];
@@ -126,16 +132,11 @@ export function Industries() {
             >
               <div
                 className={cn(
-                  "relative flex items-center gap-4 p-5 rounded-2xl",
-                  "bg-card/50 border border-border/50",
-                  "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                  "relative flex items-center gap-4 p-5 rounded-2xl border",
+                  "hover:shadow-lg hover:shadow-primary/5 transition-all duration-300",
+                  industry.cardBg
                 )}
               >
-                {/* Background gradient on hover */}
-                <div className={cn(
-                  "absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity",
-                  industry.gradient
-                )} />
 
                 {/* Icon */}
                 <motion.div

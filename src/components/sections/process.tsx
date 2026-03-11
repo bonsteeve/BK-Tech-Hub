@@ -14,6 +14,8 @@ const steps = [
     icon: Search,
     color: "from-cyan-500 to-blue-500",
     bgColor: "bg-cyan-500/10",
+    cardBg: "bg-card-primary",
+    iconBg: "bg-sky-500",
   },
   {
     number: "02",
@@ -23,6 +25,8 @@ const steps = [
     icon: Lightbulb,
     color: "from-amber-500 to-orange-500",
     bgColor: "bg-amber-500/10",
+    cardBg: "bg-card-warning",
+    iconBg: "bg-amber-500",
   },
   {
     number: "03",
@@ -32,6 +36,8 @@ const steps = [
     icon: Wrench,
     color: "from-violet-500 to-purple-500",
     bgColor: "bg-violet-500/10",
+    cardBg: "bg-card-secondary",
+    iconBg: "bg-violet-500",
   },
   {
     number: "04",
@@ -41,6 +47,8 @@ const steps = [
     icon: Rocket,
     color: "from-emerald-500 to-green-500",
     bgColor: "bg-emerald-500/10",
+    cardBg: "bg-card-success",
+    iconBg: "bg-emerald-500",
   },
 ];
 
@@ -156,7 +164,7 @@ export function Process() {
         </div>
 
         {/* Process Steps - Mobile/Tablet */}
-        <div className="lg:hidden space-y-6">
+        <div className="lg:hidden space-y-4">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -166,18 +174,20 @@ export function Process() {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <div className="flex gap-6 items-start">
+              <div className={cn(
+                "flex gap-5 items-start p-5 rounded-2xl border transition-all duration-300",
+                step.cardBg
+              )}>
                 {/* Icon */}
                 <div className="relative shrink-0">
                   <motion.div
                     className={cn(
-                      "w-16 h-16 rounded-xl flex items-center justify-center",
-                      "bg-gradient-to-br shadow-lg",
-                      step.color
+                      "w-14 h-14 rounded-xl flex items-center justify-center shadow-lg",
+                      step.iconBg
                     )}
                     whileHover={{ scale: 1.1 }}
                   >
-                    <step.icon className="w-8 h-8 text-white" />
+                    <step.icon className="w-7 h-7 text-white" />
                   </motion.div>
                   <span className="absolute -top-2 -right-2 w-7 h-7 rounded-lg bg-card border border-primary text-primary text-xs font-bold flex items-center justify-center">
                     {step.number}
@@ -185,7 +195,7 @@ export function Process() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 pt-2">
+                <div className="flex-1 pt-1">
                   <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     {step.description}
@@ -195,9 +205,8 @@ export function Process() {
 
               {/* Connector */}
               {index < steps.length - 1 && (
-                <div className="flex items-center ml-8 my-4">
-                  <div className="w-0.5 h-8 bg-gradient-to-b from-border to-transparent" />
-                  <ArrowRight className="w-4 h-4 text-muted-foreground/50 ml-2 rotate-90" />
+                <div className="flex items-center justify-center my-2">
+                  <ArrowRight className="w-5 h-5 text-primary/40 rotate-90" />
                 </div>
               )}
             </motion.div>

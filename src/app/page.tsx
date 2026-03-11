@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import {
   HeroHome,
+  StatsBar,
   LogoCloud,
   ServicesGrid,
   FeaturedWork,
@@ -61,6 +62,7 @@ export default function HomePage() {
 
       <main>
         <HeroHome />
+        <StatsBar />
         <LogoCloud />
         <ServicesGrid />
         <FeaturedWork />

@@ -9,12 +9,10 @@ interface GradientMeshProps {
 export function GradientMesh({ className }: GradientMeshProps) {
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Primary gradient orb */}
+      {/* Primary gradient orb - adapts to theme */}
       <motion.div
-        className="absolute w-[800px] h-[800px] rounded-full"
+        className="absolute w-[800px] h-[800px] rounded-full bg-primary/10 blur-[120px]"
         style={{
-          background:
-            "radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)",
           top: "-20%",
           left: "-10%",
         }}
@@ -32,10 +30,8 @@ export function GradientMesh({ className }: GradientMeshProps) {
 
       {/* Secondary gradient orb */}
       <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full"
+        className="absolute w-[600px] h-[600px] rounded-full bg-secondary/10 blur-[120px]"
         style={{
-          background:
-            "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
           bottom: "-10%",
           right: "-5%",
         }}
@@ -53,10 +49,8 @@ export function GradientMesh({ className }: GradientMeshProps) {
 
       {/* Accent orb */}
       <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full"
+        className="absolute w-[400px] h-[400px] rounded-full bg-primary/5 blur-[100px]"
         style={{
-          background:
-            "radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%)",
           top: "40%",
           right: "20%",
         }}

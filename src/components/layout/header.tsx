@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Container } from "./container";
+import { ThemeToggleSimple } from "@/components/theme-toggle";
 import { navigation, ctaLinks } from "@/lib/constants";
 
 export function Header() {
@@ -37,22 +38,41 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed left-0 right-0 z-50 transition-all duration-500",
           isScrolled
-            ? "bg-background/80 backdrop-blur-lg border-b border-border"
-            : "bg-transparent"
+            ? "top-3 px-4 md:px-6"
+            : "top-0"
         )}
       >
-        <Container size="xl">
-          <nav className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center gap-2 font-display font-bold text-xl"
-            >
-              <span className="text-gradient">BK</span>
-              <span className="text-foreground">Tech Hub</span>
-            </Link>
+        <div
+          className={cn(
+            "transition-all duration-500",
+            isScrolled
+              ? "mx-auto max-w-[1400px] rounded-2xl backdrop-blur-xl border shadow-lg"
+              : "bg-transparent border-transparent"
+          )}
+          style={isScrolled ? {
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            borderColor: 'rgba(229, 231, 235, 1)',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)'
+          } : undefined}
+        >
+          <Container size="xl" className={cn(isScrolled && "px-4 md:px-6")}>
+            <nav className={cn(
+              "flex items-center justify-between transition-all duration-300",
+              isScrolled ? "h-16" : "h-16 md:h-20"
+            )}>
+              {/* Logo */}
+              <Link
+                href="/"
+                className="flex items-center gap-2 font-display font-bold text-xl"
+              >
+                <span className="text-gradient">BK</span>
+                <span 
+                  className="transition-colors duration-300"
+                  style={isScrolled ? { color: '#000000' } : undefined}
+                >Tech Hub</span>
+              </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
@@ -65,8 +85,9 @@ export function Header() {
                 <button
                   className={cn(
                     "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors",
-                    "text-muted-foreground hover:text-foreground"
+                    !isScrolled && "text-muted-foreground hover:text-foreground"
                   )}
+                  style={isScrolled ? { color: '#000000' } : undefined}
                 >
                   Services
                   <ChevronDown
@@ -114,17 +135,19 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "px-4 py-2 text-sm font-medium transition-colors",
-                      "text-muted-foreground hover:text-foreground"
+                      "px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
+                      !isScrolled && "text-muted-foreground hover:text-foreground"
                     )}
+                    style={isScrolled ? { color: '#000000' } : undefined}
                   >
                     {item.name}
                   </Link>
                 ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="hidden md:flex items-center gap-4">
+            {/* CTA Button & Theme Toggle */}
+            <div className="hidden md:flex items-center gap-3">
+              <ThemeToggleSimple />
               <Button asChild>
                 <Link href={ctaLinks.bookCall.href}>
                   {ctaLinks.bookCall.text}
@@ -144,8 +167,9 @@ export function Header() {
                 <Menu className="h-6 w-6" />
               )}
             </button>
-          </nav>
-        </Container>
+            </nav>
+          </Container>
+        </div>
       </header>
 
       {/* Mobile Menu */}
@@ -206,6 +230,10 @@ export function Header() {
 
                 {/* Mobile CTA */}
                 <div className="mt-auto space-y-3">
+                  <div className="flex items-center justify-between py-3 border-t border-border mb-3">
+                    <span className="text-sm text-muted-foreground">Theme</span>
+                    <ThemeToggleSimple />
+                  </div>
                   <Button asChild className="w-full">
                     <Link href={ctaLinks.bookCall.href}>
                       {ctaLinks.bookCall.text}

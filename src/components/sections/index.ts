@@ -1,5 +1,6 @@
 export { HeroHome } from "./hero-home";
 export { HeroPage } from "./hero-page";
+export { StatsBar } from "./stats-bar";
 export { LogoCloud } from "./logo-cloud";
 export { ServicesGrid } from "./services-grid";
 export { FeaturedWork } from "./featured-work";

@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Globe, Bot } from "lucide-react";
 import { Container, Section } from "@/components/layout";
 import { Badge } from "@/components/ui/badge";
 import { FloatingShapes } from "@/components/visuals";
+import { cn } from "@/lib/utils";
 
 const caseStudies = [
   {
@@ -22,7 +23,8 @@ const caseStudies = [
     href: "/work/techstart-redesign",
     icon: Globe,
     image: "/images/work/case-study-ecommerce.png",
-    gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
+    cardBg: "bg-card-primary",
+    accentColor: "text-sky-500 dark:text-sky-400",
   },
   {
     title: "AI-Powered Lead Generation",
@@ -37,13 +39,14 @@ const caseStudies = [
     href: "/work/growthfirst-automation",
     icon: Bot,
     image: "/images/work/case-study-automation.png",
-    gradient: "from-purple-500/20 via-pink-500/20 to-orange-500/20",
+    cardBg: "bg-card-secondary",
+    accentColor: "text-violet-500 dark:text-violet-400",
   },
 ];
 
 export function FeaturedWork() {
   return (
-    <Section variant="muted" id="work" className="relative">
+    <Section variant="muted" id="work" className="relative bg-mesh-2">
       <FloatingShapes variant="section" />
       
       <Container size="xl">
@@ -83,7 +86,11 @@ export function FeaturedWork() {
               transition={{ delay: index * 0.1 }}
             >
               <Link href={study.href} className="block group">
-                <article className="rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                <article className={cn(
+                  "rounded-2xl overflow-hidden border transition-all duration-300",
+                  "hover:shadow-lg hover:shadow-primary/5",
+                  study.cardBg
+                )}>
                   {/* Visual Area with Image */}
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
@@ -94,7 +101,7 @@ export function FeaturedWork() {
                     />
 
                     {/* Bottom gradient overlay */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-card to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
                     
                     {/* Results Overlay */}
                     <div className="absolute bottom-4 left-4 right-4 flex gap-3">
@@ -104,7 +111,7 @@ export function FeaturedWork() {
                           className="bg-card/90 backdrop-blur-sm rounded-lg px-4 py-2 border border-border/50"
                           whileHover={{ scale: 1.05 }}
                         >
-                          <div className="text-xl font-bold text-primary">
+                          <div className={cn("text-xl font-bold", study.accentColor)}>
                             {result.value}
                           </div>
                           <div className="text-xs text-muted-foreground">
@@ -119,7 +126,7 @@ export function FeaturedWork() {
                   <div className="p-6">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div>
-                        <p className="text-sm text-primary mb-1">{study.client}</p>
+                        <p className={cn("text-sm mb-1", study.accentColor)}>{study.client}</p>
                         <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
                           {study.title}
                         </h3>
