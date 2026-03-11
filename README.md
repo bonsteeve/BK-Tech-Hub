@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BK Tech Hub Website
+
+A premium, high-converting sales website for BK Tech Hub - a digital company helping businesses with website design, development, SEO-ready web experiences, and AI-powered business automation.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 with App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **UI Components:** shadcn/ui
+- **Animations:** Framer Motion
+- **CMS:** Sanity (CMS-ready architecture)
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.local.example .env.local
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── (marketing)/        # Marketing pages group
+│   ├── api/                # API routes
+│   ├── layout.tsx          # Root layout
+│   ├── globals.css         # Global styles & design tokens
+│   ├── sitemap.ts          # Dynamic sitemap
+│   └── robots.ts           # Robots.txt configuration
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── layout/             # Layout components (Header, Footer)
+│   ├── sections/           # Page sections
+│   ├── cards/              # Card components
+│   ├── forms/              # Form components
+│   └── seo/                # SEO components (JsonLd, Breadcrumbs)
+├── lib/
+│   ├── utils.ts            # Utility functions
+│   ├── constants.ts        # Site configuration
+│   ├── schema.ts           # JSON-LD schema generators
+│   └── sanity/             # Sanity CMS utilities
+├── hooks/                  # Custom React hooks
+└── types/                  # TypeScript types
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Design System
 
-## Learn More
+### Color Palette
 
-To learn more about Next.js, take a look at the following resources:
+- **Primary:** Electric Cyan (#00D4FF)
+- **Secondary:** Violet (#8B5CF6)
+- **Background:** Deep Black (#0A0A0B)
+- **Elevated:** Card Black (#111113)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Typography
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Display Font:** Plus Jakarta Sans
+- **Body Font:** Inter
+- **Monospace:** JetBrains Mono
 
-## Deploy on Vercel
+### Key Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Dark mode by default
+- Elegant motion with Framer Motion
+- Mobile-first responsive design
+- Fully accessible (WCAG-conscious)
+- SEO optimized with JSON-LD schemas
+- AI-optimized content structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Branch Strategy
+
+- `main` - Production-ready code
+- `rebuild` - Active development branch
+- Feature branches merge into `rebuild`
+
+## Development Workflow
+
+1. Create feature branch from `rebuild`
+2. Implement changes
+3. Test locally
+4. Merge to `rebuild`
+5. When stable, merge `rebuild` to `main`
+
+## SEO Features
+
+- Semantic HTML structure
+- Dynamic metadata with Next.js Metadata API
+- JSON-LD structured data (Organization, Service, FAQ, etc.)
+- Automatic sitemap generation
+- Robots.txt configuration
+- Open Graph and Twitter cards
+- llms.txt for AI systems
+
+## Deployment
+
+This project is configured for deployment on Vercel.
+
+1. Connect your repository to Vercel
+2. Configure environment variables
+3. Deploy
+
+See [PLAN.md](./PLAN.md) for detailed documentation.
+
+## License
+
+Private - BK Tech Hub

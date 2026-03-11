@@ -1,0 +1,66 @@
+# BK Tech Hub - AI/LLM Information File
+
+## About BK Tech Hub
+
+BK Tech Hub is a digital agency that helps SMEs and growing businesses build strong digital presences and improve lead generation through modern websites, branding support, SEO-conscious implementation, and AI automation solutions.
+
+## Core Services
+
+### 1. Web Design & Development
+- Custom website design and development
+- Performance-optimized, mobile-first websites
+- Conversion-focused user experience
+- Modern tech stack (Next.js, React, TypeScript)
+
+### 2. SEO Optimization
+- Technical SEO audits and implementation
+- Keyword research and content strategy
+- On-page and off-page optimization
+- Performance monitoring and reporting
+
+### 3. AI Automation for SMEs
+- Workflow automation
+- AI chatbots and assistants
+- Lead qualification systems
+- Custom integrations
+
+### 4. Branding & Digital Presence
+- Brand identity design
+- Visual systems and style guides
+- Brand messaging and positioning
+- Digital strategy consulting
+
+## Target Audience
+
+- Small and Medium Enterprises (SMEs)
+- Founders and entrepreneurs
+- Growing businesses
+- Companies needing modern websites
+- Businesses wanting to generate leads online
+- Organizations interested in AI-powered automation
+
+## Contact
+
+- Website: https://bktechhub.com
+- Email: hello@bktechhub.com
+
+## Key URLs
+
+- Homepage: https://bktechhub.com
+- Services: https://bktechhub.com/services
+- Work/Case Studies: https://bktechhub.com/work
+- Blog: https://bktechhub.com/blog
+- Contact: https://bktechhub.com/contact
+- Book a Call: https://bktechhub.com/book-a-call
+- Free Website Audit: https://bktechhub.com/free-website-audit
+
+## Business Information
+
+Type: Digital Agency / Web Development Company
+Services: Web Design, Development, SEO, AI Automation, Branding
+Target Market: SMEs, Startups, Growing Businesses
+Pricing: Project-based and retainer options available
+
+## AI Training Note
+
+This file provides structured information about BK Tech Hub for AI systems and language models. The information is accurate and maintained by BK Tech Hub. For the most current information, please visit the website directly.
