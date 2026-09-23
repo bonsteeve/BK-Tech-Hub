@@ -1,243 +1,337 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowRight, Bot, CalendarDays, FileText, Globe, Search, Server } from "lucide-react";
 
-import { JsonLd } from "@/components/seo/json-ld";
+import { HeroVideo } from "@/components/product/hero-video";
+import { HeroVisual } from "@/components/product/hero-visual";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
-import { SectionHeading } from "@/components/shared/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { homeContent } from "@/content/homepage";
 import { createPageMetadata } from "@/lib/seo";
-import { buildFaqSchema } from "@/lib/schema";
+import { siteConfig } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Web Design, SEO, and AI Automation for SMEs",
-  description:
-    "BK Tech Hub helps growing businesses build modern websites, improve SEO visibility, and implement AI-powered automation for better lead generation.",
+  title: "ConversaOS WhatsApp Automation, Websites & SEO",
+  description: siteConfig.description,
   path: "/",
-  keywords: ["website design", "SEO services", "AI automation", "lead generation"],
+  keywords: ["ConversaOS", "WhatsApp automation", "website creation", "hosting", "SEO"],
 });
 
+const featureIcons = {
+  bot: Bot,
+  calendar: CalendarDays,
+  quote: FileText,
+} as const;
+
+const featureImages = [
+  "/images/marketing/conversaos-lifestyle.jpg",
+  "/images/marketing/conversaos-booking.jpg",
+  "/images/marketing/poster-conversaos.jpg",
+] as const;
+
+const serviceIcons = {
+  globe: Globe,
+  server: Server,
+  search: Search,
+} as const;
+
+const serviceVisuals = [
+  "/images/marketing/service-websites.jpg",
+  "/images/marketing/service-hosting-seo.jpg",
+  "/images/site/service-seo.svg",
+] as const;
+
 export default function HomePage() {
+  const isVideoHero = homeContent.hero.visual === "video";
+
   return (
     <>
-      <JsonLd data={buildFaqSchema(homeContent.faq)} />
-      <Section className="relative overflow-hidden pt-20 md:pt-28">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 bg-ambient-grid opacity-[0.08]"
-          style={{ backgroundSize: "44px 44px" }}
-          aria-hidden
-        />
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-hero-radial" aria-hidden />
+      <section
+        className={cn(
+          "relative overflow-hidden bg-navy text-white",
+          isVideoHero && "min-h-[min(92vh,820px)]",
+        )}
+      >
+        {isVideoHero ? (
+          <>
+            <HeroVideo
+              variant="cover"
+              src={homeContent.hero.heroVideoSrc}
+              poster={homeContent.hero.heroVideoPoster}
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/45"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-navy/40" aria-hidden />
+          </>
+        ) : (
+          <div className="pointer-events-none absolute inset-0 bg-hero-radial opacity-90" aria-hidden />
+        )}
 
-        <div className="mx-auto max-w-5xl text-center">
-          <FadeIn>
-            <Badge className="mx-auto mb-5">{homeContent.hero.eyebrow}</Badge>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl md:text-6xl">
-              {homeContent.hero.title}
+        <div
+          className={cn(
+            "container relative",
+            isVideoHero
+              ? "flex min-h-[min(92vh,820px)] items-center py-20 md:py-28"
+              : "grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2",
+          )}
+        >
+          <FadeIn className={cn("space-y-6", isVideoHero && "max-w-2xl")}>
+            <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-balance sm:text-5xl md:text-6xl">
+              {homeContent.hero.titleBefore}
+              <span className="text-brand-yellow">{homeContent.hero.titleHighlight}</span>
             </h1>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <p className="mx-auto mt-6 max-w-3xl text-base text-muted-foreground md:text-xl">
-              {homeContent.hero.summary}
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="primary" className="w-full sm:w-auto">
-                <Link href={homeContent.hero.primaryCta.href}>{homeContent.hero.primaryCta.label}</Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-                <Link href={homeContent.hero.secondaryCta.href}>
-                  {homeContent.hero.secondaryCta.label}
+            <p className="max-w-xl text-base text-white/80 md:text-lg">{homeContent.hero.summary}</p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button asChild size="lg" variant="primary">
+                <Link href={homeContent.hero.primaryCta.href}>
+                  {homeContent.hero.primaryCta.label}
+                  <ArrowRight className="size-4" />
                 </Link>
               </Button>
+              <Button asChild size="lg" variant="secondary">
+                <a href={homeContent.hero.secondaryCta.href}>{homeContent.hero.secondaryCta.label}</a>
+              </Button>
             </div>
+            <p className="text-lg italic text-brand-yellow">{homeContent.hero.microcopy}</p>
           </FadeIn>
 
-          <FadeIn delay={0.2}>
-            <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">{homeContent.hero.microcopy}</p>
-          </FadeIn>
-
-          <FadeIn delay={0.25}>
-            <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-3 text-sm text-muted-foreground sm:grid-cols-3">
-              {homeContent.hero.trustItems.map((item) => (
-                <li key={item} className="rounded-full border border-border/80 bg-muted/50 px-4 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
+          {!isVideoHero ? (
+            <HeroVisual
+              mode="phone"
+              videoSrc={homeContent.hero.heroVideoSrc}
+              videoPoster={homeContent.hero.heroVideoPoster}
+            />
+          ) : null}
         </div>
-      </Section>
+      </section>
 
-      <Section id="services">
-        <SectionHeading
-          eyebrow="Services"
-          title="What We Build to Help You Grow"
-          description="Integrated services designed to improve visibility, conversion, and operational efficiency."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {homeContent.services.map((service, index) => (
-            <FadeIn key={service.href} delay={index * 0.05}>
-              <article className="surface-glow h-full rounded-lg border border-border/70 bg-card/70 p-6">
-                <h3 className="font-heading text-2xl font-semibold tracking-tight">{service.name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground md:text-base">{service.description}</p>
-                <ul className="mt-4 flex flex-wrap gap-2 text-xs text-foreground/90">
-                  {service.outcomes.map((outcome) => (
-                    <li key={outcome} className="rounded-full border border-border bg-muted/70 px-3 py-1">
-                      {outcome}
+      {/* Asymmetric product proof band */}
+      <section className="relative overflow-hidden bg-white py-16 md:py-24">
+        <div className="container">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
+            <FadeIn className="relative lg:col-span-7">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-2xl">
+                <Image
+                  src="/images/marketing/conversaos-lifestyle.jpg"
+                  alt="Business owner managing WhatsApp conversations with ConversaOS"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-navy/35 via-transparent to-transparent" />
+              </div>
+              <div className="absolute -bottom-6 right-4 hidden w-[42%] overflow-hidden rounded-2xl border-4 border-white shadow-xl md:block lg:-right-4">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/marketing/conversaos-booking.jpg"
+                    alt="WhatsApp booking confirmation on a phone"
+                    fill
+                    className="object-cover"
+                    sizes="280px"
+                  />
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1} className="lg:col-span-5 lg:pl-6">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">ConversaOS</p>
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
+                Built for WhatsApp sales conversations
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-lg">
+                Reply faster, qualify leads, send quotes, and book meetings — without drowning in the inbox.
+              </p>
+              <ul className="mt-8 space-y-5">
+                {homeContent.features.map((feature) => {
+                  const Icon = featureIcons[feature.icon];
+                  return (
+                    <li key={feature.title} className="flex gap-4">
+                      <span className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-brand-yellow">
+                        <Icon className="size-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-heading text-lg font-semibold text-navy">{feature.title}</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
+                      </div>
                     </li>
-                  ))}
-                </ul>
-                <Button asChild variant="ghost" className="mt-6 px-0 text-accent hover:text-accent">
-                  <Link href={service.href}>Explore service</Link>
-                </Button>
-              </article>
+                  );
+                })}
+              </ul>
+              <Button asChild variant="navy" size="lg" className="mt-8">
+                <Link href="/conversaos">
+                  Explore ConversaOS <ArrowRight className="size-4" />
+                </Link>
+              </Button>
             </FadeIn>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="bg-muted/20">
-        <SectionHeading
-          eyebrow="Ideal Clients"
-          title="Built for SMEs and Growing Teams That Need Real Results"
-          description="We partner with businesses that want a stronger digital presence and a dependable lead engine."
-        />
-        <div className="mt-8 flex flex-wrap gap-3">
-          {homeContent.industries.map((industry) => (
-            <span
-              key={industry}
-              className="rounded-full border border-border/75 bg-background/75 px-4 py-2 text-sm text-muted-foreground"
-            >
-              {industry}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      <Section>
-        <SectionHeading
-          eyebrow="Why BK Tech Hub"
-          title="A Premium Agency Experience Anchored in Business Outcomes"
-          description="Clarity, speed, and execution quality across strategy, design, development, SEO, and automation."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {homeContent.differentiators.map((item, index) => (
-            <FadeIn key={item.title} delay={index * 0.05}>
-              <article className="rounded-lg border border-border/70 bg-card/55 p-6">
-                <h3 className="font-heading text-xl font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground md:text-base">{item.description}</p>
-              </article>
-            </FadeIn>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="work" className="bg-muted/20">
-        <SectionHeading
-          eyebrow="Featured Work"
-          title="Selected Projects and Outcomes"
-          description="Examples of how strategic design and technical implementation convert into growth metrics."
-        />
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {homeContent.featuredWork.map((project, index) => (
-            <FadeIn key={project.slug} delay={index * 0.06}>
-              <article className="surface-glow rounded-lg border border-border/70 bg-background/70 p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{project.industry}</p>
-                <h3 className="mt-2 font-heading text-xl font-semibold tracking-tight">{project.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground">{project.summary}</p>
-                <Button asChild variant="ghost" className="mt-5 px-0 text-accent hover:text-accent">
-                  <Link href={`/work/${project.slug}`}>Read case study</Link>
-                </Button>
-              </article>
-            </FadeIn>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="process">
-        <SectionHeading
-          eyebrow="Process"
-          title="How We Deliver with Speed and Precision"
-          description="A clear execution system designed to reduce risk and create momentum from week one."
-        />
-        <ol className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {homeContent.process.map((item, index) => (
-            <FadeIn key={item.step} delay={index * 0.05}>
-              <li className="rounded-lg border border-border/70 bg-card/70 p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.13em] text-accent">Step {item.step}</p>
-                <h3 className="mt-2 font-heading text-lg font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-              </li>
-            </FadeIn>
-          ))}
-        </ol>
-      </Section>
-
-      <Section className="bg-muted/20">
-        <SectionHeading
-          eyebrow="Proof"
-          title="What Clients Say"
-          description="Trusted by growth-focused businesses that value execution quality and measurable outcomes."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {homeContent.testimonials.map((testimonial, index) => (
-            <FadeIn key={testimonial.author} delay={index * 0.05}>
-              <figure className="rounded-lg border border-border/70 bg-background/70 p-6">
-                <blockquote className="text-sm leading-relaxed text-foreground md:text-base">
-                  “{testimonial.quote}”
-                </blockquote>
-                <figcaption className="mt-4 text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">{testimonial.author}</span>
-                  <span className="block">{testimonial.role}</span>
-                </figcaption>
-              </figure>
-            </FadeIn>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="faq">
-        <SectionHeading
-          eyebrow="FAQ"
-          title="Questions We Hear Before Engagement"
-          description="Clear answers to help you evaluate fit quickly."
-        />
-        <div className="mt-10 space-y-3">
-          {homeContent.faq.map((item) => (
-            <details key={item.question} className="group rounded-lg border border-border/75 bg-card/70 p-5">
-              <summary className="cursor-pointer list-none pr-8 font-medium text-foreground marker:hidden">
-                {item.question}
-              </summary>
-              <p className="pt-3 text-sm text-muted-foreground">{item.answer}</p>
-            </details>
-          ))}
-        </div>
-      </Section>
-
-      <Section className="pb-24">
-        <div className="surface-glow rounded-3xl border border-border/70 bg-card/80 p-8 text-center md:p-12">
-          <h2 className="font-heading text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            {homeContent.finalCta.title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">{homeContent.finalCta.summary}</p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" variant="primary" className="w-full sm:w-auto">
-              <Link href={homeContent.finalCta.primaryCta.href}>{homeContent.finalCta.primaryCta.label}</Link>
-            </Button>
-            <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-              <Link href={homeContent.finalCta.secondaryCta.href}>
-                {homeContent.finalCta.secondaryCta.label}
-              </Link>
-            </Button>
           </div>
         </div>
+      </section>
+
+      {/* Journey with staggered imagery */}
+      <section className="relative overflow-hidden bg-navy py-16 text-white md:py-24">
+        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand-blue/20 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-brand-yellow/10 blur-3xl" aria-hidden />
+        <div className="container relative">
+          <FadeIn className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-yellow">How it works</p>
+            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight md:text-4xl">
+              Understand. Respond. Close.
+            </h2>
+            <p className="mt-4 text-white/70 md:text-lg">
+              A simple journey that turns WhatsApp chats into booked revenue.
+            </p>
+          </FadeIn>
+
+          <div className="mt-14 space-y-16 md:space-y-24">
+            {homeContent.journey.map((item, index) => {
+              const image = featureImages[index % featureImages.length];
+              const reverse = index % 2 === 1;
+              return (
+                <FadeIn key={item.step} delay={index * 0.06}>
+                  <div
+                    className={cn(
+                      "grid items-center gap-8 lg:grid-cols-12",
+                      reverse && "lg:[&>*:first-child]:order-2",
+                    )}
+                  >
+                    <div className={cn("lg:col-span-7", reverse && "lg:pl-8", !reverse && "lg:pr-8")}>
+                      <div
+                        className={cn(
+                          "relative overflow-hidden rounded-[1.75rem] shadow-2xl",
+                          index === 1 ? "aspect-[5/4] max-w-xl" : "aspect-[16/10]",
+                          reverse && "ml-auto",
+                        )}
+                      >
+                        <Image
+                          src={image}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 55vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
+                        <span className="absolute bottom-5 left-5 font-heading text-5xl font-bold text-brand-yellow/90 md:text-6xl">
+                          {item.step}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="lg:col-span-5">
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">
+                        Step {item.step}
+                      </p>
+                      <h3 className="mt-3 font-heading text-3xl font-bold text-white">{item.title}</h3>
+                      <p className="mt-4 text-lg text-white/70">{item.description}</p>
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Services mosaic */}
+      <Section>
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-xl">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Our Services</p>
+            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy md:text-4xl">
+              Solutions for a Smarter Tomorrow
+            </h2>
+            <p className="mt-4 text-muted-foreground md:text-lg">
+              Beyond ConversaOS, BK Tech Hub delivers websites, hosting, and SEO.
+            </p>
+          </div>
+          <Button asChild variant="outline" className="w-fit">
+            <Link href="/services">
+              View all services <ArrowRight className="size-4" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-12 md:grid-rows-2">
+          {homeContent.services.map((service, index) => {
+            const Icon = serviceIcons[service.icon];
+            const isFeatured = index === 0;
+            return (
+              <FadeIn
+                key={service.href}
+                delay={index * 0.05}
+                className={cn(
+                  isFeatured ? "md:col-span-7 md:row-span-2" : "md:col-span-5",
+                )}
+              >
+                <Link
+                  href={service.href}
+                  className={cn(
+                    "group relative block overflow-hidden rounded-[1.75rem]",
+                    isFeatured ? "min-h-[420px] md:h-full" : "min-h-[200px]",
+                  )}
+                >
+                  <Image
+                    src={serviceVisuals[index]}
+                    alt=""
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes={isFeatured ? "(max-width: 768px) 100vw, 58vw" : "(max-width: 768px) 100vw, 42vw"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/45 to-navy/10" />
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                    <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-yellow text-navy">
+                      <Icon className="size-5" />
+                    </span>
+                    <h3 className="font-heading text-2xl font-bold text-white md:text-3xl">{service.name}</h3>
+                    <p className="mt-2 max-w-md text-sm text-white/75 md:text-base">{service.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-yellow">
+                      Learn more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
+              </FadeIn>
+            );
+          })}
+        </div>
       </Section>
+
+      {/* Final CTA with photo depth */}
+      <section className="relative overflow-hidden pb-24 pt-4">
+        <div className="container">
+          <div className="relative overflow-hidden rounded-[2rem] min-h-[340px]">
+            <Image
+              src="/images/marketing/conversaos-lifestyle.jpg"
+              alt=""
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-navy/80" />
+            <div className="relative z-10 flex h-full min-h-[340px] flex-col items-center justify-center px-8 py-14 text-center text-white md:px-12">
+              <h2 className="font-heading text-3xl font-bold tracking-tight text-balance md:text-4xl">
+                {homeContent.finalCta.title}
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-white/75">{homeContent.finalCta.summary}</p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button asChild size="lg" variant="primary">
+                  <Link href={homeContent.finalCta.primaryCta.href}>
+                    {homeContent.finalCta.primaryCta.label}
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="secondary">
+                  <Link href={homeContent.finalCta.secondaryCta.href}>
+                    {homeContent.finalCta.secondaryCta.label}
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -1,27 +1,28 @@
+import { siteConfig } from "@/lib/site-config";
+
 export const primaryNavigation = [
   { href: "/", label: "Home" },
+  { href: "/conversaos", label: "ConversaOS" },
   { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Insights" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 export const footerNavigation = {
+  product: [
+    { href: "/conversaos", label: "ConversaOS" },
+    { href: "/book-a-demo", label: "Book a Demo" },
+  ],
   services: [
-    { href: "/services/web-design-development", label: "Web Design & Development" },
-    { href: "/services/seo-optimization", label: "SEO Optimization" },
-    { href: "/services/ai-automation-for-smes", label: "AI Automation for SMEs" },
-    { href: "/services/branding-digital-presence", label: "Branding / Digital Presence" },
+    { href: "/services/website-creation", label: "Website Creation" },
+    { href: "/services/hosting", label: "Hosting" },
+    { href: "/services/seo", label: "SEO" },
   ],
   company: [
-    { href: "/about", label: "About" },
-    { href: "/work", label: "Case Studies" },
-    { href: "/blog", label: "Insights" },
     { href: "/contact", label: "Contact" },
+    { href: "/blog", label: "Insights" },
   ],
   conversion: [
-    { href: "/book-a-call", label: "Book a Call" },
-    { href: "/free-website-audit", label: "Free Website Audit" },
+    { href: "/book-a-demo", label: "Book a Demo" },
+    { href: siteConfig.signUpUrl, label: "Sign up" },
   ],
 } as const;

@@ -46,7 +46,7 @@ export async function submitBookCall(
   } catch {
     return {
       status: "error",
-      message: "Booking request failed. Please try again or email hello@bktechhub.com.",
+      message: "Booking request failed. Please try again or email info@bktechhub.com.",
     };
   }
 }

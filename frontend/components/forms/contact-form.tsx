@@ -63,8 +63,8 @@ export function ContactForm() {
         <p
           className={
             state.status === "success"
-              ? "text-sm font-medium text-accent"
-              : "text-sm font-medium text-red-300"
+              ? "text-sm font-medium text-brand-blue"
+              : "text-sm font-medium text-red-600"
           }
           role="status"
           aria-live="polite"

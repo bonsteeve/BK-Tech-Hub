@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { BrandLogo } from "@/components/site/brand-logo";
 import { Button } from "@/components/ui/button";
 import { primaryNavigation } from "@/content/navigation";
+import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -21,26 +23,16 @@ export function SiteHeader() {
     () =>
       primaryNavigation.map((item) => {
         const isActive = item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
-        return {
-          ...item,
-          isActive,
-        };
+        return { ...item, isActive };
       }),
     [pathname],
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-navy">
       <div className="container">
         <div className="flex h-20 items-center justify-between gap-4">
-          <Link href="/" className="group inline-flex items-center gap-3" aria-label="BK Tech Hub home">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-sm font-bold text-accent">
-              BK
-            </span>
-            <span className="font-heading text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-accent">
-              BK Tech Hub
-            </span>
-          </Link>
+          <BrandLogo variant="dark" />
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
             {links.map((item) => (
@@ -48,8 +40,8 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-foreground",
-                  item.isActive ? "text-foreground" : "text-muted-foreground",
+                  "text-sm font-medium transition-colors hover:text-brand-yellow",
+                  item.isActive ? "text-brand-yellow" : "text-white/80",
                 )}
               >
                 {item.label}
@@ -58,18 +50,27 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <Button asChild size="default" variant="secondary">
-              <Link href="/free-website-audit">Free Audit</Link>
-            </Button>
+            <Link
+              href={siteConfig.signInUrl}
+              className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+            >
+              Sign in
+            </Link>
+            <Link
+              href={siteConfig.signUpUrl}
+              className="text-sm font-medium text-white/80 transition-colors hover:text-white"
+            >
+              Sign up
+            </Link>
             <Button asChild size="default" variant="primary">
-              <Link href="/book-a-call">Book a Call</Link>
+              <Link href="/book-a-demo">Book a Demo</Link>
             </Button>
           </div>
 
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="text-white hover:bg-white/10 lg:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label="Toggle menu"
@@ -83,8 +84,8 @@ export function SiteHeader() {
       <div
         id="mobile-menu"
         className={cn(
-          "border-t border-border/70 bg-background/95 px-4 py-4 transition-[max-height,opacity] duration-200 lg:hidden",
-          isOpen ? "max-h-[420px] opacity-100" : "max-h-0 overflow-hidden p-0 opacity-0",
+          "border-t border-white/10 bg-navy px-4 py-4 transition-[max-height,opacity] duration-200 lg:hidden",
+          isOpen ? "max-h-[520px] opacity-100" : "max-h-0 overflow-hidden p-0 opacity-0",
         )}
       >
         <nav className="container flex flex-col gap-2" aria-label="Mobile navigation">
@@ -95,21 +96,26 @@ export function SiteHeader() {
               onClick={() => setIsOpen(false)}
               className={cn(
                 "rounded-md px-3 py-2 text-sm font-medium",
-                item.isActive ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/70",
+                item.isActive ? "bg-white/10 text-brand-yellow" : "text-white/80 hover:bg-white/5",
               )}
             >
               {item.label}
             </Link>
           ))}
-          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            <Button asChild variant="secondary" size="default">
-              <Link href="/free-website-audit" onClick={() => setIsOpen(false)}>
-                Free Audit
+          <div className="mt-4 grid grid-cols-1 gap-2">
+            <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
+              <Link href={siteConfig.signInUrl} onClick={() => setIsOpen(false)}>
+                Sign in
               </Link>
             </Button>
-            <Button asChild variant="primary" size="default">
-              <Link href="/book-a-call" onClick={() => setIsOpen(false)}>
-                Book a Call
+            <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
+              <Link href={siteConfig.signUpUrl} onClick={() => setIsOpen(false)}>
+                Sign up
+              </Link>
+            </Button>
+            <Button asChild variant="primary">
+              <Link href="/book-a-demo" onClick={() => setIsOpen(false)}>
+                Book a Demo
               </Link>
             </Button>
           </div>

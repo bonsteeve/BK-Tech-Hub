@@ -44,7 +44,7 @@ export async function submitWebsiteAudit(
   } catch {
     return {
       status: "error",
-      message: "Submission failed. Please try again or email hello@bktechhub.com.",
+      message: "Submission failed. Please try again or email info@bktechhub.com.",
     };
   }
 }

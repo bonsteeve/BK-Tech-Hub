@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/content/blog-posts";
@@ -18,7 +20,7 @@ export default function BlogPage() {
   return (
     <>
       <Section className="pt-16 md:pt-20">
-        <div className="max-w-4xl space-y-5">
+        <FadeIn className="max-w-4xl space-y-5">
           <p className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
             Insights
           </p>
@@ -28,13 +30,23 @@ export default function BlogPage() {
           <p className="text-lg text-muted-foreground">
             Actionable content on website strategy, technical SEO, brand positioning, and automation systems.
           </p>
-        </div>
+        </FadeIn>
       </Section>
 
       <Section className="pt-4">
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {blogPosts.map((post) => (
-            <article key={post.slug} className="rounded-lg border border-border/70 bg-card/70 p-6">
+          {blogPosts.map((post, index) => (
+            <FadeIn key={post.slug} delay={index * 0.06}>
+              <article className="interactive-card rounded-lg border border-border/70 bg-card/70 p-6">
+              <div className="mb-5 overflow-hidden rounded-xl border border-border/70 bg-background/70">
+                <Image
+                  src={getBlogCover(post.category)}
+                  alt={`${post.category} insight visual for ${post.title}.`}
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full"
+                />
+              </div>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{post.category}</p>
               <h2 className="mt-2 font-heading text-xl font-semibold tracking-tight">{post.title}</h2>
               <p className="mt-3 text-sm text-muted-foreground">{post.excerpt}</p>
@@ -47,9 +59,22 @@ export default function BlogPage() {
                 <Link href={`/blog/${post.slug}`}>Read article</Link>
               </Button>
             </article>
+            </FadeIn>
           ))}
         </div>
       </Section>
     </>
   );
+}
+
+function getBlogCover(category: string) {
+  if (category === "SEO") {
+    return "/images/site/service-seo.svg";
+  }
+
+  if (category === "AI Automation") {
+    return "/images/site/service-ai.svg";
+  }
+
+  return "/images/site/service-web.svg";
 }

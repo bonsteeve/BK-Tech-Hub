@@ -3,6 +3,8 @@ export type CaseStudy = {
   slug: string;
   industry: string;
   summary: string;
+  image: string;
+  imageAlt: string;
   challenge: string;
   solution: string;
   impact: string[];
@@ -21,6 +23,8 @@ export const caseStudies: CaseStudy[] = [
     industry: "Financial Services",
     summary:
       "A complete website and messaging redesign that increased consultation leads by 68% in 90 days.",
+    image: "/images/site/work-finserve.svg",
+    imageAlt: "Financial services performance dashboard graphic from the FinServe case study.",
     challenge:
       "The previous website lacked clarity and trust signals, causing low lead conversion despite consistent traffic.",
     solution:
@@ -44,6 +48,8 @@ export const caseStudies: CaseStudy[] = [
     industry: "Education",
     summary:
       "SEO-focused platform redesign that doubled monthly inbound applications in one quarter.",
+    image: "/images/site/work-apex.svg",
+    imageAlt: "Education platform card layout representing the Apex training enrollment project.",
     challenge:
       "Course pages were difficult to navigate and did not rank for high-intent topics, limiting discovery and conversion.",
     solution:
@@ -67,6 +73,8 @@ export const caseStudies: CaseStudy[] = [
     industry: "Interior Design",
     summary:
       "Portfolio experience and automated lead routing system that cut response time by 75%.",
+    image: "/images/site/work-urbannest.svg",
+    imageAlt: "Interior design portfolio and lead funnel visual for the UrbanNest case study.",
     challenge:
       "The team spent too much time manually qualifying design inquiries and experienced inconsistent follow-up.",
     solution:

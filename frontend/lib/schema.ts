@@ -26,7 +26,19 @@ export function buildOrganizationSchema() {
     url: siteConfig.url,
     email: siteConfig.email,
     telephone: siteConfig.phone,
+    description: siteConfig.description,
     sameAs: [siteConfig.socials.linkedin, siteConfig.socials.instagram],
+    makesOffer: {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "SoftwareApplication",
+        name: siteConfig.productName,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        description:
+          "AI-powered WhatsApp conversation automation with human takeover, quote generation, calendar booking, and reminders.",
+      },
+    },
   };
 }
 
@@ -64,7 +76,7 @@ export function buildServiceSchema({ name, path, description }: ServiceSchemaInp
   };
 }
 
-export function buildFaqSchema(items: FAQItem[]) {
+export function buildFaqSchema(items: readonly FAQItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",

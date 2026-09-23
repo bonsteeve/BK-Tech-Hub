@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { BookCallForm } from "@/components/forms/book-call-form";
+import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
 import { createPageMetadata } from "@/lib/seo";
@@ -10,7 +11,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Book a Call",
   description:
     "Book a strategy call with BK Tech Hub to discuss your website, SEO, and AI automation priorities.",
-  path: "/book-a-call",
+  path: "/book-a-demo",
   keywords: ["book strategy call", "website consultation", "digital growth consultation"],
 });
 
@@ -18,7 +19,7 @@ export default function BookCallPage() {
   return (
     <Section className="pt-16 md:pt-20">
       <div className="grid gap-8 lg:grid-cols-[1fr_1.05fr]">
-        <div className="space-y-5">
+        <FadeIn className="space-y-5">
           <p className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
             Book a Strategy Call
           </p>
@@ -29,16 +30,16 @@ export default function BookCallPage() {
             In this session, we review your current setup, identify bottlenecks, and outline the highest-impact next steps.
           </p>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="rounded-md border border-border/70 bg-card/70 px-3 py-2">30-minute strategy-focused call</li>
-            <li className="rounded-md border border-border/70 bg-card/70 px-3 py-2">Practical recommendations you can execute immediately</li>
-            <li className="rounded-md border border-border/70 bg-card/70 px-3 py-2">No-pressure format, tailored to your goals and timeline</li>
+            <li className="interactive-chip rounded-md border border-border/70 bg-card/70 px-3 py-2">30-minute strategy-focused call</li>
+            <li className="interactive-chip rounded-md border border-border/70 bg-card/70 px-3 py-2">Practical recommendations you can execute immediately</li>
+            <li className="interactive-chip rounded-md border border-border/70 bg-card/70 px-3 py-2">No-pressure format, tailored to your goals and timeline</li>
           </ul>
           <Button asChild variant="secondary" size="lg">
             <Link href="/services">Review Services First</Link>
           </Button>
-        </div>
+        </FadeIn>
 
-        <div className="rounded-2xl border border-border/70 bg-card/70 p-6 md:p-8">
+        <FadeIn delay={0.08} className="interactive-card rounded-2xl border border-border/70 bg-card/70 p-6 md:p-8">
           <h2 className="font-heading text-2xl font-semibold tracking-tight">Request a Call Slot</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             We respond within one business day with the next available slots.
@@ -46,7 +47,7 @@ export default function BookCallPage() {
           <div className="mt-6">
             <BookCallForm />
           </div>
-        </div>
+        </FadeIn>
       </div>
     </Section>
   );

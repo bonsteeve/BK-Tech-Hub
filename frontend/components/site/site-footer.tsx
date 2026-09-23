@@ -1,22 +1,21 @@
 import Link from "next/link";
 
+import { BrandLogo } from "@/components/site/brand-logo";
 import { footerNavigation } from "@/content/navigation";
 import { siteConfig } from "@/lib/site-config";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/70 bg-background/70">
+    <footer className="border-t border-white/10 bg-navy text-white">
       <div className="container py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="space-y-5">
-            <p className="inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
-              BK Tech Hub
-            </p>
-            <h3 className="font-heading text-2xl font-semibold tracking-tight">
-              Modern websites and automation systems that drive qualified leads.
+            <BrandLogo variant="dark" />
+            <h3 className="font-heading text-2xl font-semibold tracking-tight text-white">
+              More leads. Less work.
             </h3>
-            <p className="max-w-sm text-sm text-muted-foreground">{siteConfig.description}</p>
-            <div className="space-y-1 text-sm text-muted-foreground">
+            <p className="max-w-sm text-sm text-white/70">{siteConfig.description}</p>
+            <div className="space-y-1 text-sm text-white/70">
               <p>{siteConfig.email}</p>
               <p>{siteConfig.phone}</p>
               <p>
@@ -25,21 +24,24 @@ export function SiteFooter() {
             </div>
           </div>
 
+          <FooterColumn title="Product" links={footerNavigation.product} />
           <FooterColumn title="Services" links={footerNavigation.services} />
           <FooterColumn title="Company" links={footerNavigation.company} />
-          <FooterColumn title="Start Here" links={footerNavigation.conversion} />
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-border/70 pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
           </p>
-          <div className="flex items-center gap-5">
-            <Link href="/contact" className="transition-colors hover:text-foreground">
-              Contact
+          <div className="flex flex-wrap items-center gap-5">
+            <Link href="/book-a-demo" className="transition-colors hover:text-brand-yellow">
+              Book a Demo
             </Link>
-            <Link href="/book-a-call" className="transition-colors hover:text-foreground">
-              Book a Call
+            <Link href={siteConfig.signUpUrl} className="transition-colors hover:text-brand-yellow">
+              Sign up
+            </Link>
+            <Link href="/contact" className="transition-colors hover:text-brand-yellow">
+              Contact
             </Link>
           </div>
         </div>
@@ -56,11 +58,11 @@ type FooterColumnProps = {
 function FooterColumn({ title, links }: FooterColumnProps) {
   return (
     <div>
-      <h4 className="font-heading text-base font-semibold text-foreground">{title}</h4>
-      <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+      <h4 className="font-heading text-base font-semibold text-white">{title}</h4>
+      <ul className="mt-4 space-y-3 text-sm text-white/70">
         {links.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} className="transition-colors hover:text-foreground">
+            <Link href={link.href} className="transition-colors hover:text-brand-yellow">
               {link.label}
             </Link>
           </li>

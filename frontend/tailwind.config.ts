@@ -41,6 +41,9 @@ const config: Config = {
         primaryForeground: "hsl(var(--primary-foreground))",
         secondary: "hsl(var(--secondary))",
         secondaryForeground: "hsl(var(--secondary-foreground))",
+        navy: "#001A33",
+        "brand-yellow": "#FFC107",
+        "brand-blue": "#2E9BDB",
       },
       borderRadius: {
         lg: "var(--radius-lg)",
@@ -48,8 +51,10 @@ const config: Config = {
         sm: "var(--radius-sm)",
       },
       backgroundImage: {
-        "hero-radial": "radial-gradient(circle at 20% 20%, rgba(25,194,176,0.22), transparent 44%), radial-gradient(circle at 85% 12%, rgba(78,163,255,0.18), transparent 38%)",
-        "ambient-grid": "linear-gradient(rgba(165,176,194,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(165,176,194,0.08) 1px, transparent 1px)",
+        "hero-radial":
+          "radial-gradient(circle at 18% 20%, rgba(46,155,219,0.18), transparent 42%), radial-gradient(circle at 88% 10%, rgba(255,193,7,0.14), transparent 36%)",
+        "ambient-grid":
+          "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
       },
       keyframes: {
         "fade-up": {

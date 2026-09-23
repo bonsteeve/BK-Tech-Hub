@@ -1,37 +1,41 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { JsonLd } from "@/components/seo/json-ld";
+import { FloatingWhatsApp } from "@/components/site/floating-whatsapp";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { buildLocalBusinessSchema, buildOrganizationSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
-const manrope = Manrope({
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
 });
 
-const sora = Sora({
+const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
   variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "BK Tech Hub | Modern Web Design, SEO, and AI Automation",
+    default: "BK Tech Hub | ConversaOS WhatsApp Automation, Websites & SEO",
     template: "%s | BK Tech Hub",
   },
   description: siteConfig.description,
   keywords: [
-    "web design",
-    "web development",
-    "technical SEO",
-    "AI automation",
-    "digital agency",
-    "SME growth",
+    "ConversaOS",
+    "WhatsApp automation",
+    "AI WhatsApp",
+    "website creation",
+    "hosting",
+    "SEO",
+    "BK Tech Hub",
   ],
   alternates: {
     canonical: "/",
@@ -41,12 +45,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "BK Tech Hub | Modern Web Design, SEO, and AI Automation",
+    title: "BK Tech Hub | ConversaOS WhatsApp Automation",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "BK Tech Hub | Modern Web Design, SEO, and AI Automation",
+    title: "BK Tech Hub | ConversaOS WhatsApp Automation",
     description: siteConfig.description,
   },
   robots: {
@@ -61,11 +65,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${manrope.variable} ${sora.variable} font-sans`}>
+    <html lang="en">
+      <body className={`${poppins.variable} ${montserrat.variable} font-sans`}>
         <a
           href="#main-content"
-          className="sr-only z-[999] focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-2 focus:text-background"
+          className="sr-only z-[999] focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-brand-yellow focus:px-3 focus:py-2 focus:text-navy"
         >
           Skip to content
         </a>
@@ -74,6 +78,7 @@ export default function RootLayout({
           <SiteHeader />
           <main id="main-content">{children}</main>
           <SiteFooter />
+          <FloatingWhatsApp />
         </div>
       </body>
     </html>

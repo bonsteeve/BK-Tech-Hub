@@ -1,38 +1,38 @@
 export const aboutContent = {
   hero: {
-    title: "A Strategic Digital Partner for Growing Businesses",
+    title: "The company behind ConversaOS",
     summary:
-      "BK Tech Hub helps SMEs and founders build modern websites, strengthen digital positioning, and implement practical automation for measurable growth.",
+      "BK Tech Hub builds ConversaOS — AI-powered WhatsApp automation — and delivers websites, hosting, and SEO so growing businesses can capture more leads with less manual work.",
   },
   principles: [
     {
       title: "Clarity Over Complexity",
       description:
-        "We simplify strategy, messaging, and technology decisions so your team can move with confidence.",
+        "We simplify product and service decisions so your team can move with confidence.",
     },
     {
       title: "Execution with Craft",
       description:
-        "Design quality and technical precision are non-negotiable because they directly impact trust and conversion.",
+        "Design quality and technical precision matter because they directly impact trust and conversion.",
     },
     {
       title: "Outcomes First",
       description:
-        "Every project is tied to business metrics such as lead quality, pipeline velocity, and operational efficiency.",
+        "Every engagement ties to business metrics: lead quality, response speed, and operational efficiency.",
     },
   ],
   approach: [
     {
       title: "Understand",
-      detail: "Audit your market, audience, and current funnel performance.",
+      detail: "Audit your market, WhatsApp workflows, and digital funnel.",
     },
     {
       title: "Design",
-      detail: "Craft conversion-led user journeys and high-trust visual systems.",
+      detail: "Map conversion journeys across ConversaOS and your website.",
     },
     {
       title: "Build",
-      detail: "Develop scalable experiences with SEO and automation foundations baked in.",
+      detail: "Ship automation, websites, hosting, and SEO foundations that last.",
     },
     {
       title: "Optimize",
@@ -40,9 +40,9 @@ export const aboutContent = {
     },
   ],
   trustPoints: [
-    "Cross-functional strategy, design, and engineering delivery",
-    "SEO-conscious implementation from day one",
-    "Practical AI automation for day-to-day business operations",
+    "Flagship product: ConversaOS WhatsApp automation",
+    "Website creation, hosting, and SEO under one roof",
+    "Human-in-the-loop AI — practical, not hype",
     "Collaborative, transparent project communication",
   ],
 } as const;

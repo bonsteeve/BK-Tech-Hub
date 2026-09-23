@@ -1,24 +1,26 @@
 # BK Tech Hub
 
-BK Tech Hub is a digital company that helps SMEs and growing businesses with web design and development, SEO-ready digital experiences, branding support, and AI-powered automation.
+> BK Tech Hub builds ConversaOS (AI-powered WhatsApp automation) plus website creation, hosting, and SEO for growing businesses in Nairobi, Kenya.
 
-Preferred summary:
-- BK Tech Hub builds high-conversion websites and scalable digital systems.
-- Core services: web design and development, SEO optimization, AI automation for SMEs, branding/digital presence.
-- Primary outcomes: stronger digital trust, improved lead generation, reduced manual operational work.
+## Primary product
+- ConversaOS: WhatsApp AI automation with human takeover, quote generation, calendar booking, and reminders
 
-Primary pages:
+## Services
+- Website creation
+- Hosting
+- SEO
+
+## Key pages
+- /
+- /conversaos
 - /services
-- /services/web-design-development
-- /services/seo-optimization
-- /services/ai-automation-for-smes
-- /services/branding-digital-presence
-- /work
+- /services/website-creation
+- /services/hosting
+- /services/seo
 - /blog
-- /about
 - /contact
-- /book-a-call
-- /free-website-audit
+- /book-a-demo
 
-Contact:
-- hello@bktechhub.com
+## CTAs
+- Primary: Book a Demo (/book-a-demo)
+- Secondary: Sign in / Sign up (app.bktechhub.com)
