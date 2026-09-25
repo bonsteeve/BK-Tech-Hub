@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site-config";
+
 export const conversaosContent = {
   hero: {
     titleBefore: "Turn WhatsApp into your ",
@@ -6,7 +8,7 @@ export const conversaosContent = {
     summary:
       "Understand your business, reply with human takeover, generate quotes, book calendar appointments, and send reminders — so you capture more leads with less manual work.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: "https://app.bktechhub.com/signin", label: "Sign in to ConversaOS", external: true },
+    secondaryCta: { href: siteConfig.signInUrl, label: siteConfig.signInLabel, external: true },
     microcopy: "More leads. Less work.",
   },
   problem: {
@@ -96,6 +98,6 @@ export const conversaosContent = {
     title: "See ConversaOS on your WhatsApp workflows",
     summary: "Book a live demo — or sign in if you already have access. New accounts will be available in the app.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: "https://app.bktechhub.com/signin", label: "Sign in to ConversaOS", external: true },
+    secondaryCta: { href: siteConfig.signInUrl, label: siteConfig.signInLabel, external: true },
   },
 } as const;

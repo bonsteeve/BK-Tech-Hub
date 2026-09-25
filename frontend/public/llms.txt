@@ -23,4 +23,4 @@
 
 ## CTAs
 - Primary: Book a Demo (/book-a-demo)
-- Secondary: Sign in / Sign up (app.bktechhub.com)
+- Secondary: Sign in to ConversaOS (conversaos.bktechhub.com)

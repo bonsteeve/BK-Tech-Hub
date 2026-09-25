@@ -35,6 +35,7 @@ export function buildOrganizationSchema() {
         name: siteConfig.productName,
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
+        url: siteConfig.conversaosUrl,
         description:
           "AI-powered WhatsApp conversation automation with human takeover, quote generation, calendar booking, and reminders.",
       },
