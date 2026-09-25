@@ -26,7 +26,7 @@ export const siteConfig = {
   },
   /** ConversaOS app — site chrome exposes Sign in only; signup lives in the app */
   conversaosUrl: "https://conversaos.bktechhub.com",
-  signInUrl: "https://conversaos.bktechhub.com/signin",
+  signInUrl: "https://conversaos.bktechhub.com/login",
   signUpUrl: "https://conversaos.bktechhub.com/signup",
   signInLabel: "Sign in to ConversaOS",
   demoPath: "/book-a-demo",
