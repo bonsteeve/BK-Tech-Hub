@@ -3,19 +3,15 @@
 import { useActionState } from "react";
 import type { ReactNode } from "react";
 
-import {
-  initialContactFormState,
-  submitContactForm,
-} from "@/app/contact/actions";
+import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const initialState: ContactFormState = { status: "idle", message: "" };
+
 export function ContactForm() {
-  const [state, formAction, pending] = useActionState(
-    submitContactForm,
-    initialContactFormState,
-  );
+  const [state, formAction, pending] = useActionState(submitContactForm, initialState);
 
   return (
     <form action={formAction} className="space-y-4" noValidate>

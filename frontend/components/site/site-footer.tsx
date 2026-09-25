@@ -37,8 +37,8 @@ export function SiteFooter() {
             <Link href="/book-a-demo" className="transition-colors hover:text-brand-yellow">
               Book a Demo
             </Link>
-            <Link href={siteConfig.signUpUrl} className="transition-colors hover:text-brand-yellow">
-              Sign up
+            <Link href={siteConfig.signInUrl} className="transition-colors hover:text-brand-yellow">
+              {siteConfig.signInLabel}
             </Link>
             <Link href="/contact" className="transition-colors hover:text-brand-yellow">
               Contact

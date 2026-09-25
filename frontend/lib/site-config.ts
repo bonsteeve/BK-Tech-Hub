@@ -4,12 +4,17 @@ export const siteConfig = {
   tagline: "AUTOMATE THE WORLD",
   productName: "ConversaOS",
   description:
-    "BK Tech Hub builds ConversaOS — AI-powered WhatsApp automation — plus websites, hosting, and SEO for growing businesses.",
+    "BK Tech Hub helps businesses Automate the World — WhatsApp AI with ConversaOS, process automation, websites, hosting, and SEO.",
   url: "https://www.bktechhub.com",
   email: "info@bktechhub.com",
   phone: "+254 713 549 524",
   /** Same as phone — used for floating chat + wa.me links */
   whatsapp: "+254 713 549 524",
+  /** Where form leads are delivered (email + WhatsApp, in parallel) */
+  leads: {
+    email: "kiokomutukubonface@gmail.com",
+    whatsapp: "+254713549524",
+  },
   location: {
     country: "Kenya",
     region: "Nairobi County",
@@ -19,9 +24,10 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com",
     instagram: "https://www.instagram.com",
   },
-  /** Replace with real ConversaOS app URLs when live */
+  /** ConversaOS app auth — site chrome exposes Sign in only; signup lives in the app */
   signInUrl: "https://app.bktechhub.com/signin",
   signUpUrl: "https://app.bktechhub.com/signup",
+  signInLabel: "Sign in to ConversaOS",
   demoPath: "/book-a-demo",
 } as const;
 

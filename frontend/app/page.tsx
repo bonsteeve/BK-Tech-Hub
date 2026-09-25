@@ -13,12 +13,24 @@ import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "ConversaOS WhatsApp Automation, Websites & SEO",
-  description: siteConfig.description,
-  path: "/",
-  keywords: ["ConversaOS", "WhatsApp automation", "website creation", "hosting", "SEO"],
-});
+export const metadata: Metadata = {
+  ...createPageMetadata({
+    title: siteConfig.name,
+    description: siteConfig.description,
+    path: "/",
+    keywords: [
+      "BK Tech Hub",
+      "Automate the World",
+      "ConversaOS",
+      "WhatsApp automation",
+      "process automation",
+      "website creation",
+      "hosting",
+      "SEO",
+    ],
+  }),
+  title: { absolute: siteConfig.name },
+};
 
 const featureIcons = {
   bot: Bot,
@@ -51,7 +63,7 @@ export default function HomePage() {
     <>
       <section
         className={cn(
-          "relative overflow-hidden bg-navy text-white",
+          "relative -mt-[5.25rem] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]",
           isVideoHero && "min-h-[min(92vh,820px)]",
         )}
       >
@@ -81,6 +93,9 @@ export default function HomePage() {
           )}
         >
           <FadeIn className={cn("space-y-6", isVideoHero && "max-w-2xl")}>
+            <p className="font-heading text-sm font-extrabold uppercase tracking-[0.28em] text-brand-yellow sm:text-base">
+              {homeContent.hero.brandLine}
+            </p>
             <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-balance sm:text-5xl md:text-6xl">
               {homeContent.hero.titleBefore}
               <span className="text-brand-yellow">{homeContent.hero.titleHighlight}</span>
@@ -97,7 +112,21 @@ export default function HomePage() {
                 <a href={homeContent.hero.secondaryCta.href}>{homeContent.hero.secondaryCta.label}</a>
               </Button>
             </div>
-            <p className="text-lg italic text-brand-yellow">{homeContent.hero.microcopy}</p>
+            <nav aria-label="What we offer" className="pt-1">
+              <ul className="flex flex-wrap items-center gap-x-1 gap-y-2 text-sm text-white/55">
+                {homeContent.hero.pillars.map((pillar, index) => (
+                  <li key={pillar.label} className="inline-flex items-center gap-x-1">
+                    {index > 0 ? <span className="mx-1 text-white/25" aria-hidden>·</span> : null}
+                    <Link
+                      href={pillar.href}
+                      className="font-medium text-white/70 underline-offset-4 transition-colors hover:text-brand-yellow hover:underline"
+                    >
+                      {pillar.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </FadeIn>
 
           {!isVideoHero ? (
@@ -240,12 +269,14 @@ export default function HomePage() {
       <Section>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Our Services</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">
+              Automate the World
+            </p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy md:text-4xl">
-              Solutions for a Smarter Tomorrow
+              Websites, hosting & SEO alongside ConversaOS
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
-              Beyond ConversaOS, BK Tech Hub delivers websites, hosting, and SEO.
+              Your full digital stack — so WhatsApp AI and your web presence work together.
             </p>
           </div>
           <Button asChild variant="outline" className="w-fit">

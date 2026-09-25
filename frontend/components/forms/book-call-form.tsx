@@ -3,13 +3,15 @@
 import { useActionState } from "react";
 import type { ReactNode } from "react";
 
-import { initialBookCallState, submitBookCall } from "@/app/book-a-call/actions";
+import { submitBookCall, type BookCallState } from "@/app/book-a-call/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const initialState: BookCallState = { status: "idle", message: "" };
+
 export function BookCallForm() {
-  const [state, action, pending] = useActionState(submitBookCall, initialBookCallState);
+  const [state, action, pending] = useActionState(submitBookCall, initialState);
 
   return (
     <form action={action} className="space-y-4" noValidate>

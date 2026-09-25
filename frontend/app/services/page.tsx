@@ -29,7 +29,7 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[min(70vh,640px)] overflow-hidden bg-navy text-white">
+      <section className="relative -mt-[5.25rem] min-h-[min(70vh,640px)] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]">
         <Image
           src="/images/marketing/service-websites.jpg"
           alt=""

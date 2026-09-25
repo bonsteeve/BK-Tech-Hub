@@ -35,7 +35,7 @@ export default function ConversaOSPage() {
       <JsonLd data={buildFaqSchema(conversaosContent.faq)} />
 
       {/* Full-bleed video hero with floating phone */}
-      <section className="relative min-h-[min(92vh,860px)] overflow-hidden bg-navy text-white">
+      <section className="relative -mt-[5.25rem] min-h-[min(92vh,860px)] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]">
         <HeroVideo
           variant="cover"
           src={homeContent.hero.heroVideoSrc}

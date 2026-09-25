@@ -8,13 +8,21 @@ export const homeContent = {
     visual: "video" as "phone" | "video",
     heroVideoSrc: "/videos/conversaos_hero_en.mp4",
     heroVideoPoster: "/videos/hero-poster.jpg",
-    titleBefore: "Turn Your WhatsApp Into a ",
-    titleHighlight: "24/7 Sales Assistant",
+    brandLine: "Automate the World",
+    titleBefore: "WhatsApp AI, process automation & ",
+    titleHighlight: "digital growth",
     summary:
-      "Automate conversations, save time and never miss an opportunity. ConversaOS understands your business, replies with human takeover, generates quotes, books appointments, and sends reminders.",
+      "ConversaOS is our flagship — AI that runs your WhatsApp sales 24/7. We also build websites, hosting, and SEO so every part of your business works smarter.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: "https://app.bktechhub.com/signup", label: "Sign up", external: true },
-    microcopy: "More leads. Less work.",
+    secondaryCta: { href: "https://app.bktechhub.com/signin", label: "Sign in to ConversaOS", external: true },
+    /** Quiet offer links under CTAs — not cards; keeps ConversaOS primary */
+    pillars: [
+      { label: "WhatsApp AI", href: "/conversaos" },
+      { label: "Process automation", href: "/conversaos" },
+      { label: "Websites", href: "/services/website-creation" },
+      { label: "Hosting", href: "/services/hosting" },
+      { label: "SEO", href: "/services/seo" },
+    ],
   },
   features: [
     {
@@ -71,9 +79,9 @@ export const homeContent = {
     },
   ],
   finalCta: {
-    title: "Ready to automate WhatsApp and grow with BK Tech Hub?",
+    title: "Ready to Automate the World with BK Tech Hub?",
     summary:
-      "Book a ConversaOS demo — or talk to us about websites, hosting, and SEO for your business.",
+      "Start with a ConversaOS demo — or talk to us about websites, hosting, SEO, and the automation your business needs next.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
     secondaryCta: { href: "/services", label: "Explore Services" },
   },

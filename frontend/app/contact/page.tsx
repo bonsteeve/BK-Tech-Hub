@@ -27,7 +27,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[min(58vh,520px)] overflow-hidden bg-navy text-white">
+      <section className="relative -mt-[5.25rem] min-h-[min(58vh,520px)] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]">
         <Image
           src="/images/marketing/conversaos-lifestyle.jpg"
           alt=""
@@ -91,7 +91,7 @@ export default function ContactPage() {
               <ContactDetail
                 icon={Clock3}
                 label="Response time"
-                value="Usually within one business day"
+                value="Usually within half an hour"
               />
             </ul>
 

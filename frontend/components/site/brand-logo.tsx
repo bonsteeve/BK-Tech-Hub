@@ -26,19 +26,19 @@ export function BrandLogo({ variant = "dark", className }: BrandLogoProps) {
         alt=""
         width={40}
         height={40}
-        className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
+        className="h-10 w-10 shrink-0 sm:h-11 sm:w-11"
         priority
       />
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-heading text-base font-extrabold tracking-tight uppercase sm:text-lg",
+            "font-heading text-lg font-extrabold tracking-tight uppercase sm:text-xl",
             onDark ? "text-white" : "text-navy",
           )}
         >
           BK TECH <span className="text-brand-yellow">HUB</span>
         </span>
-        <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-brand-yellow sm:text-[10px]">
+        <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-yellow sm:text-[11px]">
           Automate the World
         </span>
       </span>

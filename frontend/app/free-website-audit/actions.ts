@@ -1,13 +1,10 @@
 "use server";
 
+import { notifyLead } from "@/lib/lead-notify";
+
 export type WebsiteAuditState = {
   status: "idle" | "success" | "error";
   message: string;
-};
-
-export const initialWebsiteAuditState: WebsiteAuditState = {
-  status: "idle",
-  message: "",
 };
 
 export async function submitWebsiteAudit(
@@ -17,6 +14,8 @@ export async function submitWebsiteAudit(
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const websiteUrl = String(formData.get("websiteUrl") ?? "").trim();
+  const businessType = String(formData.get("businessType") ?? "").trim();
+  const biggestChallenge = String(formData.get("biggestChallenge") ?? "").trim();
 
   if (!name || !email || !websiteUrl) {
     return {
@@ -25,23 +24,26 @@ export async function submitWebsiteAudit(
     };
   }
 
-  const payload = {
-    name,
-    email,
-    websiteUrl,
-    businessType: String(formData.get("businessType") ?? "").trim(),
-    biggestChallenge: String(formData.get("biggestChallenge") ?? "").trim(),
-  };
-
   try {
-    console.info("Website audit payload", payload);
+    await notifyLead({
+      formName: "Website Audit",
+      subject: `New website audit request — ${websiteUrl}`,
+      fields: [
+        { label: "Name", value: name },
+        { label: "Email", value: email },
+        { label: "Website", value: websiteUrl },
+        { label: "Business type", value: businessType },
+        { label: "Biggest challenge", value: biggestChallenge },
+      ],
+    });
 
     return {
       status: "success",
       message:
         "Thanks. Your audit request is confirmed. We will send your website audit summary within 2 business days.",
     };
-  } catch {
+  } catch (error) {
+    console.error("Website audit submission failed", error);
     return {
       status: "error",
       message: "Submission failed. Please try again or email info@bktechhub.com.",

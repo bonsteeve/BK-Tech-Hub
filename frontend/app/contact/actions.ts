@@ -1,13 +1,10 @@
 "use server";
 
+import { notifyLead } from "@/lib/lead-notify";
+
 export type ContactFormState = {
   status: "idle" | "success" | "error";
   message: string;
-};
-
-export const initialContactFormState: ContactFormState = {
-  status: "idle",
-  message: "",
 };
 
 export async function submitContactForm(
@@ -26,6 +23,8 @@ export async function submitContactForm(
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();
+  const businessName = String(formData.get("businessName") ?? "").trim();
+  const websiteUrl = String(formData.get("websiteUrl") ?? "").trim();
 
   if (!name || !email || !message) {
     return {
@@ -34,25 +33,25 @@ export async function submitContactForm(
     };
   }
 
-  // CRM/server action integration hook:
-  // Replace with your provider (HubSpot, Pipedrive, Airtable, custom API) as needed.
-  // Example payload fields are intentionally explicit for easy mapping.
-  const payload = {
-    name,
-    email,
-    businessName: String(formData.get("businessName") ?? "").trim(),
-    websiteUrl: String(formData.get("websiteUrl") ?? "").trim(),
-    message,
-  };
-
   try {
-    console.info("Contact form payload", payload);
+    await notifyLead({
+      formName: "Contact",
+      subject: `New contact message — ${name}`,
+      fields: [
+        { label: "Name", value: name },
+        { label: "Email", value: email },
+        { label: "Business", value: businessName },
+        { label: "Website", value: websiteUrl },
+        { label: "Message", value: message },
+      ],
+    });
 
     return {
       status: "success",
       message: "Thanks. We received your message and will reply within one business day.",
     };
-  } catch {
+  } catch (error) {
+    console.error("Contact form submission failed", error);
     return {
       status: "error",
       message: "Submission failed. Please try again or email info@bktechhub.com.",

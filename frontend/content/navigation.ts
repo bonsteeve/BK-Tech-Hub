@@ -23,6 +23,6 @@ export const footerNavigation = {
   ],
   conversion: [
     { href: "/book-a-demo", label: "Book a Demo" },
-    { href: siteConfig.signUpUrl, label: "Sign up" },
+    { href: siteConfig.signInUrl, label: siteConfig.signInLabel },
   ],
 } as const;

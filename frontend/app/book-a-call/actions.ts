@@ -1,13 +1,10 @@
 "use server";
 
+import { notifyLead } from "@/lib/lead-notify";
+
 export type BookCallState = {
   status: "idle" | "success" | "error";
   message: string;
-};
-
-export const initialBookCallState: BookCallState = {
-  status: "idle",
-  message: "",
 };
 
 export async function submitBookCall(
@@ -18,6 +15,8 @@ export async function submitBookCall(
   const email = String(formData.get("email") ?? "").trim();
   const businessName = String(formData.get("businessName") ?? "").trim();
   const projectGoal = String(formData.get("projectGoal") ?? "").trim();
+  const websiteUrl = String(formData.get("websiteUrl") ?? "").trim();
+  const budgetRange = String(formData.get("budgetRange") ?? "").trim();
 
   if (!name || !email || !businessName || !projectGoal) {
     return {
@@ -26,24 +25,27 @@ export async function submitBookCall(
     };
   }
 
-  const payload = {
-    name,
-    email,
-    businessName,
-    websiteUrl: String(formData.get("websiteUrl") ?? "").trim(),
-    projectGoal,
-    budgetRange: String(formData.get("budgetRange") ?? "").trim(),
-  };
-
   try {
-    console.info("Book call payload", payload);
+    await notifyLead({
+      formName: "Book a Call",
+      subject: `New call booking — ${businessName}`,
+      fields: [
+        { label: "Name", value: name },
+        { label: "Email", value: email },
+        { label: "Business", value: businessName },
+        { label: "Website", value: websiteUrl },
+        { label: "Project goal", value: projectGoal },
+        { label: "Budget", value: budgetRange },
+      ],
+    });
 
     return {
       status: "success",
       message:
         "Thanks. We received your booking request and will confirm a call slot within one business day.",
     };
-  } catch {
+  } catch (error) {
+    console.error("Book call submission failed", error);
     return {
       status: "error",
       message: "Booking request failed. Please try again or email info@bktechhub.com.",

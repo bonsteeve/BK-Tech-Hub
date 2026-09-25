@@ -4,18 +4,17 @@ import { useActionState } from "react";
 import type { ReactNode } from "react";
 
 import {
-  initialWebsiteAuditState,
   submitWebsiteAudit,
+  type WebsiteAuditState,
 } from "@/app/free-website-audit/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const initialState: WebsiteAuditState = { status: "idle", message: "" };
+
 export function WebsiteAuditForm() {
-  const [state, action, pending] = useActionState(
-    submitWebsiteAudit,
-    initialWebsiteAuditState,
-  );
+  const [state, action, pending] = useActionState(submitWebsiteAudit, initialState);
 
   return (
     <form action={action} className="space-y-4" noValidate>

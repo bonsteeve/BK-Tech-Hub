@@ -37,9 +37,9 @@ export default function BookADemoPage() {
             <li>• We typically confirm a slot within one business day</li>
           </ul>
           <p className="text-sm text-muted-foreground">
-            Already have an account?{" "}
+            Already have a ConversaOS account?{" "}
             <a href={siteConfig.signInUrl} className="font-semibold text-brand-blue hover:underline">
-              Sign in
+              {siteConfig.signInLabel}
             </a>
           </p>
           <Button asChild variant="outline">

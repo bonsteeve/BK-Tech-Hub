@@ -3,13 +3,15 @@
 import { useActionState } from "react";
 import type { ReactNode } from "react";
 
-import { initialBookDemoState, submitBookDemo } from "@/app/book-a-demo/actions";
+import { submitBookDemo, type BookDemoState } from "@/app/book-a-demo/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const initialState: BookDemoState = { status: "idle", message: "" };
+
 export function BookDemoForm() {
-  const [state, action, pending] = useActionState(submitBookDemo, initialBookDemoState);
+  const [state, action, pending] = useActionState(submitBookDemo, initialState);
 
   return (
     <form action={action} className="space-y-4" noValidate>

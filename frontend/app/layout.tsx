@@ -24,18 +24,25 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "BK Tech Hub | ConversaOS WhatsApp Automation, Websites & SEO",
-    template: "%s | BK Tech Hub",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  icons: {
+    icon: [{ url: "/images/brand/logo-mark.svg", type: "image/svg+xml" }],
+    apple: "/images/favicon1.png",
+  },
   keywords: [
+    "BK Tech Hub",
+    "Automate the World",
     "ConversaOS",
     "WhatsApp automation",
     "AI WhatsApp",
+    "process automation",
     "website creation",
     "hosting",
     "SEO",
-    "BK Tech Hub",
   ],
   alternates: {
     canonical: "/",
@@ -45,12 +52,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "BK Tech Hub | ConversaOS WhatsApp Automation",
+    title: siteConfig.name,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "BK Tech Hub | ConversaOS WhatsApp Automation",
+    title: siteConfig.name,
     description: siteConfig.description,
   },
   robots: {
@@ -65,8 +72,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${montserrat.variable} font-sans`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} ${montserrat.variable} font-sans`} suppressHydrationWarning>
         <a
           href="#main-content"
           className="sr-only z-[999] focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-brand-yellow focus:px-3 focus:py-2 focus:text-navy"
