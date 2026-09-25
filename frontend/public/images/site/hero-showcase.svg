@@ -1,0 +1,44 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1100" rx="48" fill="#070A12"/>
+  <rect x="36" y="36" width="1528" height="1028" rx="40" fill="url(#bg)"/>
+  <g opacity="0.35">
+    <circle cx="280" cy="220" r="220" fill="#19C2B0"/>
+    <circle cx="1320" cy="180" r="250" fill="#4EA3FF"/>
+    <circle cx="1180" cy="920" r="260" fill="#19C2B0"/>
+  </g>
+  <g filter="url(#glass)">
+    <rect x="120" y="128" width="960" height="720" rx="28" fill="#0F182B" fill-opacity="0.78"/>
+    <rect x="120" y="128" width="960" height="720" rx="28" stroke="#1E2C44"/>
+  </g>
+  <rect x="164" y="184" width="312" height="18" rx="9" fill="#3A4C6A"/>
+  <rect x="164" y="222" width="560" height="12" rx="6" fill="#2B3A57"/>
+  <rect x="164" y="278" width="872" height="180" rx="18" fill="#101F36"/>
+  <rect x="188" y="310" width="280" height="16" rx="8" fill="#4EA3FF" fill-opacity="0.6"/>
+  <rect x="188" y="342" width="476" height="12" rx="6" fill="#3A4C6A"/>
+  <rect x="188" y="370" width="406" height="12" rx="6" fill="#3A4C6A"/>
+  <rect x="188" y="398" width="346" height="12" rx="6" fill="#3A4C6A"/>
+  <rect x="740" y="302" width="272" height="132" rx="14" fill="#132746"/>
+  <path d="M760 401C792 363 829 364 859 345C898 320 931 275 990 289" stroke="#19C2B0" stroke-width="6" stroke-linecap="round"/>
+  <g filter="url(#card)">
+    <rect x="948" y="520" width="500" height="300" rx="24" fill="#0F1A2F"/>
+    <rect x="948" y="520" width="500" height="300" rx="24" stroke="#2A3E60"/>
+  </g>
+  <rect x="988" y="568" width="184" height="16" rx="8" fill="#19C2B0" fill-opacity="0.72"/>
+  <rect x="988" y="604" width="388" height="12" rx="6" fill="#3C5070"/>
+  <rect x="988" y="636" width="352" height="12" rx="6" fill="#3C5070"/>
+  <rect x="988" y="690" width="420" height="78" rx="16" fill="#132746"/>
+  <rect x="1006" y="710" width="164" height="14" rx="7" fill="#4EA3FF" fill-opacity="0.7"/>
+  <rect x="1006" y="736" width="266" height="10" rx="5" fill="#466081"/>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="36" x2="1458" y2="1032" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1324"/>
+      <stop offset="1" stop-color="#121F37"/>
+    </linearGradient>
+    <filter id="glass" x="86" y="94" width="1028" height="788" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="card" x="920" y="492" width="556" height="356" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#060A13" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+</svg>

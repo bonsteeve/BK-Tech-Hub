@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <rect width="64" height="64" rx="14" fill="#001A33"/>
+  <!-- Open white B (right side open for K chevron) -->
+  <path
+    fill="#FFFFFF"
+    fill-rule="evenodd"
+    d="M13 11h18c5.8 0 9.8 2.9 9.8 7.6 0 3.1-1.7 5.4-4.5 6.7 3.3 1.2 5.4 3.7 5.4 7.3 0 5.1-4.3 8.4-10.9 8.4H13V11zm7.8 12.2h9.4c2.6 0 4.1-1.3 4.1-3.2 0-1.9-1.5-3.1-4.1-3.1h-9.4v6.3zm0 14h10.4c2.9 0 4.6-1.4 4.6-3.6 0-2.1-1.7-3.5-4.6-3.5H20.8v7.1z"
+  />
+  <!-- Blue K arms as left-pointing chevron into the B -->
+  <path
+    stroke="#2E9BDB"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M50 19 37.5 32 50 45"
+  />
+  <!-- Yellow nodes at chevron tips -->
+  <circle cx="50" cy="19" r="3.5" fill="#FFC107"/>
+  <circle cx="50" cy="45" r="3.5" fill="#FFC107"/>
+</svg>

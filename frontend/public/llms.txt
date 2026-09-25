@@ -1,0 +1,26 @@
+# BK Tech Hub
+
+> BK Tech Hub builds ConversaOS (AI-powered WhatsApp automation) plus website creation, hosting, and SEO for growing businesses in Nairobi, Kenya.
+
+## Primary product
+- ConversaOS: WhatsApp AI automation with human takeover, quote generation, calendar booking, and reminders
+
+## Services
+- Website creation
+- Hosting
+- SEO
+
+## Key pages
+- /
+- /conversaos
+- /services
+- /services/website-creation
+- /services/hosting
+- /services/seo
+- /blog
+- /contact
+- /book-a-demo
+
+## CTAs
+- Primary: Book a Demo (/book-a-demo)
+- Secondary: Sign in / Sign up (app.bktechhub.com)
