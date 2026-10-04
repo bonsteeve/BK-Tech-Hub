@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site-config";
+
 export const homeContent = {
   hero: {
     /**
@@ -14,7 +16,7 @@ export const homeContent = {
     summary:
       "ConversaOS is our flagship — AI that runs your WhatsApp sales 24/7. We also build websites, hosting, and SEO so every part of your business works smarter.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: "https://app.bktechhub.com/signin", label: "Sign in to ConversaOS", external: true },
+    secondaryCta: { href: siteConfig.signInUrl, label: siteConfig.signInLabel, external: true },
     /** Quiet offer links under CTAs — not cards; keeps ConversaOS primary */
     pillars: [
       { label: "WhatsApp AI", href: "/conversaos" },
