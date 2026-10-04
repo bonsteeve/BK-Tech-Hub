@@ -24,10 +24,10 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com",
     instagram: "https://www.instagram.com",
   },
-  /** ConversaOS app — site chrome exposes Sign in only; signup lives in the app */
+  /** ConversaOS app — login + account creation share the same page */
   conversaosUrl: "https://conversaos.bktechhub.com",
   signInUrl: "https://conversaos.bktechhub.com/login",
-  signUpUrl: "https://conversaos.bktechhub.com/signup",
+  signUpUrl: "https://conversaos.bktechhub.com/login",
   signInLabel: "Sign in to ConversaOS",
   demoPath: "/book-a-demo",
 } as const;
