@@ -1,20 +1,65 @@
 "use client";
 
-import { useActionState } from "react";
-import type { ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 
-import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { siteConfig } from "@/lib/site-config";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
-const initialState: ContactFormState = { status: "idle", message: "" };
+type Status = "idle" | "success" | "error";
 
 export function ContactForm() {
-  const [state, formAction, pending] = useActionState(submitContactForm, initialState);
+  const [status, setStatus] = useState<Status>("idle");
+  const [message, setMessage] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot — bots fill this; humans never see it
+    if (String(data.get("company_website") ?? "").trim()) {
+      setStatus("success");
+      setMessage("Thanks. Opening WhatsApp so you can send your message.");
+      return;
+    }
+
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const body = String(data.get("message") ?? "").trim();
+    const businessName = String(data.get("businessName") ?? "").trim();
+    const websiteUrl = String(data.get("websiteUrl") ?? "").trim();
+
+    if (!name || !email || !body) {
+      setStatus("error");
+      setMessage("Please complete name, email, and message before submitting.");
+      return;
+    }
+
+    const lines = [
+      "Hello BK Tech Hub — new contact request from the website:",
+      "",
+      `Name: ${name}`,
+      `Email: ${email}`,
+      businessName ? `Business: ${businessName}` : null,
+      websiteUrl ? `Website: ${websiteUrl}` : null,
+      "",
+      "Message:",
+      body,
+    ].filter((line): line is string => line !== null);
+
+    const url = getWhatsAppUrl(lines.join("\n"));
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    setStatus("success");
+    setMessage("WhatsApp is opening with your message. Tap Send to deliver it.");
+    form.reset();
+  }
 
   return (
-    <form action={formAction} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div className="hidden" aria-hidden>
         <label htmlFor="company_website">Company website</label>
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
@@ -48,24 +93,25 @@ export function ContactForm() {
       </Field>
 
       <p className="text-xs text-muted-foreground">
-        By submitting this form, you agree to be contacted by BK Tech Hub about your request. No spam.
+        Submit opens WhatsApp to {siteConfig.whatsapp} with your details filled in. Just tap Send
+        in WhatsApp to deliver it.
       </p>
 
-      <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Sending..." : "Send Message"}
+      <Button type="submit" size="lg">
+        Send on WhatsApp
       </Button>
 
-      {state.status !== "idle" ? (
+      {status !== "idle" ? (
         <p
           className={
-            state.status === "success"
+            status === "success"
               ? "text-sm font-medium text-brand-blue"
               : "text-sm font-medium text-red-600"
           }
           role="status"
           aria-live="polite"
         >
-          {state.message}
+          {message}
         </p>
       ) : null}
     </form>
