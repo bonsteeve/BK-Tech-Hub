@@ -1,6 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-navy: hsl(var(--navy));
+  --color-navy-foreground: hsl(var(--navy-foreground));
+
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.75rem;
+}
 
 :root {
   /* Navy / yellow / blue brand from posters */
@@ -19,9 +39,6 @@
   --secondary-foreground: 0 0% 100%;
   --navy: 210 100% 10%;
   --navy-foreground: 0 0% 100%;
-  --radius-lg: 1.5rem;
-  --radius-md: 1rem;
-  --radius-sm: 0.75rem;
 }
 
 * {
@@ -57,46 +74,44 @@ body {
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  .bg-navy {
-    background-color: #001a33;
-  }
+@utility bg-navy {
+  background-color: #001a33;
+}
 
-  .text-navy {
-    color: #001a33;
-  }
+@utility text-navy {
+  color: #001a33;
+}
 
-  .text-brand-yellow {
-    color: #ffc107;
-  }
+@utility text-brand-yellow {
+  color: #ffc107;
+}
 
-  .surface-glow {
-    box-shadow: 0 12px 40px rgba(0, 26, 51, 0.12);
-  }
+@utility surface-glow {
+  box-shadow: 0 12px 40px rgba(0, 26, 51, 0.12);
+}
 
-  .interactive-card {
-    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms ease,
-      box-shadow 280ms ease;
-    will-change: transform;
-  }
+@utility interactive-card {
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms ease,
+    box-shadow 280ms ease;
+  will-change: transform;
+}
 
-  .interactive-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255, 193, 7, 0.55);
-    box-shadow: 0 18px 40px rgba(0, 26, 51, 0.12);
-  }
+@utility interactive-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 193, 7, 0.55);
+  box-shadow: 0 18px 40px rgba(0, 26, 51, 0.12);
+}
 
-  .whatsapp-ping {
-    animation: whatsapp-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
+@utility whatsapp-ping {
+  animation: whatsapp-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
 
-  .whatsapp-ping-delay {
-    animation: whatsapp-ping 2.2s cubic-bezier(0, 0, 0.2, 1) 0.7s infinite;
-  }
+@utility whatsapp-ping-delay {
+  animation: whatsapp-ping 2.2s cubic-bezier(0, 0, 0.2, 1) 0.7s infinite;
 }
 
 @keyframes whatsapp-ping {
