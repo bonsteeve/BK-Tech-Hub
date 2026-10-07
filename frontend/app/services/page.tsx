@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = createPageMetadata({
   title: "Services — Websites, Hosting & SEO",
   description:
-    "BK Tech Hub services: website creation, hosting, and SEO — alongside ConversaOS WhatsApp automation.",
+    "BK Tech Hub services: website creation, hosting, and SEO — alongside BK Chat WhatsApp automation.",
   path: "/services",
   keywords: ["website creation", "hosting", "SEO", "BK Tech Hub services"],
 });
@@ -46,11 +46,11 @@ export default function ServicesPage() {
             <p className="text-sm font-medium text-brand-yellow">Websites · Hosting · SEO</p>
             <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-balance sm:text-5xl md:text-6xl">
               Digital services that{" "}
-              <span className="text-brand-yellow">grow with ConversaOS</span>
+              <span className="text-brand-yellow">grow with BK Chat</span>
             </h1>
             <p className="max-w-xl text-base text-white/80 md:text-lg">
               Build a high-converting website, keep it fast and secure, and get found by the right
-              customers — then capture chats with ConversaOS.
+              customers — then capture chats with BK Chat.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" variant="primary">
@@ -59,7 +59,7 @@ export default function ServicesPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/conversaos">Explore ConversaOS</Link>
+                <Link href="/conversaos">Explore BK Chat</Link>
               </Button>
             </div>
           </FadeIn>
@@ -147,7 +147,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Pairing band with ConversaOS */}
+      {/* Pairing band with BK Chat */}
       <section className="relative overflow-hidden bg-navy py-16 text-white md:py-20">
         <div className="pointer-events-none absolute -right-16 top-0 h-72 w-72 rounded-full bg-brand-blue/20 blur-3xl" aria-hidden />
         <div className="container relative grid items-center gap-10 lg:grid-cols-12">
@@ -156,16 +156,16 @@ export default function ServicesPage() {
               Better together
             </p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight md:text-4xl">
-              Pair your website with ConversaOS
+              Pair your website with BK Chat
             </h2>
             <p className="mt-4 text-white/75 md:text-lg">
-              When visitors are ready to talk, meet them on WhatsApp. ConversaOS replies, quotes, and
+              When visitors are ready to talk, meet them on WhatsApp. BK Chat replies, quotes, and
               books — while your site does the selling.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" variant="primary">
                 <Link href="/conversaos">
-                  See ConversaOS <ArrowRight className="size-4" />
+                  See BK Chat <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
@@ -177,7 +177,7 @@ export default function ServicesPage() {
             <div className="relative aspect-[16/11] overflow-hidden rounded-[1.75rem] shadow-2xl">
               <Image
                 src="/images/marketing/conversaos-booking.jpg"
-                alt="WhatsApp booking with ConversaOS"
+                alt="WhatsApp booking with BK Chat"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -190,7 +190,7 @@ export default function ServicesPage() {
                 "bg-navy/90 p-4 text-sm text-white shadow-xl backdrop-blur md:block",
               )}
             >
-              Website converts interest. ConversaOS closes the conversation.
+              Website converts interest. BK Chat closes the conversation.
             </div>
           </FadeIn>
         </div>

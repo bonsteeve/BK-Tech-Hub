@@ -52,7 +52,7 @@ export function HeroVideo({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={poster}
-            alt="ConversaOS WhatsApp automation preview"
+            alt="BK Chat WhatsApp automation preview"
             className="h-full w-full object-cover"
             onError={() => setPosterFailed(true)}
           />

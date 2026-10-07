@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   keywords: [
     "BK Tech Hub",
     "Automate the World",
-    "ConversaOS",
+    "BK Chat",
     "WhatsApp automation",
     "AI WhatsApp",
     "process automation",

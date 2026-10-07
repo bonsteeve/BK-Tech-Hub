@@ -20,7 +20,7 @@ export const services: Service[] = [
     summary:
       "Premium, conversion-focused websites engineered for trust, speed, and qualified lead generation.",
     description:
-      "BK Tech Hub designs and builds custom marketing websites that clearly communicate your offer, guide visitors to action, and perform well on every device. Pair your new site with ConversaOS to capture WhatsApp leads the moment interest peaks.",
+      "BK Tech Hub designs and builds custom marketing websites that clearly communicate your offer, guide visitors to action, and perform well on every device. Pair your new site with BK Chat to capture WhatsApp leads the moment interest peaks.",
     image: "/images/marketing/service-websites.jpg",
     imageAlt: "Modern website design on a studio desk",
     accent: "Build a site that sells",
@@ -54,9 +54,9 @@ export const services: Service[] = [
           "Yes. We optimize your current site or rebuild based on the ROI potential identified during discovery.",
       },
       {
-        question: "Can this work with ConversaOS?",
+        question: "Can this work with BK Chat?",
         answer:
-          "Absolutely. Many clients combine a high-converting website with ConversaOS WhatsApp automation.",
+          "Absolutely. Many clients combine a high-converting website with BK Chat WhatsApp automation.",
       },
     ],
   },

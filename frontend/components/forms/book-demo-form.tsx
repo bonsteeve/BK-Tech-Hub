@@ -31,7 +31,7 @@ export function BookDemoForm() {
     }
 
     const lines = [
-      "Hello BK Tech Hub — I'd like to book a ConversaOS demo:",
+      "Hello BK Tech Hub — I'd like to book a BK Chat demo:",
       "",
       `Name: ${name}`,
       `Email: ${email}`,

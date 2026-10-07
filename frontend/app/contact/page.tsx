@@ -13,11 +13,11 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 export const metadata: Metadata = createPageMetadata({
   title: "Contact",
   description:
-    "Contact BK Tech Hub about ConversaOS demos, website creation, hosting, or SEO. We typically reply within one business day.",
+    "Contact BK Tech Hub about BK Chat demos, website creation, hosting, or SEO. We typically reply within one business day.",
   path: "/contact",
   keywords: [
     "contact BK Tech Hub",
-    "ConversaOS demo",
+    "BK Chat demo",
     "website project inquiry",
     "Nairobi digital agency",
   ],
@@ -47,7 +47,7 @@ export default function ContactPage() {
               <span className="text-brand-yellow">we’ll map the next step</span>
             </h1>
             <p className="max-w-xl text-base text-white/80 md:text-lg">
-              ConversaOS demos, websites, hosting, or SEO. Share your goals and we’ll reply with
+              BK Chat demos, websites, hosting, or SEO. Share your goals and we’ll reply with
               practical recommendations.
             </p>
           </FadeIn>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                 Send a message
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Tell us what you need — ConversaOS, a website, hosting, SEO, or a mix.
+                Tell us what you need — BK Chat, a website, hosting, SEO, or a mix.
               </p>
               <div className="mt-8">
                 <ContactForm />
@@ -140,7 +140,7 @@ export default function ContactPage() {
               Prefer a walkthrough?
             </p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight md:text-4xl">
-              Book a ConversaOS demo instead
+              Book a BK Chat demo instead
             </h2>
             <p className="mt-4 max-w-xl text-white/75 md:text-lg">
               See AI replies, human takeover, quotes, bookings, and reminders on workflows like yours —
@@ -153,7 +153,7 @@ export default function ContactPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/conversaos">Explore ConversaOS</Link>
+                <Link href="/conversaos">Explore BK Chat</Link>
               </Button>
             </div>
           </FadeIn>
@@ -161,7 +161,7 @@ export default function ContactPage() {
             <div className="relative aspect-[16/11] overflow-hidden rounded-[1.75rem] shadow-2xl">
               <Image
                 src="/images/marketing/poster-conversaos.jpg"
-                alt="ConversaOS product preview"
+                alt="BK Chat product preview"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 40vw"

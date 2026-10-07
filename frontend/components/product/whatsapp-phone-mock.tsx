@@ -338,7 +338,7 @@ export function WhatsAppPhoneMock() {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold">BK Tech Hub</p>
             <p className="text-[11px] text-white/80">
-              {typingSide === "right" ? "ConversaOS is typing…" : "online · ConversaOS"}
+              {typingSide === "right" ? "BK Chat is typing…" : "online · BK Chat"}
             </p>
           </div>
           <span className="rounded-full bg-white/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white/90">
@@ -415,7 +415,7 @@ function Bubble({
       >
         {ai ? (
           <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-brand-blue">
-            ConversaOS
+            BK Chat
           </p>
         ) : null}
         <div>{children}</div>

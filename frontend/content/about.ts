@@ -1,8 +1,8 @@
 export const aboutContent = {
   hero: {
-    title: "The company behind ConversaOS",
+    title: "The company behind BK Chat",
     summary:
-      "BK Tech Hub builds ConversaOS — AI-powered WhatsApp automation — and delivers websites, hosting, and SEO so growing businesses can capture more leads with less manual work.",
+      "BK Tech Hub builds BK Chat — AI-powered WhatsApp automation — and delivers websites, hosting, and SEO so growing businesses can capture more leads with less manual work.",
   },
   principles: [
     {
@@ -28,7 +28,7 @@ export const aboutContent = {
     },
     {
       title: "Design",
-      detail: "Map conversion journeys across ConversaOS and your website.",
+      detail: "Map conversion journeys across BK Chat and your website.",
     },
     {
       title: "Build",
@@ -40,7 +40,7 @@ export const aboutContent = {
     },
   ],
   trustPoints: [
-    "Flagship product: ConversaOS WhatsApp automation",
+    "Flagship product: BK Chat WhatsApp automation",
     "Website creation, hosting, and SEO under one roof",
     "Human-in-the-loop AI — practical, not hype",
     "Collaborative, transparent project communication",

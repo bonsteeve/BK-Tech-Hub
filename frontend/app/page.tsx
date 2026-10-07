@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     keywords: [
       "BK Tech Hub",
       "Automate the World",
-      "ConversaOS",
+      "BK Chat",
       "WhatsApp automation",
       "process automation",
       "website creation",
@@ -132,7 +132,7 @@ export default function HomePage() {
               <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-2xl">
                 <Image
                   src="/images/marketing/conversaos-lifestyle.jpg"
-                  alt="Business owner managing WhatsApp conversations with ConversaOS"
+                  alt="Business owner managing WhatsApp conversations with BK Chat"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -154,7 +154,7 @@ export default function HomePage() {
             </FadeIn>
 
             <FadeIn delay={0.1} className="lg:col-span-5 lg:pl-6">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">ConversaOS</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">BK Chat</p>
               <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
                 Built for WhatsApp sales conversations
               </h2>
@@ -179,7 +179,7 @@ export default function HomePage() {
               </ul>
               <Button asChild variant="navy" size="lg" className="mt-8">
                 <Link href="/conversaos">
-                  Explore ConversaOS <ArrowRight className="size-4" />
+                  Explore BK Chat <ArrowRight className="size-4" />
                 </Link>
               </Button>
             </FadeIn>
@@ -258,7 +258,7 @@ export default function HomePage() {
               Automate the World
             </p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy md:text-4xl">
-              Websites, hosting & SEO alongside ConversaOS
+              Websites, hosting & SEO alongside BK Chat
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
               Your full digital stack — so WhatsApp AI and your web presence work together.

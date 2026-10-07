@@ -6,7 +6,7 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { siteConfig } from "@/lib/site-config";
 
 const defaultMessage =
-  "Hi BK Tech Hub — I'd like to learn more about ConversaOS / your services.";
+  "Hi BK Tech Hub — I'd like to learn more about BK Chat / your services.";
 
 export function FloatingWhatsApp() {
   const shouldReduceMotion = useReducedMotion();

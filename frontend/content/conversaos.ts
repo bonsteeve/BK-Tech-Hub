@@ -4,7 +4,7 @@ export const conversaosContent = {
   hero: {
     titleBefore: "Turn WhatsApp into your ",
     titleHighlight: "24/7 sales assistant",
-    subtitle: "ConversaOS — AI-powered WhatsApp automation",
+    subtitle: "BK Chat — AI-powered WhatsApp automation",
     summary:
       "Understand your business, reply with human takeover, generate quotes, book calendar appointments, and send reminders — so you capture more leads with less manual work.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
@@ -14,7 +14,7 @@ export const conversaosContent = {
   problem: {
     title: "WhatsApp leads shouldn’t slip through the cracks",
     summary:
-      "Customers message at all hours. Manual replies are slow, quotes get delayed, and appointments fall through. ConversaOS keeps every conversation moving — day and night.",
+      "Customers message at all hours. Manual replies are slow, quotes get delayed, and appointments fall through. BK Chat keeps every conversation moving — day and night.",
     points: [
       "Missed messages after hours",
       "Slow quotes that lose deals",
@@ -26,16 +26,16 @@ export const conversaosContent = {
     {
       title: "AI that understands your business",
       description:
-        "Train ConversaOS on your services, pricing, and policies so replies stay accurate and on-brand.",
+        "Train BK Chat on your services, pricing, and policies so replies stay accurate and on-brand.",
       image: "/images/marketing/conversaos-lifestyle.jpg",
-      imageAlt: "Business owner using WhatsApp with ConversaOS automation",
+      imageAlt: "Business owner using WhatsApp with BK Chat automation",
     },
     {
       title: "Human takeover anytime",
       description:
         "AI handles routine questions. Your team jumps in for complex or high-value conversations without losing context.",
       image: "/images/marketing/poster-conversaos.jpg",
-      imageAlt: "ConversaOS WhatsApp automation product visual",
+      imageAlt: "BK Chat WhatsApp automation product visual",
     },
     {
       title: "Automatic quote generation",
@@ -47,7 +47,7 @@ export const conversaosContent = {
     {
       title: "Calendar booking & reminders",
       description:
-        "Clients book appointments directly in chat. ConversaOS syncs calendars and sends reminders automatically.",
+        "Clients book appointments directly in chat. BK Chat syncs calendars and sends reminders automatically.",
       image: "/images/marketing/conversaos-booking.jpg",
       imageAlt: "Appointment booking confirmation on WhatsApp",
     },
@@ -56,7 +56,7 @@ export const conversaosContent = {
     {
       step: "01",
       title: "Understand",
-      description: "Connect WhatsApp and teach ConversaOS your business knowledge.",
+      description: "Connect WhatsApp and teach BK Chat your business knowledge.",
       image: "/images/marketing/conversaos-lifestyle.jpg",
     },
     {
@@ -74,9 +74,9 @@ export const conversaosContent = {
   ],
   faq: [
     {
-      question: "What channels does ConversaOS support?",
+      question: "What channels does BK Chat support?",
       answer:
-        "ConversaOS is built for WhatsApp Business conversations — the channel where many SMEs already win or lose leads.",
+        "BK Chat is built for WhatsApp Business conversations — the channel where many SMEs already win or lose leads.",
     },
     {
       question: "Can my team take over from the AI?",
@@ -86,16 +86,16 @@ export const conversaosContent = {
     {
       question: "Does it generate quotes and book meetings?",
       answer:
-        "Yes. ConversaOS can qualify leads, generate quotes, book calendar appointments, and send reminders.",
+        "Yes. BK Chat can qualify leads, generate quotes, book calendar appointments, and send reminders.",
     },
     {
       question: "How do I get started?",
       answer:
-        "Book a demo with BK Tech Hub. We’ll map your WhatsApp workflows and show ConversaOS on your use cases.",
+        "Book a demo with BK Tech Hub. We’ll map your WhatsApp workflows and show BK Chat on your use cases.",
     },
   ],
   finalCta: {
-    title: "See ConversaOS on your WhatsApp workflows",
+    title: "See BK Chat on your WhatsApp workflows",
     summary: "Book a live demo — or sign in if you already have access. New accounts will be available in the app.",
     primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
     secondaryCta: { href: siteConfig.signInUrl, label: siteConfig.signInLabel, external: true },

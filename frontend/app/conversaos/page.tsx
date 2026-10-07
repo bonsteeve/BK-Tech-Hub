@@ -15,11 +15,11 @@ import { createPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "ConversaOS — AI-Powered WhatsApp Automation",
+  title: "BK Chat — AI-Powered WhatsApp Automation",
   description: conversaosContent.hero.summary,
   path: "/conversaos",
   keywords: [
-    "ConversaOS",
+    "BK Chat",
     "WhatsApp automation",
     "AI chatbot WhatsApp",
     "quote generation",
@@ -29,7 +29,7 @@ export const metadata: Metadata = createPageMetadata({
 
 const featureIcons = [Bot, UserRound, FileText, CalendarDays] as const;
 
-export default function ConversaOSPage() {
+export default function BKChatPage() {
   return (
     <>
       <JsonLd data={buildFaqSchema(conversaosContent.faq)} />
@@ -143,7 +143,7 @@ export default function ConversaOSPage() {
           <FadeIn className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Capabilities</p>
             <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy md:text-4xl">
-              What ConversaOS does for your business
+              What BK Chat does for your business
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
               AI WhatsApp automation with the controls your team actually needs.
@@ -250,12 +250,12 @@ export default function ConversaOSPage() {
                 Questions before you book a demo
               </h2>
               <p className="mt-4 text-muted-foreground md:text-lg">
-                Clear answers to help you evaluate ConversaOS quickly.
+                Clear answers to help you evaluate BK Chat quickly.
               </p>
               <div className="relative mt-8 hidden aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-xl lg:block">
                 <Image
                   src="/images/marketing/poster-conversaos.jpg"
-                  alt="ConversaOS product preview"
+                  alt="BK Chat product preview"
                   fill
                   className="object-cover"
                   sizes="400px"

@@ -2,14 +2,14 @@ import { siteConfig } from "@/lib/site-config";
 
 export const primaryNavigation = [
   { href: "/", label: "Home" },
-  { href: "/conversaos", label: "ConversaOS" },
+  { href: "/conversaos", label: "BK Chat" },
   { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 export const footerNavigation = {
   product: [
-    { href: "/conversaos", label: "ConversaOS" },
+    { href: "/conversaos", label: "BK Chat" },
     { href: "/book-a-demo", label: "Book a Demo" },
   ],
   services: [

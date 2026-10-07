@@ -9,11 +9,11 @@ import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Book a ConversaOS Demo",
+  title: "Book a BK Chat Demo",
   description:
-    "Book a live demo of ConversaOS — AI-powered WhatsApp automation for replies, quotes, bookings, and reminders.",
+    "Book a live demo of BK Chat — AI-powered WhatsApp automation for replies, quotes, bookings, and reminders.",
   path: "/book-a-demo",
-  keywords: ["ConversaOS demo", "WhatsApp automation demo", "Book a demo"],
+  keywords: ["BK Chat demo", "WhatsApp automation demo", "Book a demo"],
 });
 
 export default function BookADemoPage() {
@@ -25,7 +25,7 @@ export default function BookADemoPage() {
             Book a Demo
           </p>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-navy md:text-5xl">
-            See ConversaOS on your WhatsApp workflows
+            See BK Chat on your WhatsApp workflows
           </h1>
           <p className="text-muted-foreground md:text-lg">
             In about 30 minutes we&apos;ll walk through AI replies, human takeover, quote generation,
@@ -37,7 +37,7 @@ export default function BookADemoPage() {
             <li>• We typically confirm a slot within one business day</li>
           </ul>
           <p className="text-sm text-muted-foreground">
-            Already have a ConversaOS account?{" "}
+            Already have a BK Chat account?{" "}
             <a
               href={siteConfig.signInUrl}
               target="_blank"
@@ -48,7 +48,7 @@ export default function BookADemoPage() {
             </a>
           </p>
           <Button asChild variant="outline">
-            <Link href="/conversaos">Back to ConversaOS</Link>
+            <Link href="/conversaos">Back to BK Chat</Link>
           </Button>
         </FadeIn>
 
