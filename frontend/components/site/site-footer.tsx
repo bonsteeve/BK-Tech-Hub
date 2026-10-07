@@ -37,7 +37,12 @@ export function SiteFooter() {
             <Link href="/book-a-demo" className="transition-colors hover:text-brand-yellow">
               Book a Demo
             </Link>
-            <Link href={siteConfig.signInUrl} className="transition-colors hover:text-brand-yellow">
+            <Link
+              href={siteConfig.signInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-brand-yellow"
+            >
               {siteConfig.signInLabel}
             </Link>
             <Link href="/contact" className="transition-colors hover:text-brand-yellow">

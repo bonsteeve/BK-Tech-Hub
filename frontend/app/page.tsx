@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Bot, CalendarDays, FileText, Globe, Search, Server } from "lucide-react";
 
-import { HeroVideo } from "@/components/product/hero-video";
 import { HeroVisual } from "@/components/product/hero-visual";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
@@ -64,32 +63,14 @@ export default function HomePage() {
       <section
         className={cn(
           "relative -mt-[5.25rem] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]",
-          isVideoHero && "min-h-[min(92vh,820px)]",
         )}
       >
-        {isVideoHero ? (
-          <>
-            <HeroVideo
-              variant="cover"
-              src={homeContent.hero.heroVideoSrc}
-              poster={homeContent.hero.heroVideoPoster}
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/75 to-navy/45"
-              aria-hidden
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-navy/40" aria-hidden />
-          </>
-        ) : (
-          <div className="pointer-events-none absolute inset-0 bg-hero-radial opacity-90" aria-hidden />
-        )}
+        <div className="pointer-events-none absolute inset-0 bg-hero-radial opacity-90" aria-hidden />
 
         <div
           className={cn(
-            "container relative",
-            isVideoHero
-              ? "flex min-h-[min(92vh,820px)] items-center py-20 md:py-28"
-              : "grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2",
+            "container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2",
+            isVideoHero && "lg:min-h-[min(92vh,820px)]",
           )}
         >
           <FadeIn className={cn("space-y-6", isVideoHero && "max-w-2xl")}>
@@ -109,7 +90,13 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <a href={homeContent.hero.secondaryCta.href}>{homeContent.hero.secondaryCta.label}</a>
+                <a
+                  href={homeContent.hero.secondaryCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {homeContent.hero.secondaryCta.label}
+                </a>
               </Button>
             </div>
             <nav aria-label="What we offer" className="pt-1">
@@ -129,13 +116,11 @@ export default function HomePage() {
             </nav>
           </FadeIn>
 
-          {!isVideoHero ? (
-            <HeroVisual
-              mode="phone"
-              videoSrc={homeContent.hero.heroVideoSrc}
-              videoPoster={homeContent.hero.heroVideoPoster}
-            />
-          ) : null}
+          <HeroVisual
+            mode={isVideoHero ? "video" : "phone"}
+            videoSrc={homeContent.hero.heroVideoSrc}
+            videoPoster={homeContent.hero.heroVideoPoster}
+          />
         </div>
       </section>
 
@@ -354,7 +339,11 @@ export default function HomePage() {
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary">
-                  <Link href={homeContent.finalCta.secondaryCta.href}>
+                  <Link
+                    href={homeContent.finalCta.secondaryCta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {homeContent.finalCta.secondaryCta.label}
                   </Link>
                 </Button>

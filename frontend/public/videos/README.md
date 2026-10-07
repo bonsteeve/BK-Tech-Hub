@@ -1,11 +1,10 @@
-# Hero video
+# Homepage hero video
 
-1. Export your clip as `hero.mp4` (optional `hero.webm` + `hero-poster.jpg`).
-2. Place files in this folder.
-3. In `frontend/content/homepage.ts`, set:
+The homepage uses a silent, portrait-format video to show a customer moving from a WhatsApp
+message to a quote PDF and a confirmed visit:
 
-```ts
-visual: "video"
-```
+- `conversaos-journey.mp4`
+- `conversaos-journey-poster.jpg` (also shown when reduced motion is enabled)
 
-Set back to `"phone"` to compare against the animated WhatsApp demo.
+To replace the video, keep the portrait aspect ratio and update `heroVideoSrc` and `heroVideoPoster`
+in `frontend/content/homepage.ts`.

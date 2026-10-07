@@ -65,7 +65,11 @@ export default function ConversaOSPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <a href={conversaosContent.hero.secondaryCta.href}>
+                <a
+                  href={conversaosContent.hero.secondaryCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {conversaosContent.hero.secondaryCta.label}
                 </a>
               </Button>
@@ -311,7 +315,11 @@ export default function ConversaOSPage() {
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary">
-                  <a href={conversaosContent.finalCta.secondaryCta.href}>
+                  <a
+                    href={conversaosContent.finalCta.secondaryCta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {conversaosContent.finalCta.secondaryCta.label}
                   </a>
                 </Button>

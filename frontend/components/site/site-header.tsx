@@ -73,7 +73,9 @@ export function SiteHeader() {
                   variant="secondary"
                   className="border-brand-yellow/60 bg-brand-yellow/15 text-brand-yellow hover:bg-brand-yellow hover:text-navy"
                 >
-                  <a href={siteConfig.signInUrl}>{siteConfig.signInLabel}</a>
+                  <a href={siteConfig.signInUrl} target="_blank" rel="noopener noreferrer">
+                    {siteConfig.signInLabel}
+                  </a>
                 </Button>
                 <Button asChild size="default" variant="primary">
                   <Link href="/book-a-demo">Book a Demo</Link>
@@ -121,7 +123,12 @@ export function SiteHeader() {
                   variant="secondary"
                   className="border-brand-yellow/60 bg-brand-yellow/15 text-brand-yellow hover:bg-brand-yellow hover:text-navy"
                 >
-                  <a href={siteConfig.signInUrl} onClick={() => setIsOpen(false)}>
+                  <a
+                    href={siteConfig.signInUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                  >
                     {siteConfig.signInLabel}
                   </a>
                 </Button>

@@ -1,20 +1,55 @@
 "use client";
 
-import { useActionState } from "react";
-import type { ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 
-import { submitBookDemo, type BookDemoState } from "@/app/book-a-demo/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { siteConfig } from "@/lib/site-config";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
-const initialState: BookDemoState = { status: "idle", message: "" };
+type Status = "idle" | "success" | "error";
 
 export function BookDemoForm() {
-  const [state, action, pending] = useActionState(submitBookDemo, initialState);
+  const [status, setStatus] = useState<Status>("idle");
+  const [message, setMessage] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const businessName = String(data.get("businessName") ?? "").trim();
+    const whatsappNumber = String(data.get("whatsappNumber") ?? "").trim();
+    const useCase = String(data.get("useCase") ?? "").trim();
+
+    if (!name || !email || !businessName || !useCase) {
+      setStatus("error");
+      setMessage("Please complete all required fields.");
+      return;
+    }
+
+    const lines = [
+      "Hello BK Tech Hub — I'd like to book a ConversaOS demo:",
+      "",
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Business: ${businessName}`,
+      whatsappNumber ? `WhatsApp: ${whatsappNumber}` : null,
+      "",
+      "What I'd like to automate:",
+      useCase,
+    ].filter((line): line is string => line !== null);
+
+    window.open(getWhatsAppUrl(lines.join("\n")), "_blank", "noopener,noreferrer");
+    setStatus("success");
+    setMessage("WhatsApp is opening with your demo request. Tap Send to deliver it.");
+    form.reset();
+  }
 
   return (
-    <form action={action} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Full name" htmlFor="name" required>
           <Input id="name" name="name" autoComplete="name" required />
@@ -43,24 +78,25 @@ export function BookDemoForm() {
       </Field>
 
       <p className="text-xs text-muted-foreground">
-        Your details are only used to schedule and prepare your ConversaOS demo.
+        Submit opens WhatsApp to {siteConfig.whatsapp} with your demo request filled in. Tap Send
+        in WhatsApp to deliver it.
       </p>
 
-      <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Submitting..." : "Request My Demo"}
+      <Button type="submit" size="lg">
+        Request Demo
       </Button>
 
-      {state.status !== "idle" ? (
+      {status !== "idle" ? (
         <p
           className={
-            state.status === "success"
+            status === "success"
               ? "text-sm font-medium text-brand-blue"
               : "text-sm font-medium text-red-600"
           }
           role="status"
           aria-live="polite"
         >
-          {state.message}
+          {message}
         </p>
       ) : null}
     </form>

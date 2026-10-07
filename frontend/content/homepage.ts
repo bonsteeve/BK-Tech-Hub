@@ -8,8 +8,8 @@ export const homeContent = {
      * - "video" = uses heroVideoSrc in /public/videos
      */
     visual: "video" as "phone" | "video",
-    heroVideoSrc: "/videos/conversaos_hero_en.mp4",
-    heroVideoPoster: "/videos/hero-poster.jpg",
+    heroVideoSrc: "/videos/conversaos-journey.mp4",
+    heroVideoPoster: "/videos/conversaos-journey-poster.jpg",
     brandLine: "Automate the World",
     titleBefore: "WhatsApp AI, process automation & ",
     titleHighlight: "digital growth",

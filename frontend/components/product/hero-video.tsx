@@ -47,7 +47,7 @@ export function HeroVideo({
     }
 
     return (
-      <div className="relative aspect-video w-full max-w-[520px] overflow-hidden rounded-3xl border border-white/15 bg-navy/80 shadow-2xl">
+      <div className="relative aspect-[9/16] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/15 bg-navy/80 shadow-2xl">
         {!posterFailed ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -85,9 +85,9 @@ export function HeroVideo({
   }
 
   return (
-    <div className="relative w-full max-w-[520px] overflow-hidden rounded-3xl border border-white/15 shadow-2xl ring-1 ring-brand-yellow/20">
+    <div className="relative aspect-[9/16] w-full max-w-[440px] overflow-hidden rounded-3xl border border-white/15 shadow-2xl ring-1 ring-brand-yellow/20">
       <video
-        className="aspect-video h-auto w-full bg-navy object-cover"
+        className="h-full w-full bg-navy object-cover"
         autoPlay
         muted
         loop

@@ -38,7 +38,12 @@ export default function BookADemoPage() {
           </ul>
           <p className="text-sm text-muted-foreground">
             Already have a ConversaOS account?{" "}
-            <a href={siteConfig.signInUrl} className="font-semibold text-brand-blue hover:underline">
+            <a
+              href={siteConfig.signInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand-blue hover:underline"
+            >
               {siteConfig.signInLabel}
             </a>
           </p>
