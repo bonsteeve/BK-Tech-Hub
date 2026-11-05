@@ -178,7 +178,7 @@ export default function HomePage() {
                 })}
               </ul>
               <Button asChild variant="navy" size="lg" className="mt-8">
-                <Link href="/conversaos">
+                <Link href="/bkchat">
                   Explore BK Chat <ArrowRight className="size-4" />
                 </Link>
               </Button>

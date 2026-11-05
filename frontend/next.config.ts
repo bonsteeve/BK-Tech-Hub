@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/conversaos", destination: "/bkchat", permanent: true },
       { source: "/book-a-call", destination: "/book-a-demo", permanent: true },
       { source: "/free-website-audit", destination: "/book-a-demo", permanent: true },
       { source: "/about", destination: "/", permanent: true },
@@ -24,7 +25,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/services/ai-automation-for-smes",
-        destination: "/conversaos",
+        destination: "/bkchat",
         permanent: true,
       },
       {

@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = createPageMetadata({
   title: "BK Chat — AI-Powered WhatsApp Automation",
   description: conversaosContent.hero.summary,
-  path: "/conversaos",
+  path: "/bkchat",
   keywords: [
     "BK Chat",
     "WhatsApp automation",
