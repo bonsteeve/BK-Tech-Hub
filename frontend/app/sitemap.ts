@@ -7,13 +7,13 @@ import { siteConfig } from "@/lib/site-config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const staticRoutes = ["", "/conversaos", "/services", "/blog", "/contact", "/book-a-demo"];
+  const staticRoutes = ["", "/bkchat", "/services", "/blog", "/contact", "/book-a-demo"];
 
   const staticEntries = staticRoutes.map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified,
     changeFrequency: "weekly" as const,
-    priority: route === "" || route === "/conversaos" ? 1 : 0.8,
+    priority: route === "" || route === "/bkchat" ? 1 : 0.8,
   }));
 
   const serviceEntries = services.map((service) => ({
