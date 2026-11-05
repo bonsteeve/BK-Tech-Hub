@@ -48,7 +48,7 @@ export default function BookADemoPage() {
             </a>
           </p>
           <Button asChild variant="outline">
-            <Link href="/conversaos">Back to BK Chat</Link>
+            <Link href="/bkchat">Back to BK Chat</Link>
           </Button>
         </FadeIn>
 
