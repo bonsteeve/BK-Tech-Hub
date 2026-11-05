@@ -59,7 +59,7 @@ export default function ServicesPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/conversaos">Explore BK Chat</Link>
+                <Link href="/bkchat">Explore BK Chat</Link>
               </Button>
             </div>
           </FadeIn>
@@ -164,7 +164,7 @@ export default function ServicesPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" variant="primary">
-                <Link href="/conversaos">
+                <Link href="/bkchat">
                   See BK Chat <ArrowRight className="size-4" />
                 </Link>
               </Button>
