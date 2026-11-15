@@ -2,6 +2,22 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/lib/site-config";
 
+export const websiteCreationSEO = {
+  title: "Website Design & Development in Kenya | BK Tech Hub",
+  description:
+    "Get a professional business website designed to build trust, attract customers and generate enquiries. BK Tech Hub offers website design and development in Kenya.",
+  keywords: [
+    "website design Kenya",
+    "website development Kenya",
+    "website designers in Kenya",
+    "business website development",
+    "professional website design",
+    "e-commerce website development Kenya",
+    "website redesign Kenya",
+  ],
+  canonical: "https://www.bktechhub.com/services/website-creation",
+};
+
 type PageMetadataInput = {
   title: string;
   description: string;

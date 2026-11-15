@@ -1,0 +1,9 @@
+/book-a-call /book-a-demo 301
+/free-website-audit /book-a-demo 301
+/about / 301
+/work / 301
+/work/* / 301
+/services/web-design-development /services/website-creation 301
+/services/seo-optimization /services/seo 301
+/services/ai-automation-for-smes /conversaos 301
+/services/branding-digital-presence /services 301

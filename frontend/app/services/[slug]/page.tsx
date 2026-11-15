@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/json-ld";
 import { ServicePageTemplate } from "@/components/services/service-page-template";
+import { WebsiteCreationPage } from "@/components/services/website-creation-page";
 import { getServiceBySlug, services } from "@/content/services";
-import { createPageMetadata } from "@/lib/seo";
+import { websiteCreationContent } from "@/content/website-creation";
+import { createPageMetadata, websiteCreationSEO } from "@/lib/seo";
 import { buildBreadcrumbSchema, buildFaqSchema, buildServiceSchema } from "@/lib/schema";
 
 type ServicePageProps = {
@@ -25,6 +27,19 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     };
   }
 
+  if (service.slug === "website-creation") {
+    return {
+      ...createPageMetadata({
+        title: websiteCreationSEO.title,
+        description: websiteCreationSEO.description,
+        path: `/services/${service.slug}`,
+        keywords: websiteCreationSEO.keywords,
+      }),
+      title: { absolute: websiteCreationSEO.title },
+      alternates: { canonical: websiteCreationSEO.canonical },
+    };
+  }
+
   return createPageMetadata({
     title: service.name,
     description: service.summary,
@@ -41,6 +56,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
     notFound();
   }
 
+  const isWebsiteCreation = service.slug === "website-creation";
+  const faq = isWebsiteCreation ? websiteCreationContent.faqs.items : service.faq;
+
   return (
     <>
       <JsonLd
@@ -50,7 +68,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             path: `/services/${service.slug}`,
             description: service.summary,
           }),
-          buildFaqSchema(service.faq),
+          buildFaqSchema(faq),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
@@ -58,7 +76,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
           ]),
         ]}
       />
-      <ServicePageTemplate service={service} />
+      {isWebsiteCreation ? (
+        <WebsiteCreationPage />
+      ) : (
+        <ServicePageTemplate service={service} />
+      )}
     </>
   );
 }

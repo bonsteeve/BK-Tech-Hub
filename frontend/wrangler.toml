@@ -1,0 +1,4 @@
+# Cloudflare Pages — deploy the static `out/` folder after `npm run build`
+name = "bk-tech-hub"
+compatibility_date = "2024-12-30"
+pages_build_output_dir = "out"
