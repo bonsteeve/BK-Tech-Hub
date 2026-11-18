@@ -86,7 +86,7 @@ export default function BKChatPage() {
         </div>
       </section>
 
-      {/* Problem — split with overlapping images */}
+      {/* Problem — split with overlapping images for 1*/}
       <section className="relative overflow-hidden bg-white py-16 md:py-24">
         <div className="container grid items-center gap-12 lg:grid-cols-12">
           <FadeIn className="lg:col-span-5">
