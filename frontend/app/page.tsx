@@ -9,13 +9,13 @@ import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
 import { homeContent } from "@/content/homepage";
 import { createPageMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   ...createPageMetadata({
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: "Business Automation, Websites & WhatsApp AI | BK Tech Hub",
+    description:
+      "BK Tech Hub helps businesses in Kenya & the world to grow with business websites, WhatsApp AI automation, web hosting and SEO. Streamline operations, generate leads and serve customers better.",
     path: "/",
     keywords: [
       "BK Tech Hub",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       "SEO",
     ],
   }),
-  title: { absolute: siteConfig.name },
+  title: { absolute: "Business Automation, Websites & WhatsApp AI | BK Tech Hub" },
 };
 
 const featureIcons = {
