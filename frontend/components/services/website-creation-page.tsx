@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { websiteCreationContent } from "@/content/website-creation";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 
-const serviceImage = "/images/marketing/service-websites.jpg";
+const serviceImage = "/images/site/website-concept-bktechhub.png";
 
 export function WebsiteCreationPage() {
   const content = websiteCreationContent;
@@ -45,7 +45,7 @@ export function WebsiteCreationPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-white/15 shadow-2xl">
               <Image
                 src={serviceImage}
-                alt="Website design and development workspace"
+                alt="Polished BK Tech Hub website displayed on a laptop"
                 fill
                 priority
                 className="object-cover"
