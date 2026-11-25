@@ -1,28 +1,18 @@
-import { siteConfig } from "@/lib/site-config";
-
 export const homeContent = {
   hero: {
-    /**
-     * A/B the hero media:
-     * - "phone" = extended BK Chat WhatsApp animation
-     * - "video" = uses heroVideoSrc in /public/videos
-     */
-    visual: "video" as "phone" | "video",
     heroVideoSrc: "/videos/conversaos-journey.mp4",
     heroVideoPoster: "/videos/conversaos-journey-poster.jpg",
-    brandLine: "Automate the World",
-    titleBefore: "WhatsApp AI, process automation & ",
-    titleHighlight: "digital growth",
+    brandLine: "Business Technology & Automation",
+    titleBefore: "Technology that moves your ",
+    titleHighlight: "business forward.",
     summary:
-      "BK Chat is our flagship — AI that runs your WhatsApp sales 24/7. We also build websites, hosting, and SEO so every part of your business works smarter.",
-    primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: siteConfig.signInUrl, label: siteConfig.signInLabel, external: true },
-    /** Quiet offer links under CTAs — not cards; keeps BK Chat primary */
+      "BK Tech Hub helps businesses in Kenya and beyond grow through professional website development, WhatsApp AI automation, web hosting and search engine optimization. We bring the right technology together to help you attract customers, streamline operations and build a stronger digital presence.",
+    primaryCta: { href: "/services", label: "Explore Our Services" },
+    secondaryCta: { href: "/contact", label: "Talk to Our Team" },
     pillars: [
-      { label: "WhatsApp AI", href: "/conversaos" },
-      { label: "Process automation", href: "/conversaos" },
-      { label: "Websites", href: "/services/website-creation" },
-      { label: "Hosting", href: "/services/hosting" },
+      { label: "Website Design", href: "/services/website-creation" },
+      { label: "WhatsApp AI", href: "/bkchat" },
+      { label: "Web Hosting", href: "/services/hosting" },
       { label: "SEO", href: "/services/seo" },
     ],
   },

@@ -1,9 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Bot, CalendarDays, FileText, Globe, Search, Server } from "lucide-react";
+import {
+  ArrowRight,
+  Bot,
+  CalendarDays,
+  FileText,
+  Globe,
+  Headphones,
+  MessageCircle,
+  Search,
+  Server,
+} from "lucide-react";
 
-import { HeroVisual } from "@/components/product/hero-visual";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Section } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
@@ -55,72 +64,103 @@ const serviceVisuals = [
   "/images/site/service-seo.svg",
 ] as const;
 
-export default function HomePage() {
-  const isVideoHero = homeContent.hero.visual === "video";
+const pillarIcons = {
+  "Website Design": Globe,
+  "WhatsApp AI": MessageCircle,
+  "Web Hosting": Server,
+  SEO: Search,
+} as const;
 
+export default function HomePage() {
   return (
     <>
-      <section
-        className={cn(
-          "relative -mt-[5.25rem] overflow-hidden bg-navy text-white sm:-mt-[5.75rem]",
-        )}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-hero-radial opacity-90" aria-hidden />
-
+      <section className="relative isolate overflow-hidden bg-white text-navy">
         <div
-          className={cn(
-            "container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2",
-            isVideoHero && "lg:min-h-[min(92vh,820px)]",
-          )}
-        >
-          <FadeIn className={cn("space-y-6", isVideoHero && "max-w-2xl")}>
-            <p className="font-heading text-sm font-extrabold uppercase tracking-[0.28em] text-brand-yellow sm:text-base">
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_34%_18%,rgba(59,130,246,0.12),transparent_44%)]"
+          aria-hidden
+        />
+
+        <div className="container relative z-10 grid w-full max-w-none items-center gap-8 py-12 sm:py-16 lg:min-h-[min(748px,calc(100svh-5.75rem))] lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:py-6">
+          <FadeIn className="max-w-[32rem] space-y-4 lg:col-start-1 lg:space-y-5">
+            <p className="inline-flex rounded-full bg-brand-blue px-4 py-2 text-xs font-bold uppercase tracking-wide text-white sm:text-sm">
               {homeContent.hero.brandLine}
             </p>
-            <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-balance sm:text-5xl md:text-6xl">
+            <h1 className="font-heading text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-balance text-[#080b14] sm:text-5xl lg:text-[3.2rem]">
               {homeContent.hero.titleBefore}
-              <span className="text-brand-yellow">{homeContent.hero.titleHighlight}</span>
+              <span className="text-brand-blue">{homeContent.hero.titleHighlight}</span>
             </h1>
-            <p className="max-w-xl text-base text-white/80 md:text-lg">{homeContent.hero.summary}</p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button asChild size="lg" variant="primary">
+            <div className="h-1 w-[min(25rem,88%)] -rotate-1 rounded-full bg-brand-yellow" aria-hidden />
+            <p className="max-w-[30rem] text-base leading-[1.5] text-navy/90 sm:text-lg">
+              {homeContent.hero.summary}
+            </p>
+            <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
+              <Button
+                asChild
+                size="lg"
+                variant="navy"
+                className="bg-brand-blue hover:bg-blue-700"
+              >
                 <Link href={homeContent.hero.primaryCta.href}>
                   {homeContent.hero.primaryCta.label}
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
-                <a
-                  href={homeContent.hero.secondaryCta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+              <Button asChild size="lg" variant="outline" className="border-brand-blue text-navy">
+                <Link href={homeContent.hero.secondaryCta.href}>
+                  <Headphones className="size-4 text-brand-blue" />
                   {homeContent.hero.secondaryCta.label}
-                </a>
+                </Link>
               </Button>
             </div>
             <nav aria-label="What we offer" className="pt-1">
-              <ul className="flex flex-wrap items-center gap-x-1 gap-y-2 text-sm text-white/55">
-                {homeContent.hero.pillars.map((pillar, index) => (
-                  <li key={pillar.label} className="inline-flex items-center gap-x-1">
-                    {index > 0 ? <span className="mx-1 text-white/25" aria-hidden>·</span> : null}
-                    <Link
-                      href={pillar.href}
-                      className="font-medium text-white/70 underline-offset-4 transition-colors hover:text-brand-yellow hover:underline"
+              <ul className="flex flex-wrap items-center gap-y-2 text-sm text-navy">
+                {homeContent.hero.pillars.map((pillar) => {
+                  const Icon = pillarIcons[pillar.label];
+                  return (
+                    <li
+                      key={pillar.label}
+                      className="inline-flex items-center border-r border-brand-blue/40 px-2.5 first:pl-0 last:border-r-0 sm:px-3"
                     >
-                      {pillar.label}
-                    </Link>
-                  </li>
-                ))}
+                      <Link
+                        href={pillar.href}
+                        className="inline-flex items-center gap-2 font-medium transition-colors hover:text-brand-blue"
+                      >
+                        <Icon className="size-5 shrink-0 text-brand-blue" aria-hidden />
+                        <span className="max-w-20 leading-tight">{pillar.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </FadeIn>
 
-          <HeroVisual
-            mode={isVideoHero ? "video" : "phone"}
-            videoSrc={homeContent.hero.heroVideoSrc}
-            videoPoster={homeContent.hero.heroVideoPoster}
+        </div>
+
+        <div className="relative isolate mx-auto mt-8 aspect-video w-full max-w-[42rem] lg:pointer-events-none lg:absolute lg:right-0 lg:top-1/2 lg:mt-0 lg:aspect-[5/4] lg:w-[min(54vw,700px)] lg:max-w-none lg:-translate-y-1/2 xl:w-[min(58vw,1000px)]">
+          <div
+            className="absolute inset-0 -z-10 hidden rounded-l-[50%] bg-brand-blue lg:block"
+            aria-hidden
           />
+          <div className="absolute inset-0 overflow-hidden rounded-[1.5rem] lg:inset-y-0 lg:left-3 lg:rounded-l-[50%]">
+            <Image
+              src="/images/marketing/home-hero.webp"
+              alt="Business owner using a laptop, with BK Tech Hub services including WhatsApp AI, website design, hosting and SEO"
+              fill
+              priority
+              sizes="(min-width: 1280px) min(58vw, 1000px), (min-width: 1024px) min(57vw, 740px), (min-width: 672px) 672px, 100vw"
+              className="object-cover object-[78%_center] lg:scale-105 xl:scale-100 xl:object-[100%_center]"
+            />
+          </div>
+          <svg
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-16 w-full lg:block"
+            viewBox="0 0 1000 100"
+            preserveAspectRatio="none"
+            aria-hidden
+          >
+            <path d="M0 94 C320 92 710 48 1000 10 V100 H0Z" fill="#ffc107" />
+            <path d="M0 100 C350 96 720 70 1000 38 V100 H0Z" fill="#0751bd" />
+          </svg>
         </div>
       </section>
 
@@ -136,7 +176,6 @@ export default function HomePage() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 60vw"
-                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-navy/35 via-transparent to-transparent" />
               </div>

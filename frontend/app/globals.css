@@ -45,6 +45,8 @@
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-navy: hsl(var(--navy));
   --color-navy-foreground: hsl(var(--navy-foreground));
+  --color-brand-blue: #2e9bdb;
+  --color-brand-yellow: #ffc107;
 
   --radius-lg: 1.5rem;
   --radius-md: 1rem;
