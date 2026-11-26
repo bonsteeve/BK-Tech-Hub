@@ -16,65 +16,123 @@ export const homeContent = {
       { label: "SEO", href: "/services/seo" },
     ],
   },
-  features: [
-    {
-      title: "AI Powered Responses",
-      description: "Instant, human-like replies that understand your business — with seamless human takeover.",
-      icon: "bot",
-    },
-    {
-      title: "Calendar Booking",
-      description: "Let clients book appointments directly on WhatsApp, with automatic reminders.",
-      icon: "calendar",
-    },
-    {
-      title: "Quote Generation",
-      description: "Send professional quotes automatically and keep deals moving.",
-      icon: "quote",
-    },
-  ],
-  journey: [
-    {
-      step: "01",
-      title: "Understand",
-      description: "BK Chat learns your products, pricing, and FAQs so every reply stays on-brand.",
-    },
-    {
-      step: "02",
-      title: "Respond",
-      description: "AI handles routine chats 24/7. Your team takes over when a conversation needs a human.",
-    },
-    {
-      step: "03",
-      title: "Close",
-      description: "Generate quotes, book calendar slots, and send reminders so leads convert faster.",
-    },
-  ],
+  servicesHeading: "Technology solutions for the way businesses work.",
+  servicesIntroduction:
+    "Whether you need a professional online presence, better customer engagement or improved business visibility, BK Tech Hub provides practical solutions to support your goals.",
   services: [
     {
-      name: "Website Creation",
+      name: "Website Design & Development",
       href: "/services/website-creation",
-      description: "Conversion-focused websites that turn visitors into qualified leads.",
-      icon: "globe",
+      description:
+        "Professional, responsive business websites designed to build trust, showcase your services and turn visitors into enquiries.",
+      image: "/images/marketing/website-design-cover.webp",
+      imageAlt: "BK Tech Hub responsive website shown on a laptop, phone and tablet",
+      icon: "website",
     },
     {
-      name: "Hosting",
+      name: "WhatsApp AI Automation — BKChat",
+      href: "/bkchat",
+      description:
+        "Automate customer conversations, respond to enquiries, qualify leads, generate quotes and manage bookings through WhatsApp.",
+      image: "/images/marketing/conversaos-lifestyle.jpg",
+      imageAlt: "Business owner managing customer conversations on WhatsApp",
+      icon: "whatsapp",
+    },
+    {
+      name: "Web Hosting",
       href: "/services/hosting",
-      description: "Reliable, secure hosting so your site stays fast and always online.",
-      icon: "server",
+      description:
+        "Reliable web hosting to keep your website accessible, secure and performing consistently.",
+      image: "/images/marketing/service-hosting-seo.jpg",
+      imageAlt: "Analytics dashboard on a tablet in a server environment",
+      icon: "hosting",
     },
     {
-      name: "SEO",
+      name: "Search Engine Optimization",
       href: "/services/seo",
-      description: "Technical and on-page SEO that improves visibility and inbound demand.",
-      icon: "search",
+      description:
+        "Improve your website's search visibility through technical SEO, on-page optimization and search-focused improvements.",
+      image: "/images/marketing/seo-cover.webp",
+      imageAlt: "Illustration of search optimization, rankings and website visibility",
+      icon: "seo",
     },
   ],
-  finalCta: {
-    title: "Ready to Automate the World with BK Tech Hub?",
+  bkchat: {
+    title: "Turn WhatsApp conversations into business opportunities.",
     summary:
-      "Start with a BK Chat demo — or talk to us about websites, hosting, SEO, and the automation your business needs next.",
-    primaryCta: { href: "/book-a-demo", label: "Book a Demo" },
-    secondaryCta: { href: "/services", label: "Explore Services" },
+      "Customers expect quick responses. BKChat helps businesses stay responsive with AI-powered WhatsApp conversations that understand their products, services and business information.",
+    capabilities: [
+      "Respond to customer enquiries around the clock.",
+      "Share product and pricing information.",
+      "Qualify potential customers.",
+      "Generate quotations and support bookings.",
+      "Allow human agents to take over conversations when needed.",
+    ],
+    primaryCta: { href: "/bkchat", label: "Discover BKChat" },
+    secondaryCta: { href: "/book-a-demo", label: "Book a BKChat Demo" },
+  },
+  outcomes: {
+    title: "Better technology. Better business operations.",
+    items: [
+      {
+        title: "Build your online presence",
+        description:
+          "Establish credibility and give potential customers a professional place to discover your business.",
+        icon: "presence",
+      },
+      {
+        title: "Improve customer engagement",
+        description:
+          "Make it easier for customers to get information and interact with your business.",
+        icon: "engagement",
+      },
+      {
+        title: "Streamline operations",
+        description:
+          "Reduce repetitive customer-facing tasks through practical automation.",
+        icon: "operations",
+      },
+      {
+        title: "Improve online visibility",
+        description:
+          "Help potential customers find your business through search engines.",
+        icon: "visibility",
+      },
+    ],
+  },
+  whyUs: {
+    title: "Your technology partner for business growth.",
+    summary:
+      "We bring essential business technology services together under one roof. From establishing your online presence to automating customer interactions, BK Tech Hub helps you adopt technology that serves a practical business purpose.",
+    items: [
+      {
+        title: "Integrated solutions",
+        description: "Websites, hosting, SEO and automation from one technology partner.",
+        icon: "integrated",
+      },
+      {
+        title: "Business-focused approach",
+        description: "Solutions built around real operational and customer engagement needs.",
+        icon: "business",
+      },
+      {
+        title: "Practical implementation",
+        description: "Technology designed to support everyday business activities.",
+        icon: "practical",
+      },
+      {
+        title: "Room to grow",
+        description:
+          "Start with the service you need and expand your digital capabilities over time.",
+        icon: "growth",
+      },
+    ],
+  },
+  finalCta: {
+    title: "Let's build a smarter business together.",
+    summary:
+      "Whether you need a professional website, reliable hosting, better Google visibility or WhatsApp automation, BK Tech Hub can help you identify the right technology for your business.",
+    primaryCta: { href: "/contact", label: "Talk to BK Tech Hub" },
+    secondaryCta: { href: "/services", label: "Explore Our Services" },
   },
 } as const;
