@@ -14,7 +14,10 @@ export function SiteFooter() {
             <h3 className="font-heading text-2xl font-semibold tracking-tight text-white">
               More leads. Less work.
             </h3>
-            <p className="max-w-sm text-sm text-white/70">{siteConfig.description}</p>
+            <p className="max-w-sm text-sm text-white/70">
+              BK Tech Hub helps businesses grow through professional website development, WhatsApp AI
+              automation, reliable web hosting and search engine optimization.
+            </p>
             <div className="space-y-1 text-sm text-white/70">
               <p>{siteConfig.email}</p>
               <p>{siteConfig.phone}</p>
