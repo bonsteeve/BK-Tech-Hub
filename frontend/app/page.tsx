@@ -3,14 +3,17 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowRight,
-  Bot,
-  CalendarDays,
-  FileText,
+  Check,
+  Cog,
   Globe,
   Headphones,
+  Layers,
   MessageCircle,
   Search,
   Server,
+  Settings,
+  Target,
+  TrendingUp,
 } from "lucide-react";
 
 import { FadeIn } from "@/components/shared/fade-in";
@@ -40,29 +43,26 @@ export const metadata: Metadata = {
   title: { absolute: "Business Automation, Websites & WhatsApp AI | BK Tech Hub" },
 };
 
-const featureIcons = {
-  bot: Bot,
-  calendar: CalendarDays,
-  quote: FileText,
-} as const;
-
-const featureImages = [
-  "/images/marketing/conversaos-lifestyle.jpg",
-  "/images/marketing/conversaos-booking.jpg",
-  "/images/marketing/poster-conversaos.jpg",
-] as const;
-
 const serviceIcons = {
-  globe: Globe,
-  server: Server,
-  search: Search,
+  website: Globe,
+  whatsapp: MessageCircle,
+  hosting: Server,
+  seo: Search,
 } as const;
 
-const serviceVisuals = [
-  "/images/marketing/service-websites.jpg",
-  "/images/marketing/service-hosting-seo.jpg",
-  "/images/site/service-seo.svg",
-] as const;
+const outcomeIconMap = {
+  presence: Globe,
+  engagement: MessageCircle,
+  operations: Cog,
+  visibility: Search,
+} as const;
+
+const whyUsIcons = {
+  integrated: Layers,
+  business: Target,
+  practical: Settings,
+  growth: TrendingUp,
+} as const;
 
 const pillarIcons = {
   "Website Design": Globe,
@@ -164,7 +164,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Asymmetric product proof band */}
+      <Section id="services" className="bg-muted/40">
+        <FadeIn className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Our Services</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
+            {homeContent.servicesHeading}
+          </h2>
+          <p className="mt-4 text-muted-foreground md:text-lg">{homeContent.servicesIntroduction}</p>
+        </FadeIn>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {homeContent.services.map((service, index) => {
+            const Icon = serviceIcons[service.icon];
+            return (
+              <FadeIn key={service.href} delay={index * 0.05} className="h-full">
+                <Link
+                  href={service.href}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.imageAlt}
+                      fill
+                      sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <span className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue">
+                      <Icon className="size-5" aria-hidden />
+                    </span>
+                    <h3 className="font-heading text-xl font-bold leading-snug text-navy">
+                      {service.name}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-blue">
+                      Learn more
+                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+                    </span>
+                  </div>
+                </Link>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </Section>
+
       <section className="relative overflow-hidden bg-white py-16 md:py-24">
         <div className="container">
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
@@ -172,7 +220,7 @@ export default function HomePage() {
               <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-2xl">
                 <Image
                   src="/images/marketing/conversaos-lifestyle.jpg"
-                  alt="Business owner managing WhatsApp conversations with BK Chat"
+                  alt="Business owner managing WhatsApp conversations with BKChat"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -193,166 +241,93 @@ export default function HomePage() {
             </FadeIn>
 
             <FadeIn delay={0.1} className="lg:col-span-5 lg:pl-6">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">BK Chat</p>
-              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
-                Built for WhatsApp sales conversations
-              </h2>
-              <p className="mt-4 text-muted-foreground md:text-lg">
-                Reply faster, qualify leads, send quotes, and book meetings — without drowning in the inbox.
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">
+                Featured solution · BKChat
               </p>
-              <ul className="mt-8 space-y-5">
-                {homeContent.features.map((feature) => {
-                  const Icon = featureIcons[feature.icon];
-                  return (
-                    <li key={feature.title} className="flex gap-4">
-                      <span className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-brand-yellow">
-                        <Icon className="size-5" />
-                      </span>
-                      <div>
-                        <h3 className="font-heading text-lg font-semibold text-navy">{feature.title}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
-                      </div>
-                    </li>
-                  );
-                })}
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
+                {homeContent.bkchat.title}
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-lg">{homeContent.bkchat.summary}</p>
+              <ul className="mt-7 space-y-3">
+                {homeContent.bkchat.capabilities.map((capability) => (
+                  <li key={capability} className="flex items-start gap-3 text-sm text-navy/85 md:text-base">
+                    <span className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">
+                      <Check className="size-3.5" aria-hidden />
+                    </span>
+                    {capability}
+                  </li>
+                ))}
               </ul>
-              <Button asChild variant="navy" size="lg" className="mt-8">
-                <Link href="/bkchat">
-                  Explore BK Chat <ArrowRight className="size-4" />
-                </Link>
-              </Button>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild variant="navy" size="lg" className="bg-brand-blue hover:bg-blue-700">
+                  <Link href={homeContent.bkchat.primaryCta.href}>
+                    {homeContent.bkchat.primaryCta.label}
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-brand-blue text-navy">
+                  <Link href={homeContent.bkchat.secondaryCta.href}>
+                    {homeContent.bkchat.secondaryCta.label}
+                  </Link>
+                </Button>
+              </div>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* Journey with staggered imagery */}
-      <section className="relative overflow-hidden bg-navy py-16 text-white md:py-24">
-        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand-blue/20 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-brand-yellow/10 blur-3xl" aria-hidden />
-        <div className="container relative">
-          <FadeIn className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-yellow">How it works</p>
-            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight md:text-4xl">
-              Understand. Respond. Close.
-            </h2>
-            <p className="mt-4 text-white/70 md:text-lg">
-              A simple journey that turns WhatsApp chats into booked revenue.
-            </p>
-          </FadeIn>
+      <Section className="bg-muted/40">
+        <FadeIn className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Business outcomes</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy text-balance md:text-4xl">
+            {homeContent.outcomes.title}
+          </h2>
+        </FadeIn>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {homeContent.outcomes.items.map((item, index) => {
+            const Icon = outcomeIconMap[item.icon];
+            return (
+              <FadeIn key={item.title} delay={index * 0.05}>
+                <article className="h-full rounded-2xl border border-navy/10 bg-white p-6 shadow-sm">
+                  <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-brand-blue/10 text-brand-blue">
+                    <Icon className="size-6" aria-hidden />
+                  </span>
+                  <h3 className="mt-5 font-heading text-lg font-bold text-navy">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                </article>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </Section>
 
-          <div className="mt-14 space-y-16 md:space-y-24">
-            {homeContent.journey.map((item, index) => {
-              const image = featureImages[index % featureImages.length];
-              const reverse = index % 2 === 1;
+      <section className="relative overflow-hidden bg-navy py-16 text-white md:py-24">
+        <div className="pointer-events-none absolute -left-24 top-10 size-72 rounded-full bg-brand-blue/20 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-16 bottom-0 size-80 rounded-full bg-brand-yellow/10 blur-3xl" aria-hidden />
+        <div className="container relative">
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-yellow">Why BK Tech Hub?</p>
+            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-balance md:text-4xl">
+              {homeContent.whyUs.title}
+            </h2>
+            <p className="mt-4 text-white/70 md:text-lg">{homeContent.whyUs.summary}</p>
+          </FadeIn>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {homeContent.whyUs.items.map((item, index) => {
+              const Icon = whyUsIcons[item.icon];
               return (
-                <FadeIn key={item.step} delay={index * 0.06}>
-                  <div
-                    className={cn(
-                      "grid items-center gap-8 lg:grid-cols-12",
-                      reverse && "lg:[&>*:first-child]:order-2",
-                    )}
-                  >
-                    <div className={cn("lg:col-span-7", reverse && "lg:pl-8", !reverse && "lg:pr-8")}>
-                      <div
-                        className={cn(
-                          "relative overflow-hidden rounded-[1.75rem] shadow-2xl",
-                          index === 1 ? "aspect-[5/4] max-w-xl" : "aspect-[16/10]",
-                          reverse && "ml-auto",
-                        )}
-                      >
-                        <Image
-                          src={image}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 1024px) 100vw, 55vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
-                        <span className="absolute bottom-5 left-5 font-heading text-5xl font-bold text-brand-yellow/90 md:text-6xl">
-                          {item.step}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="lg:col-span-5">
-                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">
-                        Step {item.step}
-                      </p>
-                      <h3 className="mt-3 font-heading text-3xl font-bold text-white">{item.title}</h3>
-                      <p className="mt-4 text-lg text-white/70">{item.description}</p>
-                    </div>
-                  </div>
+                <FadeIn key={item.title} delay={index * 0.05}>
+                  <article className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                    <Icon className="size-7 text-brand-yellow" aria-hidden />
+                    <h3 className="mt-5 font-heading text-lg font-bold text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/70">{item.description}</p>
+                  </article>
                 </FadeIn>
               );
             })}
           </div>
         </div>
       </section>
-
-      {/* Services mosaic */}
-      <Section>
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">
-              Automate the World
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-navy md:text-4xl">
-              Websites, hosting & SEO alongside BK Chat
-            </h2>
-            <p className="mt-4 text-muted-foreground md:text-lg">
-              Your full digital stack — so WhatsApp AI and your web presence work together.
-            </p>
-          </div>
-          <Button asChild variant="outline" className="w-fit">
-            <Link href="/services">
-              View all services <ArrowRight className="size-4" />
-            </Link>
-          </Button>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-12 md:grid-rows-2">
-          {homeContent.services.map((service, index) => {
-            const Icon = serviceIcons[service.icon];
-            const isFeatured = index === 0;
-            return (
-              <FadeIn
-                key={service.href}
-                delay={index * 0.05}
-                className={cn(
-                  isFeatured ? "md:col-span-7 md:row-span-2" : "md:col-span-5",
-                )}
-              >
-                <Link
-                  href={service.href}
-                  className={cn(
-                    "group relative block overflow-hidden rounded-[1.75rem]",
-                    isFeatured ? "min-h-[420px] md:h-full" : "min-h-[200px]",
-                  )}
-                >
-                  <Image
-                    src={serviceVisuals[index]}
-                    alt=""
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes={isFeatured ? "(max-width: 768px) 100vw, 58vw" : "(max-width: 768px) 100vw, 42vw"}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/45 to-navy/10" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                    <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-yellow text-navy">
-                      <Icon className="size-5" />
-                    </span>
-                    <h3 className="font-heading text-2xl font-bold text-white md:text-3xl">{service.name}</h3>
-                    <p className="mt-2 max-w-md text-sm text-white/75 md:text-base">{service.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-yellow">
-                      Learn more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </Link>
-              </FadeIn>
-            );
-          })}
-        </div>
-      </Section>
 
       {/* Final CTA with photo depth */}
       <section className="relative overflow-hidden pb-24 pt-4">
@@ -380,8 +355,6 @@ export default function HomePage() {
                 <Button asChild size="lg" variant="secondary">
                   <Link
                     href={homeContent.finalCta.secondaryCta.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     {homeContent.finalCta.secondaryCta.label}
                   </Link>
