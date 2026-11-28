@@ -11,6 +11,13 @@ import { primaryNavigation } from "@/content/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
+const serviceLinks = [
+  { href: "/services/website-creation", label: "Website Design & Development" },
+  { href: "/bkchat", label: "WhatsApp AI Automation (BKChat)" },
+  { href: "/services/hosting", label: "Web Hosting" },
+  { href: "/services/seo", label: "Search Engine Optimization" },
+] as const;
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +48,7 @@ export function SiteHeader() {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
         <div
           className={cn(
-            "pointer-events-auto mx-auto max-w-7xl overflow-hidden rounded-2xl border transition-[background-color,box-shadow,border-color] duration-300",
+            "pointer-events-auto mx-auto max-w-7xl overflow-visible rounded-2xl border transition-[background-color,box-shadow,border-color] duration-300",
             scrolled || isOpen
               ? "border-white/15 bg-navy/90 shadow-2xl shadow-navy/40 backdrop-blur-xl"
               : "border-white/10 bg-navy/75 shadow-lg shadow-navy/25 backdrop-blur-md",
@@ -52,18 +59,47 @@ export function SiteHeader() {
               <BrandLogo variant="dark" />
 
               <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary navigation">
-                {links.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "text-[15px] font-medium transition-colors hover:text-brand-yellow sm:text-base",
-                      item.isActive ? "text-brand-yellow" : "text-white/80",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {links.map((item) =>
+                  item.href === "/services" ? (
+                    <div key={item.href} className="group relative">
+                      <Link
+                        href={item.href}
+                        aria-haspopup="true"
+                        className={cn(
+                          "text-[15px] font-medium transition-colors hover:text-brand-yellow sm:text-base",
+                          item.isActive ? "text-brand-yellow" : "text-white/80",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                      <div className="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                        <ul className="rounded-2xl border border-white/10 bg-navy/95 p-2 shadow-2xl backdrop-blur-xl">
+                          {serviceLinks.map((service) => (
+                            <li key={service.href}>
+                              <Link
+                                href={service.href}
+                                className="block rounded-xl px-4 py-3 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-brand-yellow focus-visible:bg-white/10 focus-visible:text-brand-yellow focus-visible:outline-none"
+                              >
+                                {service.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={cn(
+                        "text-[15px] font-medium transition-colors hover:text-brand-yellow sm:text-base",
+                        item.isActive ? "text-brand-yellow" : "text-white/80",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  ),
+                )}
               </nav>
 
               <div className="hidden items-center gap-3 lg:flex">
@@ -105,17 +141,34 @@ export function SiteHeader() {
           >
             <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
               {links.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium",
-                    item.isActive ? "bg-white/10 text-brand-yellow" : "text-white/80 hover:bg-white/5",
+                <div key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "block rounded-md px-3 py-2 text-sm font-medium",
+                      item.isActive
+                        ? "bg-white/10 text-brand-yellow"
+                        : "text-white/80 hover:bg-white/5",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.href === "/services" && (
+                    <div className="ml-4 flex flex-col gap-1 border-l border-white/15 py-1 pl-3">
+                      {serviceLinks.map((service) => (
+                        <Link
+                          key={service.href}
+                          href={service.href}
+                          onClick={() => setIsOpen(false)}
+                          className="rounded-md px-3 py-2 text-xs font-medium text-white/70 transition-colors hover:bg-white/5 hover:text-brand-yellow"
+                        >
+                          {service.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                >
-                  {item.label}
-                </Link>
+                </div>
               ))}
               <div className="mt-4 grid grid-cols-1 gap-2">
                 <Button
