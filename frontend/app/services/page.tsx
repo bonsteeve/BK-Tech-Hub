@@ -154,7 +154,7 @@ export default function ServicesPage() {
           className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-brand-yellow/10 blur-3xl"
           aria-hidden
         />
-        <div className="container relative grid items-center gap-12 py-16 md:py-20 lg:min-h-[min(70vh,640px)] lg:grid-cols-2 lg:gap-10 lg:py-20">
+        <div className="container relative grid items-center gap-12 pt-24 pb-16 md:pt-28 md:pb-20 lg:min-h-[min(70vh,640px)] lg:grid-cols-2 lg:gap-10">
           <FadeIn className="max-w-2xl space-y-6">
             <p className="text-sm font-medium text-brand-yellow">
               BUSINESS TECHNOLOGY &amp; AUTOMATION
